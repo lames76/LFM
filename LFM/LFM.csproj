@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7159D83B-33D6-4250-B9BF-932BF386B887}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LFM</RootNamespace>
+    <AssemblyName>LFM</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CreateC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateC.Designer.cs">
+      <DependentUpon>CreateC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateM.Designer.cs">
+      <DependentUpon>CreateM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport.Designer.cs">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestMC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestMC.Designer.cs">
+      <DependentUpon>TestMC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UniverseManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UniverseManager.Designer.cs">
+      <DependentUpon>UniverseManager.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CreateC.resx">
+      <DependentUpon>CreateC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateM.resx">
+      <DependentUpon>CreateM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReport.resx">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TestMC.resx">
+      <DependentUpon>TestMC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UniverseManager.resx">
+      <DependentUpon>UniverseManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbRuler\DbRuler.csproj">
+      <Project>{53a9c2aa-a60b-4243-9a5c-7f996b071ba8}</Project>
+      <Name>DbRuler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImDbReader\ImDbReader.csproj">
+      <Project>{7468a65e-65cb-4ef7-902b-0cc9e635a65c}</Project>
+      <Name>ImDbReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MACTrackBarLib\MACTrackBarLib.csproj">
+      <Project>{77A112B1-5440-440B-A0F6-2EDCC5B093CB}</Project>
+      <Name>MACTrackBarLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyImDbParser\MyImDbParser.csproj">
+      <Project>{7a65a903-daaf-4b38-967a-71fd3afb3c5c}</Project>
+      <Name>MyImDbParser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
