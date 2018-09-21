@@ -204,13 +204,31 @@ namespace DbRuler
     public class CharImages
     {
         public int IDChar { get; set; }
-        public byte[] Image { get; set; }        
+        public byte[] Image { get; set; }       
+        public AgeClass AgeValue { get; set; }
 
+        /// <summary>
+        /// ID is Char_ID
+        /// </summary>
+        /// <param name="ID"></param>
         public CharImages(int ID)
         {
             IDChar = ID;
             CharImages_LoadFromDb();
         }
+
+        /// <summary>
+        /// ID is Char_ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="acAgeValue"></param>
+        public CharImages(int ID, AgeClass acAgeValue)
+        {
+            IDChar = ID;
+            AgeValue = acAgeValue;
+            CharImages_LoadFromDb();
+        }
+
 
         public CharImages()
         {
@@ -220,7 +238,9 @@ namespace DbRuler
         #region Load and Write Data
         public void CharImages_LoadFromDb()
         {
-            string strCommand = "SELECT Image FROM CharImages WHERE IDChar = " + IDChar.ToString() + ";";
+            string strCommand = "SELECT Image FROM CharImages WHERE IDChar = " + IDChar.ToString();
+            strCommand += " AND AgeValue = " + (int)AgeValue;
+            strCommand += ";";
             byte[] MyImage;
             SQLLiteInt.SelectBynary(strCommand, out MyImage);
             Image = MyImage;
@@ -229,14 +249,17 @@ namespace DbRuler
         public bool CharImages_UpdateImage()
         {
             string strCommand = "";
-            strCommand += "UPDATE CharImages SET Image = @0 WHERE IDChar = "+ IDChar.ToString() +";";
+            strCommand += "UPDATE CharImages SET Image = @0 WHERE IDChar = " + IDChar.ToString();
+            strCommand += " AND AgeValue = " + (int)AgeValue;
+            strCommand += ";";
             return SQLLiteInt.GenericCommandBynary(strCommand, Image);
         }
 
         public bool CharImages_Create()
         {
             string strCommand = "";
-            strCommand += "INSERT INTO CharImages (IDChar,Image) VALUES (" + IDChar.ToString() +",@0);";
+            strCommand += "INSERT INTO CharImages (IDChar,Image,AgeValue) VALUES (" + IDChar.ToString() +"," +
+                 "@0," + (int)AgeValue + ");";
             return SQLLiteInt.GenericCommandBynary(strCommand, Image);
         }
         #endregion
@@ -1384,6 +1407,7 @@ namespace DbRuler
             {
                 TypeOf[i].IDChar = Convert.ToInt32(tblRet.Rows[i]["IDChar"]);
                 TypeOf[i].Image = (System.Byte[]) tblRet.Rows[i]["Image"];
+                TypeOf[i].AgeValue = (AgeClass)Convert.ToInt32(tblRet.Rows[i]["AgeValue"]);
             }
             return TypeOf;
         }

@@ -24,6 +24,7 @@ namespace LFM
         private SpecialAbilities[] Specials;
         private List<int> AssignedAbilities = new List<int>();
         private bool blnIsBinding = false;
+        private AgeClass AC = AgeClass.NoValue;
 
         public bool IsCreated { get; set; }
         public string FullName { get; set; }
@@ -38,6 +39,7 @@ namespace LFM
         {
             RefreshGrid();
             blnIsBinding = true;
+            ddlAgeClass.SelectedIndex = 0;
             ddlTypeOfCharacter.DataSource = DbRuler.Retriever.GetTypeOfCharactersTable();
             ddlTypeOfCharacter.DisplayMember = "TypeOf";
             ddlTypeOfCharacter.ValueMember = "ID";
@@ -153,6 +155,7 @@ namespace LFM
             ddlAction.DataSource = null;
             ddlHumor.DataSource = null;
             ddlSexappeal.DataSource = null;
+            ddlAgeClass.SelectedIndex = 0;
             lstSpecials.Clear();
         }
 
@@ -172,6 +175,8 @@ namespace LFM
         {
             if (Gen == null)
                 Gen = new GenericCharacters();
+            List<int> AssAb = AssignedAbilities.Distinct().ToList();
+            AssignedAbilities = AssAb;
             Gen.Age = Convert.ToInt32(txtAge.Text);
             Gen.Inner_Val = new DbRuler.Inner_Values();
             Gen.Inner_Val.Action = GetRandomInner_Value(Convert.ToInt32(txtAction.Text));
@@ -191,7 +196,7 @@ namespace LFM
                 IDChar = Gen.ID;
                 Gen.GenericCharacters_WriteOnDb();
                 IsCreated = true;
-                DbRuler.CharImages Img = new CharImages(Gen.ID);
+                DbRuler.CharImages Img = new CharImages(Gen.ID, AC);
                 if (Img.Image != null)
                 {
                     //pictureBox1.Image = ByteToImage(Img.Image);
@@ -208,6 +213,7 @@ namespace LFM
                 else
                 {
                     Img.IDChar = Gen.ID;
+                    Img.AgeValue = AC;
                     if (pictureBox1.Image != null)
                     {
                         using (var ms = new MemoryStream())
@@ -223,7 +229,7 @@ namespace LFM
                 {
                     // Elimino tutte le abilità
                     L_CharsAbilities Link = new L_CharsAbilities(Gen.ID, -1);
-                    Link.L_CharsAbilities_Delete();
+                    Link.L_CharsAbilities_Delete();                    
                     // Le reinserisco da capo così evito gli update
                     foreach (int Ab in AssignedAbilities)
                     {
@@ -240,7 +246,9 @@ namespace LFM
 
                 DbRuler.CharImages Img = new CharImages();
                 Img.IDChar = ID;
-                IDChar = Gen.ID;
+                IDChar = Gen.ID;                
+                ddlAgeClass.SelectedValue = 0;
+                Img.AgeValue = AC;
                 if (pictureBox1.Image != null)
                 {
                     using (var ms = new MemoryStream())
@@ -345,11 +353,8 @@ namespace LFM
                 txtImDbLink.Text = "https://www.imdb.com" + Gen.ImDB_Link;
             }
 
-            CharImages Img = new CharImages(intID);
-            if (Img.Image != null)
-            {
-                pictureBox1.Image = ByteToImage(Img.Image);
-            }
+            LoadRightImage();
+            
             dgFilmografia.AutoGenerateColumns = false;
             dgFilmografia.DataSource = Retriever.GetMoviesFromPeopleID(intID, true);
             RefreshAssignedSpecials(Gen.ID);
@@ -434,6 +439,7 @@ namespace LFM
             {
                 if (e.Url != webBrowser1.Url)
                     return;
+                ddlAgeClass.SelectedIndex = 0;
                 string strContent = webBrowser1.DocumentText;
                 ImDbDataRetriever MyImDb = new ImDbDataRetriever();
                 MyImDb.strPageCode = strContent;
@@ -630,6 +636,31 @@ namespace LFM
                             RefreshSpecials(intApp);
                     }
             }
+        }
+
+        private void LoadRightImage()
+        {
+            if (Gen != null)
+            {
+                pictureBox1.Image = null;
+                
+                CharImages Img = new CharImages(Gen.ID, AC);
+                if (Img.Image != null)
+                {
+                    pictureBox1.Image = ByteToImage(Img.Image);
+                }
+            }
+        }
+
+        private void ddlAgeClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int Value = ddlAgeClass.SelectedIndex;
+            if (Value == 6)
+                Value = 10;
+            if (Value == 7)
+                Value = 11;
+            AC = (AgeClass)Value;
+            LoadRightImage();
         }
     }
 }

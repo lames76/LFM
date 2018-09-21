@@ -77,6 +77,7 @@
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.btnFilter = new System.Windows.Forms.Button();
             this.btnClearFilter = new System.Windows.Forms.Button();
+            this.ddlAgeClass = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgChars)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgFilmografia)).BeginInit();
@@ -535,12 +536,32 @@
             this.btnClearFilter.UseVisualStyleBackColor = true;
             this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
             // 
+            // ddlAgeClass
+            // 
+            this.ddlAgeClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlAgeClass.FormattingEnabled = true;
+            this.ddlAgeClass.Items.AddRange(new object[] {
+            "NoValue",
+            "Child",
+            "Teen",
+            "Average",
+            "Mature",
+            "Old",
+            "TimeLord",
+            "Elf"});
+            this.ddlAgeClass.Location = new System.Drawing.Point(424, 474);
+            this.ddlAgeClass.Name = "ddlAgeClass";
+            this.ddlAgeClass.Size = new System.Drawing.Size(93, 24);
+            this.ddlAgeClass.TabIndex = 53;
+            this.ddlAgeClass.SelectedIndexChanged += new System.EventHandler(this.ddlAgeClass_SelectedIndexChanged);
+            // 
             // CreateC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 656);
             this.ControlBox = false;
+            this.Controls.Add(this.ddlAgeClass);
             this.Controls.Add(this.btnClearFilter);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.txtFilter);
@@ -651,5 +672,6 @@
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Button btnClearFilter;
+        private System.Windows.Forms.ComboBox ddlAgeClass;
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="Calculation.cs" />
     <Compile Include="DbRuler.cs" />
     <Compile Include="LFMReportManager.cs" />
+    <Compile Include="LFMUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleSVG.cs" />
   </ItemGroup>
