@@ -662,5 +662,16 @@ namespace LFM
             AC = (AgeClass)Value;
             LoadRightImage();
         }
+
+        private void btnCheckAgeClass_Click(object sender, EventArgs e)
+        {
+            if (Gen != null)
+            {
+                int CharAge = Gen.Age;
+                int currentYear = DateTime.Now.Year;
+                AgeClass AgeCla = LFMUtils.GetAgeClassFromDate(currentYear, CharAge);
+                MessageBox.Show("Age Class: " + AgeCla.ToString() + " Age: " + (currentYear - CharAge).ToString());
+            }
+        }
     }
 }

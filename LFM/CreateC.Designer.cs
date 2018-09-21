@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateC));
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.ddlSex = new System.Windows.Forms.ComboBox();
@@ -78,6 +79,7 @@
             this.btnFilter = new System.Windows.Forms.Button();
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.ddlAgeClass = new System.Windows.Forms.ComboBox();
+            this.btnCheckAgeClass = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgChars)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgFilmografia)).BeginInit();
@@ -555,12 +557,23 @@
             this.ddlAgeClass.TabIndex = 53;
             this.ddlAgeClass.SelectedIndexChanged += new System.EventHandler(this.ddlAgeClass_SelectedIndexChanged);
             // 
+            // btnCheckAgeClass
+            // 
+            this.btnCheckAgeClass.Location = new System.Drawing.Point(1000, 598);
+            this.btnCheckAgeClass.Name = "btnCheckAgeClass";
+            this.btnCheckAgeClass.Size = new System.Drawing.Size(83, 59);
+            this.btnCheckAgeClass.TabIndex = 54;
+            this.btnCheckAgeClass.Text = "Check Age Class";
+            this.btnCheckAgeClass.UseVisualStyleBackColor = true;
+            this.btnCheckAgeClass.Click += new System.EventHandler(this.btnCheckAgeClass_Click);
+            // 
             // CreateC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 656);
             this.ControlBox = false;
+            this.Controls.Add(this.btnCheckAgeClass);
             this.Controls.Add(this.ddlAgeClass);
             this.Controls.Add(this.btnClearFilter);
             this.Controls.Add(this.btnFilter);
@@ -607,6 +620,7 @@
             this.Controls.Add(this.ddlSex);
             this.Controls.Add(this.txtSurname);
             this.Controls.Add(this.txtName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CreateC";
@@ -673,5 +687,6 @@
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Button btnClearFilter;
         private System.Windows.Forms.ComboBox ddlAgeClass;
+        private System.Windows.Forms.Button btnCheckAgeClass;
     }
 }

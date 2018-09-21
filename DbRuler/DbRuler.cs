@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using Svg;
+using Newtonsoft.Json.Linq;
 
 namespace DbRuler
 {
@@ -1776,11 +1777,29 @@ namespace DbRuler
         public static string CheckJsonAndNormalizeGenre(string EntryJson)
         {
             string ExitJson = "";
+            JObject jo = JObject.Parse(EntryJson);
+            try
+            {
+                jo.Property("contentRating").Remove();
+            }
+            catch (Exception exc) { }
+            try
+            {
+                jo.Property("review").Remove();
+            }
+            catch (Exception exc) { }
+            try
+            {
+                jo.Property("aggregateRating").Remove();
+            }
+            catch (Exception exc) { }
+            EntryJson = jo.ToString();
 
             // Se ha solo un genere
             if (EntryJson.Contains("\"genre\": \""))
             {
                 string Appo = EntryJson.Replace("\"genre\": \"", "\"genre\": [\"");
+                
                 ExitJson = Appo.Replace("\"actor\":", "],\"actor\":");
             }
             else

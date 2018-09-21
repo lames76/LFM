@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UniverseManager));
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.txtFilter = new System.Windows.Forms.TextBox();
@@ -110,6 +111,7 @@
             this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.lblCounter);
             this.Controls.Add(this.dgUniverses);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UniverseManager";
             this.Text = "Universe_Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UniverseManager_FormClosing);

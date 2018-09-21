@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateM));
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.ddlType1 = new System.Windows.Forms.ComboBox();
             this.txtUniverse = new System.Windows.Forms.TextBox();
@@ -830,6 +831,7 @@
             this.Controls.Add(this.txtUniverse);
             this.Controls.Add(this.ddlType1);
             this.Controls.Add(this.txtTitle);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateM";

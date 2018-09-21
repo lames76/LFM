@@ -40,11 +40,11 @@ namespace DbRuler
                 return AgeClass.Elf;
             if (intAppo < 15)
                 return AgeClass.Child;
-            if (intAppo < 25)
+            if (intAppo < 30)
                 return AgeClass.Teen;
-            if (intAppo < 40)
+            if (intAppo < 45)
                 return AgeClass.Average;
-            if (intAppo < 65)
+            if (intAppo < 70)
                 return AgeClass.Mature;
             return AgeClass.Old;
         }

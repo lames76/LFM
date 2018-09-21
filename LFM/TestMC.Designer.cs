@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestMC));
             this.ddlType1 = new System.Windows.Forms.ComboBox();
             this.dgWriters = new System.Windows.Forms.DataGridView();
             this.btnSetType = new System.Windows.Forms.Button();
@@ -158,6 +159,7 @@
             this.Controls.Add(this.btnSetType);
             this.Controls.Add(this.dgWriters);
             this.Controls.Add(this.ddlType1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TestMC";
             this.Text = "TestMC";
             this.Load += new System.EventHandler(this.TestMC_Load);
