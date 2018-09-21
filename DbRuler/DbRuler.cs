@@ -941,6 +941,7 @@ namespace DbRuler
 
         private void AddLocationToMovie()
         {
+            if (fkLocations != null)
             for (int i = 0; i < fkLocations.Length; i++)
             {
                 L_MovieLocation L = new L_MovieLocation(ID, fkLocations[i].ID);

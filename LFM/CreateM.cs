@@ -183,11 +183,11 @@ namespace LFM
                 TypeOfMovie[] MyTypeList = new TypeOfMovie[intNumberOfType];
                 MyTypeList[0] = new TypeOfMovie(Convert.ToInt32(ddlType1.SelectedValue));
                 if (ddlType2.SelectedIndex > 0)
-                    MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
+                    MyTypeList[1] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
                 if (ddlType3.SelectedIndex > 0)
-                    MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
+                    MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
                 if (ddlType4.SelectedIndex > 0)
-                    MyTypeList[4] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
+                    MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
                 GenMovie.fkType = MyTypeList;
                 GenMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
                 GenMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
@@ -297,6 +297,8 @@ namespace LFM
             txtDescription.Text = GenMovie.Description;
             txtCitation.Text = GenMovie.Citation;
             lblUniverse.Text = GenMovie.fkUniverse.ToString();
+            if (GenMovie.Universe != null)
+                txtUniverse.Text = GenMovie.Universe.Name;
             txtImDb_Link.Text = GenMovie.ImDB_Link;
             txtSuccess.Text = GenMovie.Success.ToString();
             txtBase_Audience.Text = GenMovie.Base_Audience.ToString();
