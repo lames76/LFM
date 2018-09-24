@@ -1115,6 +1115,109 @@ namespace DbRuler
         #endregion
     }
     #endregion
+    #region Game Tables
+    public class LG_CharPlayerAffinity
+    {
+        public int IDChar { get; set; }
+        public int Affinity { get; set; }
+        public int NumberOfMovies { get; set; }
+
+        public LG_CharPlayerAffinity(int ID)
+        {
+            IDChar = ID;
+            Load();
+        }
+
+        private void Load()
+        {
+            string strCommand = "SELECT * FROM LG_CharPlayerAffinity WHERE IDChar = " + IDChar.ToString() + ";";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count > 0)
+            {
+                Affinity = Convert.ToInt32(tblRet.Rows[0]["Affinity"]);
+                NumberOfMovies = Convert.ToInt32(tblRet.Rows[0]["NumberOfMovies"]);
+            }
+            else
+            {
+                Affinity = 0;
+                NumberOfMovies = 0;
+            }
+        }
+
+        public bool Update()
+        {
+            if (Affinity > 90)
+                Affinity = 90;
+            string  strCommand = "UPDATE LG_CharPlayerAffinity SET Affinity = " + Affinity.ToString() +
+                " NumberOfMovies = " + NumberOfMovies.ToString() + " WHERE IDChar = " +
+                IDChar.ToString() + ";";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+
+        public bool Insert()
+        {
+            if (Affinity > 90)
+                Affinity = 90;
+            string strCommand = "INSERT INTO LG_CharPlayerAffinity (IDChar,Affinity,NumberOfMovies) VALUES (" +
+                    IDChar.ToString() + "," + Affinity.ToString() + "," + NumberOfMovies.ToString() + ");";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+    }
+
+    public class LG_MoviePlayer
+    {
+        public int IDMovie { get; set; }
+        public long Price { get; set; }
+        public int RealAudience { get; set; }
+        public long Cash { get; set; }
+        public int Change { get; set; }
+
+        public LG_MoviePlayer(int ID)
+        {
+            IDMovie = ID;
+            Load();
+        }
+
+        private void Load()
+        {
+            string strCommand = "SELECT * FROM LG_MoviePlayer WHERE IDMovie = " + IDMovie.ToString() + ";";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count > 0)
+            {
+                Price = Convert.ToInt32(tblRet.Rows[0]["Price"]);
+                RealAudience = Convert.ToInt32(tblRet.Rows[0]["RealAudience"]);
+                Cash = Convert.ToInt32(tblRet.Rows[0]["Cash"]);
+                Change = Convert.ToInt32(tblRet.Rows[0]["Change"]);
+            }
+            else
+            {
+                Price = 0;
+                RealAudience = 0;
+                Cash = 0;
+                Change = 0;
+            }
+        }
+
+        public bool Update()
+        {
+            string strCommand = "UPDATE LG_MoviePlayer SET Price = " + Price.ToString() +
+                " RealAudience = " + RealAudience.ToString() +
+                " Cash = " + Cash.ToString() +
+                " Change = " + Change.ToString() +
+                " WHERE IDMovie = " +
+                IDMovie.ToString() + ";";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+
+        public bool Insert()
+        {
+            string strCommand = "INSERT INTO LG_MoviePlayer (IDMovie,Price,RealAudience,Cash,Change) VALUES (" +
+                    IDMovie.ToString() + "," + Price.ToString() + "," + RealAudience.ToString() +
+                    Cash.ToString() + "," + Change.ToString() + ");";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+    }
+    #endregion
 
     /* ************************************************************************************************** */
     /* ************************************************************************************************** */
@@ -1126,6 +1229,21 @@ namespace DbRuler
 
     public static class Retriever
     {
+        #region Games
+        public static LG_CharPlayerAffinity[] GetWhoPlaysForMe()
+        {
+            string strCommand = "SELECT * FROM LG_CharPlayerAffinity;";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            LG_CharPlayerAffinity[] MyChars = new LG_CharPlayerAffinity[tblRet.Rows.Count];
+            for (int i=0;i<tblRet.Rows.Count;i++)
+            {
+                LG_CharPlayerAffinity MyChar = new LG_CharPlayerAffinity(Convert.ToInt32(tblRet.Rows[i]["IDChar"]));
+                MyChars[i] = MyChar;
+            }
+            return MyChars;
+        }
+        #endregion
+
         #region Universes
         public static Universes[] GetUniverses()
         {

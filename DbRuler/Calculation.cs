@@ -600,6 +600,22 @@ namespace DbRuler
         #endregion
 
         # region Cost Actors + Writer + Director + Structure
+        /// <summary>
+        /// This method return the Affinity between the passed character and the player.
+        /// </summary>
+        /// <param name="Actor"></param>
+        /// <returns></returns>
+        public static int GetAffinityFromChar(GenericCharacters Gen)
+        {
+            LG_CharPlayerAffinity Aff = new LG_CharPlayerAffinity(Gen.ID);
+            if (Aff.NumberOfMovies > 0)
+            {
+                return Aff.Affinity;
+            }
+            else
+                return 0;
+        }
+
         public static long GetCashOfActor(GenericCharacters Actor, Movie MyMovie)
         {
             // La variazione su violenza è quella base
@@ -1112,7 +1128,39 @@ namespace DbRuler
         #endregion
 
         #region Launch
-        /// In this region is set the reaction of the Audience to the release of the Movie
+        /// <summary>
+        /// This method finalize the movie. Save the movie player, characters player, advance characters,
+        /// calculate affinity and return the difference between Price and cash.
+        /// </summary>
+        /// <param name="MyMov"></param>
+        /// <returns></returns>
+        public static long FinalizeMovie(Movie MyMov)
+        {
+            #region Movie Player
+            LG_MoviePlayer MovPla = new LG_MoviePlayer(MyMov.ID);
+            MovPla.Price = GetTotalMovieCost(MyMov);
+            int RealAudience = LFMGRule.CalculateRealAudience(MyMov);
+            long Cash = LFMGRule.CalculateMoney(RealAudience);
+            int Change = LFMGRule.GetPopularityChange(MyMov, Cash, MovPla.Price);
+            MovPla.Cash = Cash;
+            MovPla.Change = Change;
+            MovPla.RealAudience = RealAudience;
+            MovPla.Insert();
+            #endregion
+            #region Movie Character Player
+            GenericCharacters[] Links = Retriever.GetGenericCastFromMovie(MyMov.ID);
+            foreach (GenericCharacters Gen in Links)
+            {
+                // Change the popularity
+                LFMGRule.PopularityChange(Gen, Change);
+                // Change the Affinity
+                LFMGRule.AffinityChange(Gen, Change);
+                // Change the Values
+                LFMGRule.ActorAdvancement(Gen, MyMov.Inner_Val);
+            }
+            #endregion
+            return Cash - MovPla.Price;
+        }
         #endregion
 
         #region Movie Cost
@@ -1126,21 +1174,27 @@ namespace DbRuler
                 switch (Charact.TypeOf.TypeOf.ToUpper())
                 {
                     case "WRITER":
-                        Price += Calculation.GetCashOfWriter(Charact, GenMovie);
+                        long Priw = Calculation.GetCashOfWriter(Charact, GenMovie);
+                        LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChangew = Priw * -Linkw.Affinity / 100;
+                        Price += Priw + AffinityChangew;
                         break;
                     case "DIRECTOR":
-                        Price += Calculation.GetCashOfDirector(Charact, GenMovie);
+                        long Prid = Calculation.GetCashOfDirector(Charact, GenMovie);
+                        LG_CharPlayerAffinity Linkd = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChanged = Prid * -Linkd.Affinity / 100;
+                        Price += Prid + AffinityChanged;
                         break;
                     case "ACTOR":
-                        Price += Calculation.GetCashOfActor(Charact, GenMovie);
-                        break;
                     case "ACTRESS":
-                        Price += Calculation.GetCashOfActor(Charact, GenMovie);
+                        long Pri = Calculation.GetCashOfActor(Charact, GenMovie);
+                        LG_CharPlayerAffinity Link = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChange = Pri * -Link.Affinity / 100;
+                        Price += Pri + AffinityChange;
                         break;
                 }
             }
             #endregion
-            Price = Price;
             #region Structure Cost
             Price += GetPriceOfTheatre(GenMovie);
             Price += GetPriceOfFX(GenMovie);
