@@ -30,28 +30,29 @@ namespace DbRuler
                 // They are ordered so the case is right order
                 switch (Charact.TypeOf.TypeOf.ToUpper())
                 {
-                    case "WRITER":                        
-                        long lngPriceWriter = Calculation.GetCashOfWriter(Charact, GenMovie);
-                        AddCharSectionToTable(tblData, Charact, lngPriceWriter, Charact.TypeOf.TypeOf);
-                        Price += lngPriceWriter;
+                    case "WRITER":              
+                        long Priw = Calculation.GetCashOfWriter(Charact, GenMovie);
+                        LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChangew = Priw * -Linkw.Affinity / 100;                        
+                        Price += Priw + AffinityChangew;
+                        AddCharSectionToTable(tblData, Charact, Priw + AffinityChangew, Charact.TypeOf.TypeOf);
                         AddEmptyLineToTable(tblData);
                         break;
                     case "DIRECTOR":
-                        long lngPriceDir = Calculation.GetCashOfDirector(Charact, GenMovie);
-                        AddCharSectionToTable(tblData, Charact, lngPriceDir, Charact.TypeOf.TypeOf);
-                        Price += lngPriceDir;
+                        long Prid = Calculation.GetCashOfDirector(Charact, GenMovie);
+                        LG_CharPlayerAffinity Linkd = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChanged = Prid * -Linkd.Affinity / 100;
+                        Price += Prid + AffinityChanged;
+                        AddCharSectionToTable(tblData, Charact, Prid + AffinityChanged, Charact.TypeOf.TypeOf);
                         AddEmptyLineToTable(tblData);
                         break;
                     case "ACTOR":
-                        long lngPriceAct = Calculation.GetCashOfActor(Charact, GenMovie);
-                        AddCharSectionToTable(tblData, Charact, lngPriceAct, Charact.TypeOf.TypeOf, !blnFirstActorAdded);
-                        Price += lngPriceAct;
-                        blnFirstActorAdded = true;
-                        break;
                     case "ACTRESS":
-                        long lngPriceActss = Calculation.GetCashOfActor(Charact, GenMovie);
-                        AddCharSectionToTable(tblData, Charact, lngPriceActss, Charact.TypeOf.TypeOf, !blnFirstActorAdded);
-                        Price += lngPriceActss;
+                        long Pri = Calculation.GetCashOfActor(Charact, GenMovie);
+                        LG_CharPlayerAffinity Link = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChange = Pri * -Link.Affinity / 100;
+                        Price += Pri + AffinityChange;
+                        AddCharSectionToTable(tblData, Charact, Pri + AffinityChange, Charact.TypeOf.TypeOf, !blnFirstActorAdded);
                         blnFirstActorAdded = true;
                         break;
                 }
@@ -81,13 +82,20 @@ namespace DbRuler
             AddEmptyLineToTable(tblData);
             #endregion
             AddTotalCostToTable(tblData, Price);
+            AddEmptyLineToTable(tblData);
+            AddEmptyLineToTable(tblData);
+            int RealAudience = LFMGRule.CalculateRealAudience(GenMovie);
+            long Cash = LFMGRule.CalculateMoney(RealAudience);
+            AddTotalCostToTable(tblData, Cash, "Revenue");
+            AddEmptyLineToTable(tblData);            
+            AddTotalCostToTable(tblData, Cash - Price, "Gain");
             return tblData;
         }
 
-        private static void AddTotalCostToTable(DataTable tblData, long TotalPrice)
+        private static void AddTotalCostToTable(DataTable tblData, long TotalPrice, string strGain = "")
         {
             DataRow dr = tblData.NewRow();
-            dr["A"] = "";
+            dr["A"] = strGain;
             dr["B"] = "";
             dr["C"] = "";
             dr["D"] = "";

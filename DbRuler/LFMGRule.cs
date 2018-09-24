@@ -88,7 +88,7 @@ namespace DbRuler
         /// <returns></returns>
         public static long CalculateMoney(int RealAudience)
         {
-            return RealAudience * 100000;
+            return RealAudience * 150000;
         }
 
         /// <summary>
