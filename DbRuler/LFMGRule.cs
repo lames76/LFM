@@ -9,6 +9,36 @@ namespace DbRuler
     public static class LFMGRule
     {
         /// <summary>
+        /// This method change the Actor/Actress passed moving all his/her inner values N point
+        /// toward the value of the move he/she play in. It also save the Actor/Actress.
+        /// </summary>
+        /// <param name="Gen">The Actor/Actress to be chagned</param>
+        /// <param name="SerialValues">The Inner Values of the Serial</param>
+        /// <param name="Episodes">Number of Episode. The going up or down is the number of episode / 3</param>
+        /// <returns></returns>
+        public static bool ActorAdvancementForSerial(GenericCharacters Gen, Inner_Values SerialValues, int Episodes)
+        {
+            int Variance = Episodes / 3;
+            if (Gen.Inner_Val.Action > SerialValues.Action)
+                Gen.Inner_Val.Action -= Variance;
+            else
+                if (Gen.Inner_Val.Action < SerialValues.Action)
+                Gen.Inner_Val.Action += Variance;
+            if (Gen.Inner_Val.Humor > SerialValues.Humor)
+                Gen.Inner_Val.Humor -= Variance;
+            else
+                if (Gen.Inner_Val.Humor < SerialValues.Humor)
+                Gen.Inner_Val.Humor += Variance;
+
+            if (Gen.Inner_Val.Sexappeal > SerialValues.Sexappeal)
+                Gen.Inner_Val.Sexappeal -= Variance;
+            else
+                if (Gen.Inner_Val.Sexappeal < SerialValues.Sexappeal)
+                Gen.Inner_Val.Sexappeal += Variance;
+            return Gen.GenericCharacters_WriteOnDb();
+        }
+
+        /// <summary>
         /// This method change the Actor/Actress passed moving all his/her inner values one point
         /// toward the value of the move he/she play in. It also save the Actor/Actress.
         /// </summary>
@@ -98,10 +128,10 @@ namespace DbRuler
         /// If it loose more than 10.000.000 is a huge disappointing (-10).
         /// If it loose between 0 and 9.999.999 is a general disappointment (-5).
         /// </summary>
-        /// <param name="MyMovie"></param>
         /// <param name="CalculateMoney">How much the movie get</param>
+        /// <param name="Price">Price of the Movie</param>
         /// <returns></returns>
-        public static int GetPopularityChange(Movie MyMovie, long CalculateMoney, long Price)
+        public static int GetPopularityChange(long CalculateMoney, long Price)
         {
             int Change = 0;
             long Difference = CalculateMoney - Price;

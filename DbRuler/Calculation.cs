@@ -599,7 +599,7 @@ namespace DbRuler
         }
         #endregion
 
-        # region Cost Actors + Writer + Director + Structure
+        # region Cost Actors + Writer + Director + Structure + Showrunner
         /// <summary>
         /// This method return the Affinity between the passed character and the player.
         /// </summary>
@@ -630,6 +630,21 @@ namespace DbRuler
                 BasePrize += Variance * 10000;
             else
                 BasePrize -= Variance * 50000;
+            int Perc = GetAffinityFromChar(Actor);
+            BasePrize -= (BasePrize + Perc) / 100;
+            return BasePrize;
+        }
+
+        public static long GetCashOfActor(GenericCharacters Actor, Serial MyMovie)
+        {
+            Random rndCasual = new Random();
+            long BasePrize = Actor.Popularity * 20000;
+            if (rndCasual.Next(-10,11) > 0)
+                BasePrize += 20000;
+            else
+                BasePrize -= 5000;
+            int Perc = GetAffinityFromChar(Actor);
+            BasePrize -= (BasePrize + Perc) / 100;
             return BasePrize;
         }
 
@@ -665,6 +680,19 @@ namespace DbRuler
             return Base_Prize;
         }
 
+        public static long GetCashOfShowrunner(GenericCharacters Showrunner)
+        {
+            Random rndCasuale = new Random();
+            long Base_Prize = (Showrunner.Talent + Showrunner.Skills) * 20000;
+            if (rndCasuale.Next(-10,11) > 0)
+                Base_Prize += 25000;
+            else
+                Base_Prize -= 5000;
+            int Perc = GetAffinityFromChar(Showrunner);
+            Base_Prize -= (Base_Prize + Perc) / 100;
+            return Base_Prize;
+        }
+
         public static long GetPriceOfTheatre(Movie MyMovie)
         {
             Random rndCasuale = new Random();
@@ -678,6 +706,24 @@ namespace DbRuler
         {
             Random rndCasuale = new Random();
             long Price = MyMovie.fkFX.SuccessBonus + MyMovie.fkFX.AudienceBonus;
+            long BasePrize = Price * 10000;
+            BasePrize += rndCasuale.Next(1, 5) * 100000;
+            return BasePrize;
+        }
+
+        public static long GetPriceOfTheatre(Serial MySerial)
+        {
+            Random rndCasuale = new Random();
+            long Price = MySerial.fkTdP.SuccessBonus + MySerial.fkTdP.AudienceBonus;
+            long BasePrize = Price * 10000;
+            BasePrize += rndCasuale.Next(1, 5) * 100000;
+            return BasePrize;
+        }
+
+        public static long GetPriceOfFX(Serial MySerial)
+        {
+            Random rndCasuale = new Random();
+            long Price = MySerial.fkFX.SuccessBonus + MySerial.fkFX.AudienceBonus;
             long BasePrize = Price * 10000;
             BasePrize += rndCasuale.Next(1, 5) * 100000;
             return BasePrize;
@@ -1201,6 +1247,191 @@ namespace DbRuler
             #endregion
 
             return Price;
+        }
+        #endregion
+        #endregion
+
+        #region Serial
+        #region Inizio
+        // Crea Serie
+        // Seleziona Showrunner che determina i valori della serie
+        /// <summary>
+        /// This method create the base serial from a showrunner.
+        /// This is the only method to create a serial.
+        /// </summary>
+        /// <param name="Writer"></param>
+        /// <param name="MovieType"></param>
+        /// <returns></returns>
+        public static Serial CreateSerialFromShowrunner(GenericCharacters Showrunner, TypeOfMovie[] MovieType, int CurrentAge, out long Price)
+        {
+            #region SpecialAbilities (Alpha)
+            int intBonusAudience = 0;
+            int intBonusSuccess = 0;
+            int intBonusAction = 0;
+            int intBonusHumor = 0;
+            int intBonusSexappeal = 0;
+            Retriever.GetBonusFromSkills(Showrunner, out intBonusAudience, out intBonusSuccess, out intBonusAction, out intBonusHumor, out intBonusSexappeal);
+            #endregion
+            Price = 0;
+            int Success = 0;
+            Serial NewSerial = new Serial();
+            NewSerial.Inner_Val = new Inner_Values();
+            // TODO - Vedere come usare MainGenre e SubGenre
+            TypeOfMovie FinalSerialType = GetUnifiedTypeOfMovie(MovieType, out Success);
+            // ALPHA - Set random to 5%
+            NewSerial.Inner_Val = CompareWriterSkillToTargetValue(Showrunner.Inner_Val, FinalSerialType, Showrunner.Talent, 5);
+            NewSerial.Title = Showrunner.Name + " " + Showrunner.Surname + "'s ";
+            NewSerial.Age = CurrentAge;
+            NewSerial.Description = "Generic Serial Description for ";
+            NewSerial.fkMainType = new TypeOfMovie(MovieType[0].ID);
+            NewSerial.fkSubType = new TypeOfMovie(MovieType[1].ID);
+            // Originality: add to the Level
+            NewSerial.Episodes = 12; // Writer.Skills + Success;
+            // Base Audience is the popularity of the Writer
+            NewSerial.Base_Audience = Showrunner.Talent + Showrunner.Skills + intBonusAudience;
+            foreach (TypeOfMovie ToM in MovieType)
+            {
+                NewSerial.Title += ToM.TypeOf + " ";
+                NewSerial.Description += ToM.TypeOf + " ";
+            }
+            NewSerial.Status = 12;
+            NewSerial.Title += "serial";
+            NewSerial.Description += "serial";
+            #region Special Abilities (Alpha)
+            NewSerial.Inner_Val.Action += intBonusAction;
+            NewSerial.Inner_Val.Sexappeal += intBonusSexappeal;
+            NewSerial.Inner_Val.Humor += intBonusHumor;
+            NewSerial.Base_Audience += intBonusAudience;
+            #endregion
+            Price = GetCashOfShowrunner(Showrunner, NewSerial);
+            NewSerial.WriteOnDb();
+            AddCastToSerial(Showrunner, NewSerial, "Showrunner");
+            return NewSerial;
+        }
+        // Seleziona Tdp e FX
+        /// <summary>
+        /// This method sinply add the Theatre and FX Company to the Serial and save it.
+        /// </summary>
+        /// <param name="MySerial"></param>
+        /// <param name="T"></param>
+        /// <param name="F"></param>
+        /// <returns></returns>
+        public static bool AddTdPandFXToSerial(Serial MySerial, Theatre T, SpecialEffectCompany F)
+        {
+            MySerial.fkTdP = new Theatre(T.ID);
+            MySerial.fkFX = new SpecialEffectCompany(F.ID);
+            return MySerial.WriteOnDb();
+        }
+        // seleziona Cast
+        /// <summary>
+        /// This method add the selected cast to the serial and set it active.
+        /// </summary>
+        /// <param name="Cast"></param>
+        /// <param name="MySerial"></param>
+        /// <param name="strName"></param>
+        /// <returns></returns>
+        public static bool AddCastToSerial(GenericCharacters Cast, Serial MySerial, string strName)
+        {
+            L_CharsSerials Link = new L_CharsSerials(Cast.ID, MySerial.ID, strName);
+            Link.Active = 1;
+            return Link.InsertDb();
+        }
+
+        /// <summary>
+        /// This method add the cost of the Showrunner, the cost of the cast and the price of
+        /// TdT and FX (TODO add the cost of bonus).
+        /// </summary>
+        /// <param name="MySerial"></param>
+        /// <returns></returns>
+        public static long GetSerialTotalCost(Serial MySerial)
+        {
+            long Cost = 0;
+            L_CharsSerials LinkShow = new L_CharsSerials(MySerial.ID, "Showrunner");
+            GenericCharacters ShowR = new GenericCharacters(LinkShow.ID_Char);
+            Cost += GetCashOfShowrunner(ShowR);
+            GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
+            foreach (GenericCharacters Gen in GenList)
+            {
+                if (Gen.TypeOf.TypeOf != "Showrunner")
+                    Cost += GetCashOfActor(Gen, MySerial);
+            }
+            Cost += GetPriceOfTheatre(MySerial) / 2;
+            Cost += GetPriceOfFX(MySerial) / 2;
+            // TODO - Add the cost of the Bonus used to raise Audience
+            return Cost;
+        }
+        #endregion
+        #region Andamento
+        // Calcolo audience
+        /// <summary>
+        ///  This method calcualte the audience of the serie based on the Cast
+        /// </summary>
+        /// <param name="MySerial"></param>
+        /// <returns></returns>
+        public static int GetAudienceFromCast(Serial MySerial)
+        {
+            GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
+            int Cast_Audience = 0;
+            foreach (GenericCharacters Gen in GenList)
+            {
+                if (Gen.TypeOf.TypeOf != "Showrunner")
+                {
+                    Cast_Audience += Gen.Talent + Gen.Skills;
+                }
+            }
+            return Cast_Audience;
+        }
+        #endregion
+        #region Fine Stagione
+        // Aumento salario showrunner
+        // Aumento inner values cast
+        /// <summary>
+        /// This method advance each member of the cast.
+        /// </summary>
+        /// <param name="MySerial"></param>
+        public static void CastAdvancmentForSerialSeasonEnd(Serial MySerial)
+        {
+            GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
+            foreach (GenericCharacters Gen in GenList)
+            {
+                if (Gen.TypeOf.TypeOf != "Showrunner")
+                    LFMGRule.ActorAdvancementForSerial(Gen, MySerial.Inner_Val, MySerial.Episodes);
+            }
+        }
+        // Aumento popularity
+        /// <summary>
+        /// This method add or subtract Popularty and Affinity based on the audience of the Serial
+        /// for each member of the cast.
+        /// </summary>
+        /// <param name="MySerial"></param>
+        public static void CastAdvancementPopularityAndAffinityForSerialSeasonEnd(Serial MySerial)
+        {
+            long FakeGain = MySerial.Base_Audience * 100;
+            int Change = LFMGRule.GetPopularityChange(FakeGain, 0);
+            GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
+            foreach (GenericCharacters Gen in GenList)
+            {
+                LFMGRule.PopularityChange(Gen, Change);
+                LFMGRule.AffinityChange(Gen, Change);
+            }
+        }
+        // Rimozione Eventuale Cast
+        /// <summary>
+        /// This method remove a cast member from the serial (ad history it's remove only logically,
+        /// i.e. Active = 0) and it lower the affinity with the character by 10%.
+        /// </summary>
+        /// <param name="Cast"></param>
+        /// <param name="MySerial"></param>
+        /// <param name="strName"></param>
+        /// <returns></returns>
+        public static bool RemoveCastFromSerial(GenericCharacters Cast, Serial MySerial, string strName)
+        {
+            L_CharsSerials Link = new L_CharsSerials(Cast.ID, MySerial.ID, strName);
+            Link.Active = 0;
+            LG_CharPlayerAffinity LinkAff = new LG_CharPlayerAffinity(Cast.ID);
+            LinkAff.Affinity -= 10;
+            LinkAff.Update();
+            return Link.InsertDb();
         }
         #endregion
         #endregion

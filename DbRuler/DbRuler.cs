@@ -17,6 +17,234 @@ using Newtonsoft.Json.Linq;
 namespace DbRuler
 {
     #region DataLayer
+    public class L_CharsSerials
+    {
+        public int ID { get; set; }
+        public int ID_Char { get; set; }
+        public int ID_Serial { get; set; }
+        public string Char_Name { get; set; }
+        public int Active { get; set; }
+
+        public L_CharsSerials()
+        {
+        }
+
+        public L_CharsSerials(int intID_Char, int intID_Serial)
+        {
+            ID_Char = intID_Char;
+            ID_Serial = intID_Serial;
+            LoadFromDb();
+        }
+
+        public L_CharsSerials(int intID_Char, int intID_Serial, string strName)
+        {
+            ID_Char = intID_Char;
+            ID_Serial = intID_Serial;
+            LoadFromDb(strName);
+        }
+
+        public L_CharsSerials(int intIDSerial, string strName)
+        {
+            ID_Serial = intIDSerial;
+            Char_Name = strName;
+            if (!LoadFromDB(intIDSerial, strName))
+            {
+                ID_Char = -1;
+            }
+        }
+
+        #region Load and Write Data
+        public bool LoadFromDB(int intIDSerial, string strNome)
+        {
+            DataTable tblRet = SQLLiteInt.Select("SELECT * FROM L_CharsSerials WHERE ID_Serial = " + intIDSerial + " AND Char_Name = '" + strNome + "' AND Active = 1;");
+            if (tblRet.Rows.Count > 0)
+            {
+                ID = Convert.ToInt32(tblRet.Rows[0]["ID"]);
+                ID_Char = Convert.ToInt32(tblRet.Rows[0]["ID_Char"]);
+                Active = Convert.ToInt32( tblRet.Rows[0]["Active"]);
+                return true;
+            }
+            return false;
+        }
+
+        public void LoadFromDb()
+        {
+            string strCommand = "SELECT * FROM L_CharsSerials";
+            strCommand += " WHERE ID_Char = " + ID_Char.ToString() + " AND ID_Serial = " + ID_Serial.ToString() + "; ";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count == 1)
+            {
+                ID = Convert.ToInt32(tblRet.Rows[0]["ID"]);
+                Char_Name = tblRet.Rows[0]["Char_Name"].ToString();
+                Active = Convert.ToInt32(tblRet.Rows[0]["Active"]);
+            }
+        }
+
+        private void LoadFromDb(string strName)
+        {
+            string strCommand = "SELECT * FROM L_CharsMovies";
+            strCommand += " WHERE ID_Char = " + ID_Char.ToString() + " AND ID_Movie = " + ID_Serial.ToString() + " AND Char_Name = '" + strName + "'; ";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count == 1)
+            {
+                ID = Convert.ToInt32(tblRet.Rows[0]["ID"]);
+                Active = Convert.ToInt32(tblRet.Rows[0]["Active"]);
+            }
+        }
+
+        public bool InsertDb()
+        {
+            if ((ID_Char > 0) && (ID_Serial > 0))
+            {
+                string strCommand = "SELECT * FROM L_CharsSerials";
+                strCommand += " WHERE ID_Char = " + ID_Char.ToString() + " AND ID_Serial = " + ID_Serial.ToString() + " AND Char_Name = '" + Char_Name + "'; ";
+                DataTable tblRet = SQLLiteInt.Select(strCommand);
+                if (tblRet.Rows.Count == 0)
+                {
+                    strCommand = string.Empty;
+                    strCommand = "INSERT INTO L_CharsSerials ";
+                    strCommand += "(Char_Name,Active,ID_Char,ID_Serial) ";
+                    strCommand += " VALUES ( ";
+                    strCommand += "'" + Char_Name + "',";
+                    strCommand += Active.ToString() + ",";
+                    strCommand += ID_Char.ToString() + ",";
+                    strCommand += ID_Serial.ToString() + ");";
+                    return SQLLiteInt.GenericCommand(strCommand);
+                }
+            }
+            return false;
+        }
+        
+        public bool L_CharsMovies_Delete()
+        {
+            string strCommand = string.Empty;
+            strCommand = "DELETE FROM L_CharsSerials ";
+            strCommand += " WHERE ID_Char = " + ID_Char.ToString() + " AND ID_Serial = " + ID_Serial.ToString() + " AND Char_Name = '" + Char_Name + "';";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+        #endregion
+    }
+
+    public class Serial
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public TypeOfMovie fkMainType { get; set; }
+        public TypeOfMovie fkSubType { get; set; }
+        public int fkUniverse { get; set; }
+        public Universes Universe { get; set; }
+        public Inner_Values Inner_Val { get; set; }
+        public int Episodes { get; set; }
+        public string Description { get; set; }
+        public int Status { get; set; }
+        public int Age { get; set; }
+        public int Base_Audience { get; set; }
+        public string ImDB_Link { get; set; }
+        public Theatre fkTdP { get; set; }
+        public SpecialEffectCompany fkFX { get; set; }
+
+        public Serial()
+        {
+            ID = 0;
+        }
+
+        public Serial(int intID)
+        {
+            ID = intID;
+            LoadFromDb();
+        }
+
+        #region Load and Write Data
+        public void LoadFromDb()
+        {
+            string strCommand = "SELECT * FROM Serials";
+            strCommand += " WHERE ID = " + ID.ToString() + ";";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count == 1)
+            {
+                Inner_Val = new Inner_Values();
+                ID = Convert.ToInt32(tblRet.Rows[0]["ID"]);
+                Inner_Val.Action = Convert.ToInt32(tblRet.Rows[0]["Action"]);
+                Description = tblRet.Rows[0]["Description"].ToString();
+                fkMainType = new TypeOfMovie(Convert.ToInt32(tblRet.Rows[0]["fkMainType"]));
+                fkSubType = new TypeOfMovie(Convert.ToInt32(tblRet.Rows[0]["fkSubType"]));
+                Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[0]["Humor"]);
+                Episodes = Convert.ToInt32(tblRet.Rows[0]["Episodes"]);
+                Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[0]["Sex"]);
+                Status = Convert.ToInt32(tblRet.Rows[0]["Status"]);
+                Title = tblRet.Rows[0]["Title"].ToString();
+                Age = Convert.ToInt32(tblRet.Rows[0]["Age"]);
+                fkUniverse = Convert.ToInt32(tblRet.Rows[0]["fkUniverse"]);
+                if (fkUniverse > 0)
+                    Universe = new Universes(fkUniverse);
+                Base_Audience = Convert.ToInt32(tblRet.Rows[0]["Base_Audience"]);
+                ImDB_Link = tblRet.Rows[0]["ImDB_Link"].ToString();
+                Theatre T = new Theatre(Convert.ToInt32(tblRet.Rows[0]["fkTdP"]));
+                fkTdP = T;
+                SpecialEffectCompany FX = new SpecialEffectCompany(Convert.ToInt32(tblRet.Rows[0]["fkFX"]));
+                fkFX = FX;
+            }
+        }
+
+        public bool WriteOnDb()
+        {
+            string strCommand = string.Empty;
+            if (ID > 0)
+            {
+                strCommand = "UPDATE Serials SET ";
+                strCommand += " Description = '" + Description.Replace("'", "''") + "',";
+                strCommand += " Title = '" + Title.Replace("'", "''") + "',";
+                strCommand += " ImDB_Link = '" + ImDB_Link + "',";
+                strCommand += " fkMainType = " + fkMainType.ToString() + ",";
+                strCommand += " fkSubType = " + fkSubType.ToString() + ",";
+                strCommand += " Sex = " + Inner_Val.Sexappeal.ToString() + ",";
+                strCommand += " Action = " + Inner_Val.Action.ToString() + ",";
+                strCommand += " Episodes = " + Episodes.ToString() + ",";
+                strCommand += " Humor = " + Inner_Val.Humor.ToString() + ",";
+                strCommand += " Status = " + Status.ToString() + ",";
+                strCommand += " Age = " + Age.ToString() + ",";
+                strCommand += " Base_Audience = '" + Base_Audience + "',";
+                strCommand += " fkUniverse = " + fkUniverse.ToString() + ",";
+                strCommand += " fkTdP = " + fkTdP.ID.ToString() + ",";
+                strCommand += " fkFX = " + fkFX.ID.ToString();
+                strCommand += " WHERE ID = " + ID.ToString() + ";";
+            }
+            else
+            {
+                strCommand = "INSERT INTO Serials ";
+                strCommand += "(Title,Description,ImDB_Link,Sex,Action,Humor,Episodes,Status,Age,Citation,fkTdP,fkFX,fkUniverse,fkMainType,fkSubType) ";
+                strCommand += " VALUES ( ";
+                strCommand += "'" + Title.Replace("'", "''") + "',";
+                strCommand += "'" + Description.Replace("'", "''") + "',";
+                strCommand += "'" + ImDB_Link + "',";
+                strCommand += Inner_Val.Sexappeal + ",";
+                strCommand += Inner_Val.Action.ToString() + ",";
+                strCommand += Inner_Val.Humor.ToString() + ",";
+                strCommand += Episodes.ToString() + ",";
+                strCommand += Status.ToString() + ",";
+                strCommand += Age.ToString() + ",";
+                if (fkTdP != null)
+                    strCommand += fkTdP.ID.ToString() + ",";
+                else
+                    strCommand += "-1,";
+                if (fkFX != null)
+                    strCommand += fkFX.ID.ToString() + ",";
+                else
+                    strCommand += "-1,";
+                strCommand += fkUniverse.ToString() + ",";
+                strCommand += fkMainType.ToString() + ",";
+                strCommand += fkSubType.ToString() + ");";
+            }
+            bool blnResult = SQLLiteInt.GenericCommand(strCommand);
+            if (ID == 0)
+            {
+                ID = Retriever.GetMaxSerialID();
+            }
+            return blnResult;
+        }     
+        #endregion
+    }
+
     public class Universes
     {
         public int ID { get; set; }
@@ -1452,6 +1680,53 @@ namespace DbRuler
         {
             DataTable tblRet = SQLLiteInt.Select("SELECT MAX(ID) FROM Movie;");
             return Convert.ToInt32(tblRet.Rows[0][0]);
+        }
+
+        #endregion
+
+        #region Serials
+        public static int GetMaxSerialID()
+        {
+            DataTable tblRet = SQLLiteInt.Select("SELECT MAX(ID) FROM Serials;");
+            return Convert.ToInt32(tblRet.Rows[0][0]);
+        }
+
+        /// <summary>
+        /// This method return all the cast (link) for the serial that are currentice Active (1 or 0)
+        /// and that are not Showrunner
+        /// </summary>
+        /// <param name="SerialID"></param>
+        /// <param name="Active"></param>
+        /// <returns></returns>
+        public static L_CharsSerials[] GetCastFromSerial(int SerialID, int Active)
+        {
+            L_CharsSerials Link;
+            DataTable tblRet = SQLLiteInt.Select("SELECT * FROM L_CharsSerials WHERE ID_Serial = " + SerialID + " AND Char_Name <> 'Showrunner' AND Active = " + Active.ToString() + ";");
+            L_CharsSerials[] Links = new L_CharsSerials[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Link = new L_CharsSerials();
+                Link.ID_Char = Convert.ToInt32(tblRet.Rows[i]["ID_Char"]);
+                Link.ID_Serial = Convert.ToInt32(tblRet.Rows[i]["ID_Serial"]);
+                Link.Char_Name = tblRet.Rows[i]["Char_Name"].ToString();
+                Link.Active = Active;
+                Links[i] = Link;
+            }
+            return Links;
+        }
+
+        public static GenericCharacters[] GetGenericCastFromSerial(int SerialID, int Active)
+        {
+
+            GenericCharacters Link;
+            DataTable tblRet = SQLLiteInt.Select("SELECT * FROM L_CharsSerials WHERE ID_Serial = " + SerialID + " AND Active = " + Active.ToString() + " ORDER BY Char_Name DESC;");
+            GenericCharacters[] Links = new GenericCharacters[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Link = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID_Char"]));                
+                Links[i] = Link;
+            }
+            return Links;
         }
 
         #endregion
