@@ -1187,7 +1187,7 @@ namespace DbRuler
             MovPla.Price = GetTotalMovieCost(MyMov);
             int RealAudience = LFMGRule.CalculateRealAudience(MyMov);
             long Cash = LFMGRule.CalculateMoney(RealAudience);
-            int Change = LFMGRule.GetPopularityChange(MyMov, Cash, MovPla.Price);
+            int Change = LFMGRule.GetPopularityChange(Cash, MovPla.Price);
             MovPla.Cash = Cash;
             MovPla.Change = Change;
             MovPla.RealAudience = RealAudience;
@@ -1303,7 +1303,7 @@ namespace DbRuler
             NewSerial.Inner_Val.Humor += intBonusHumor;
             NewSerial.Base_Audience += intBonusAudience;
             #endregion
-            Price = GetCashOfShowrunner(Showrunner, NewSerial);
+            Price = GetCashOfShowrunner(Showrunner);
             NewSerial.WriteOnDb();
             AddCastToSerial(Showrunner, NewSerial, "Showrunner");
             return NewSerial;
