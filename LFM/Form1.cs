@@ -130,5 +130,11 @@ namespace LFM
                 MessageBox.Show("Finito!");
             }
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            CreateSe frmSerial = new CreateSe();
+            frmSerial.ShowDialog();
+        }
     }
 }

@@ -1259,7 +1259,7 @@ namespace DbRuler
         /// This method create the base serial from a showrunner.
         /// This is the only method to create a serial.
         /// </summary>
-        /// <param name="Writer"></param>
+        /// <param name="Showrunner"></param>
         /// <param name="MovieType"></param>
         /// <returns></returns>
         public static Serial CreateSerialFromShowrunner(GenericCharacters Showrunner, TypeOfMovie[] MovieType, int CurrentAge, out long Price)

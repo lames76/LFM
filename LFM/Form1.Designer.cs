@@ -36,6 +36,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.cbxMsgBx = new System.Windows.Forms.CheckBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -108,11 +109,22 @@
             this.cbxMsgBx.Text = "MsgBox";
             this.cbxMsgBx.UseVisualStyleBackColor = true;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(249, 98);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(179, 55);
+            this.button7.TabIndex = 7;
+            this.button7.Text = "Create Se";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.cbxMsgBx);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -138,6 +150,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox cbxMsgBx;
+        private System.Windows.Forms.Button button7;
     }
 }
 
