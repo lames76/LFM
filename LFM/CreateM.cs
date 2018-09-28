@@ -26,6 +26,7 @@ namespace LFM
         private bool IsActorsSet = false;
         private bool IsDataBinding = false;
         public int IDMovie = -1;
+        private bool blnIsSerial = false;
 
         public CreateM()
         {
@@ -83,8 +84,14 @@ namespace LFM
                     lstActors.Items.Add(a.name);
                     ActorsImDb.Add(a.url);
                 }
-                txtDirector.Text = MyObj.director[0].name;
-                DirectorImDb = MyObj.director[0].url;
+                if (MyObj.director != null)
+                {
+                    txtDirector.Text = MyObj.director[0].name;
+                    DirectorImDb = MyObj.director[0].url;
+                    blnIsSerial = false;
+                }
+                else
+                    blnIsSerial = true;
                 txtDirector.BackColor = Color.White;
                 btnGoToDirector.Enabled = true;
                 txtWriter.Text = MyObj.creator[0].name;
@@ -102,118 +109,123 @@ namespace LFM
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (GenMovie == null)
-                GenMovie = new Movie();
-            if (GenMovie.ID > 0)
+            if (!blnIsSerial)
             {
-                GenMovie.Age = Convert.ToInt32(txtAge.Text);
-                GenMovie.Inner_Val = new DbRuler.Inner_Values();
-                GenMovie.Inner_Val.Action = Convert.ToInt32(txtAction.Text);
-                GenMovie.Inner_Val.Humor = Convert.ToInt32(txtHumor.Text);
-                GenMovie.Inner_Val.Sexappeal = Convert.ToInt32(txtSex.Text);
-                GenMovie.Title = txtTitle.Text;
-                GenMovie.Citation = txtCitation.Text;
-                GenMovie.Description = txtDescription.Text;
-                int intNumberOfType = 0;
-                if (ddlType1.SelectedIndex > 0)
-                    intNumberOfType = 1;
-                if (ddlType2.SelectedIndex > 0)
-                    intNumberOfType = 2;
-                if (ddlType3.SelectedIndex > 0)
-                    intNumberOfType = 3;
-                if (ddlType4.SelectedIndex > 0)
-                    intNumberOfType = 4;
-                TypeOfMovie[] MyTypeList = new TypeOfMovie[intNumberOfType];
-                MyTypeList[0] = new TypeOfMovie(Convert.ToInt32(ddlType1.SelectedValue));
-                if (ddlType2.SelectedIndex > 0)
-                    MyTypeList[1] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
-                if (ddlType3.SelectedIndex > 0)
-                    MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
-                if (ddlType4.SelectedIndex > 0)
-                    MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
-                GenMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
-                GenMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
-                GenMovie.fkType = new TypeOfMovie[MyTypeList.Length];
-                GenMovie.fkType = MyTypeList; 
-                GenMovie.fkUniverse = Convert.ToInt32(lblUniverse.Text);                
-                GenMovie.ImDB_Link = txtImDb_Link.Text;
-                if (txtSuccess.Text.Length > 0)
-                    GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
-                DialogResult Res = MessageBox.Show("Modificare Base_Audience e Success?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2);
-                if (Res == DialogResult.Yes)
+                if (GenMovie == null)
+                    GenMovie = new Movie();
+                if (GenMovie.ID > 0)
                 {
-                    GenMovie.Base_Audience = Convert.ToInt32(txtBase_Audience.Text);
-                    GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
-                }
-                GenMovie.Movie_WriteOnDb();
-                if (IsWriterSet)
-                    DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(WriterImDb), "Writer");
-                if (IsDirectorSet)
-                    DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(DirectorImDb), "Director");
-                if (IsActorsSet)
-                {
-                    foreach (string s in ActorsImDb)
+                    GenMovie.Age = Convert.ToInt32(txtAge.Text);
+                    GenMovie.Inner_Val = new DbRuler.Inner_Values();
+                    GenMovie.Inner_Val.Action = Convert.ToInt32(txtAction.Text);
+                    GenMovie.Inner_Val.Humor = Convert.ToInt32(txtHumor.Text);
+                    GenMovie.Inner_Val.Sexappeal = Convert.ToInt32(txtSex.Text);
+                    GenMovie.Title = txtTitle.Text;
+                    GenMovie.Citation = txtCitation.Text;
+                    GenMovie.Description = txtDescription.Text;
+                    int intNumberOfType = 0;
+                    if (ddlType1.SelectedIndex > 0)
+                        intNumberOfType = 1;
+                    if (ddlType2.SelectedIndex > 0)
+                        intNumberOfType = 2;
+                    if (ddlType3.SelectedIndex > 0)
+                        intNumberOfType = 3;
+                    if (ddlType4.SelectedIndex > 0)
+                        intNumberOfType = 4;
+                    TypeOfMovie[] MyTypeList = new TypeOfMovie[intNumberOfType];
+                    MyTypeList[0] = new TypeOfMovie(Convert.ToInt32(ddlType1.SelectedValue));
+                    if (ddlType2.SelectedIndex > 0)
+                        MyTypeList[1] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
+                    if (ddlType3.SelectedIndex > 0)
+                        MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
+                    if (ddlType4.SelectedIndex > 0)
+                        MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
+                    GenMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                    GenMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                    GenMovie.fkType = new TypeOfMovie[MyTypeList.Length];
+                    GenMovie.fkType = MyTypeList;
+                    GenMovie.fkUniverse = Convert.ToInt32(lblUniverse.Text);
+                    GenMovie.ImDB_Link = txtImDb_Link.Text;
+                    if (txtSuccess.Text.Length > 0)
+                        GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
+                    DialogResult Res = MessageBox.Show("Modificare Base_Audience e Success?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (Res == DialogResult.Yes)
                     {
-                        int intAppoID = -1;
-                        int.TryParse(s, out intAppoID);
-                        if (intAppoID > 0)
-                            DbRuler.Creator.AddCharToMovie(GenMovie.ID, intAppoID, "Actor");
+                        GenMovie.Base_Audience = Convert.ToInt32(txtBase_Audience.Text);
+                        GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
                     }
-                }                
+                    GenMovie.Movie_WriteOnDb();
+                    if (IsWriterSet)
+                        DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(WriterImDb), "Writer");
+                    if (IsDirectorSet)
+                        DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(DirectorImDb), "Director");
+                    if (IsActorsSet)
+                    {
+                        foreach (string s in ActorsImDb)
+                        {
+                            int intAppoID = -1;
+                            int.TryParse(s, out intAppoID);
+                            if (intAppoID > 0)
+                                DbRuler.Creator.AddCharToMovie(GenMovie.ID, intAppoID, "Actor");
+                        }
+                    }
+                }
+                else
+                {
+                    GenMovie.Age = Convert.ToInt32(txtAge.Text);
+                    GenMovie.Inner_Val = new DbRuler.Inner_Values();
+                    GenMovie.Inner_Val.Action = Convert.ToInt32(txtAction.Text);
+                    GenMovie.Inner_Val.Humor = Convert.ToInt32(txtHumor.Text);
+                    GenMovie.Inner_Val.Sexappeal = Convert.ToInt32(txtSex.Text);
+                    GenMovie.Title = txtTitle.Text;
+                    GenMovie.Citation = txtCitation.Text;
+                    GenMovie.Description = txtDescription.Text;
+                    int intNumberOfType = 0;
+                    if (ddlType1.SelectedIndex > 0)
+                        intNumberOfType = 1;
+                    if (ddlType2.SelectedIndex > 0)
+                        intNumberOfType = 2;
+                    if (ddlType3.SelectedIndex > 0)
+                        intNumberOfType = 3;
+                    if (ddlType4.SelectedIndex > 0)
+                        intNumberOfType = 4;
+                    TypeOfMovie[] MyTypeList = new TypeOfMovie[intNumberOfType];
+                    MyTypeList[0] = new TypeOfMovie(Convert.ToInt32(ddlType1.SelectedValue));
+                    if (ddlType2.SelectedIndex > 0)
+                        MyTypeList[1] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
+                    if (ddlType3.SelectedIndex > 0)
+                        MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
+                    if (ddlType4.SelectedIndex > 0)
+                        MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
+                    GenMovie.fkType = MyTypeList;
+                    GenMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                    GenMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                    GenMovie.fkUniverse = Convert.ToInt32(lblUniverse.Text);
+                    GenMovie.ImDB_Link = txtImDb_Link.Text;
+                    if (txtSuccess.Text.Length > 0)
+                        GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
+                    GenMovie.Movie_WriteOnDb();
+                    GenMovie.ID = Retriever.GetMaxMovieID();
+                    if (IsWriterSet)
+                        DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(WriterImDb), "Writer");
+                    if (IsDirectorSet)
+                        DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(DirectorImDb), "Director");
+                    if (IsActorsSet)
+                    {
+                        foreach (string s in ActorsImDb)
+                        {
+                            int intAppoID = -1;
+                            int.TryParse(s, out intAppoID);
+                            if (intAppoID > 0)
+                                DbRuler.Creator.AddCharToMovie(GenMovie.ID, intAppoID, "Actor");
+                        }
+                    }
+                }
+                RefreshGrid();
+                ClearAll();
             }
             else
-            {
-                GenMovie.Age = Convert.ToInt32(txtAge.Text);
-                GenMovie.Inner_Val = new DbRuler.Inner_Values();
-                GenMovie.Inner_Val.Action = Convert.ToInt32(txtAction.Text);
-                GenMovie.Inner_Val.Humor = Convert.ToInt32(txtHumor.Text);
-                GenMovie.Inner_Val.Sexappeal = Convert.ToInt32(txtSex.Text);
-                GenMovie.Title = txtTitle.Text;
-                GenMovie.Citation = txtCitation.Text;
-                GenMovie.Description = txtDescription.Text;
-                int intNumberOfType = 0;
-                if (ddlType1.SelectedIndex > 0)
-                    intNumberOfType = 1;
-                if (ddlType2.SelectedIndex > 0)
-                    intNumberOfType = 2;
-                if (ddlType3.SelectedIndex > 0)
-                    intNumberOfType = 3;
-                if (ddlType4.SelectedIndex > 0)
-                    intNumberOfType = 4;
-                TypeOfMovie[] MyTypeList = new TypeOfMovie[intNumberOfType];
-                MyTypeList[0] = new TypeOfMovie(Convert.ToInt32(ddlType1.SelectedValue));
-                if (ddlType2.SelectedIndex > 0)
-                    MyTypeList[1] = new TypeOfMovie(Convert.ToInt32(ddlType2.SelectedValue));
-                if (ddlType3.SelectedIndex > 0)
-                    MyTypeList[2] = new TypeOfMovie(Convert.ToInt32(ddlType3.SelectedValue));
-                if (ddlType4.SelectedIndex > 0)
-                    MyTypeList[3] = new TypeOfMovie(Convert.ToInt32(ddlType4.SelectedValue));
-                GenMovie.fkType = MyTypeList;
-                GenMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
-                GenMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
-                GenMovie.fkUniverse = Convert.ToInt32(lblUniverse.Text);
-                GenMovie.ImDB_Link = txtImDb_Link.Text;
-                if (txtSuccess.Text.Length > 0)
-                    GenMovie.Success = Convert.ToInt32(txtSuccess.Text);
-                GenMovie.Movie_WriteOnDb();
-                GenMovie.ID = Retriever.GetMaxMovieID();
-                if (IsWriterSet)
-                    DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(WriterImDb), "Writer");                    
-                if (IsDirectorSet)
-                    DbRuler.Creator.AddCharToMovie(GenMovie.ID, Convert.ToInt32(DirectorImDb), "Director");
-                if (IsActorsSet)
-                {
-                    foreach (string s in ActorsImDb)
-                    {
-                        int intAppoID = -1;
-                        int.TryParse(s, out intAppoID);
-                        if (intAppoID > 0)
-                            DbRuler.Creator.AddCharToMovie(GenMovie.ID, intAppoID, "Actor");
-                    }
-                }
-            }
-            RefreshGrid();
-            ClearAll();
+                MessageBox.Show("E' un serial, impossibile da salvare qui");
         }
 
         private void ClearAll()

@@ -7,13 +7,23 @@ using System.Data.SQLite;
 using System.Data;
 using System.Globalization;
 using System.Collections;
+using System.IO;
 
 namespace SQLLiteInterface
 {
+    public static class LFMConst
+    {
+        public const string GameDirPath = @"Games\";
+        public const string ConfigurationFile = "ConnConf.zop";
+        public const string ConnStringVal = @"Data Source={0};Version=3;New=False;Compress=True;";
+    }
+
     public static class SQLLiteInt
     {        
         private static string strConnectionstring()
         {
+            string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string ConnString = File.ReadAllText(strAppPath + "\\" + LFMConst.ConfigurationFile);
             return "Data Source=DB\\LFM.db;Version=3;New=False;Compress=True;";
         }
 

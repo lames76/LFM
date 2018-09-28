@@ -798,7 +798,9 @@ namespace DbRuler
             NewMovie.Success = SuccessByTypeMix;
             NewMovie.Base_Audience = 0;
             foreach (TypeOfMovie MT in MovieType)
+            {
                 NewMovie.Status += MT.GetTotalProductionTime();
+            }
             Scripts.MoviesAndScripts_DeleteScript();
             return NewMovie;
         }        

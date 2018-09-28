@@ -33,6 +33,7 @@ namespace DbRuler
         {
             ID_Char = intID_Char;
             ID_Serial = intID_Serial;
+            Char_Name = "NONE";
             LoadFromDb();
         }
 
@@ -1037,6 +1038,9 @@ namespace DbRuler
         public string ImDB_Link { get; set; }
         public Theatre fkTdP { get; set; }
         public SpecialEffectCompany fkFX { get; set; }
+        private int Pre_Production { get; set; } = 0;
+        private int Filming { get; set; } = 0;
+        private int Post_Production { get; set; } = 0;
 
         public Movie()
         {
@@ -1152,6 +1156,7 @@ namespace DbRuler
                 UpdateGenreOfMovie();
                 UpdateLocationOfMovie();
             }
+            GetTotalProductionTime();
             return blnResult;
         }
 
@@ -1202,6 +1207,52 @@ namespace DbRuler
         }
         #endregion
         #endregion
+
+        public int GetTotalProductionTime()
+        {            
+            foreach (TypeOfMovie Typ in fkType)
+            {
+                if (Typ.Pre_Production > Pre_Production)
+                    Pre_Production = Typ.Pre_Production;
+                if (Typ.Filming > Filming)
+                    Filming = Typ.Filming;
+                if (Typ.Post_Production > Post_Production)
+                    Post_Production = Typ.Post_Production;
+            }
+            return Pre_Production + Filming + Post_Production;
+        }
+
+        public string GetActualStatusFromTime(int Time)
+        {
+            if (Pre_Production == 0)
+                GetTotalProductionTime();
+            string strStatus = string.Empty;
+            if (Time <= Pre_Production)
+                strStatus = "Pre-Production";
+            if (Time <= Pre_Production + Filming)
+                strStatus = "Filming";
+            if (Time <= Pre_Production + Filming + Post_Production)
+                strStatus = "Post-Production";
+            if (Time > Pre_Production + Filming + Post_Production)
+                strStatus = "Produced";
+            return strStatus;
+        }
+
+        public string GetActualStatusFromStatus()
+        {
+            int Time = GetTotalProductionTime() - Status;
+            string strStatus = string.Empty;
+            if (Time <= Pre_Production)
+                strStatus = "Pre-Production";
+            if (Time <= Pre_Production + Filming)
+                strStatus = "Filming";
+            if (Time <= Pre_Production + Filming + Post_Production)
+                strStatus = "Post-Production";
+            if (Time > Pre_Production + Filming + Post_Production)
+                strStatus = "Produced";
+            return strStatus;
+        }
+
     }
     public class Script
     {        
@@ -1551,6 +1602,19 @@ namespace DbRuler
         #endregion
 
         #region Movies
+
+        public static int[] GetMovieInWorking()
+        {
+            string strCommand = "SELECT ID Movie WHERE Status > 0;";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            int[] intListOfMovie = new int[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                intListOfMovie[i] = Convert.ToInt32(tblRet.Rows[i]["ID"]);
+            }
+            return intListOfMovie;
+        }
+
         public static int[] GetMovieTypes(int intIDMovie, bool IsFalse)
         {
             string strCommand = "SELECT S.ID FROM TypeOfMovie as S INNER JOIN L_MovieType AS A ON A.ID_Type = S.ID  WHERE A.ID_Movie = " + intIDMovie.ToString() + ";";
@@ -1685,6 +1749,18 @@ namespace DbRuler
         #endregion
 
         #region Serials
+        public static int[] GetSerialSeasoning()
+        {
+            string strCommand = "SELECT ID FROM Serials WHERE Status > 0;";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            int[] intListOfMovie = new int[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                intListOfMovie[i] = Convert.ToInt32(tblRet.Rows[i]["ID"]);
+            }
+            return intListOfMovie;
+        }
+
         public static int GetMaxSerialID()
         {
             DataTable tblRet = SQLLiteInt.Select("SELECT MAX(ID) FROM Serials;");
@@ -1766,6 +1842,33 @@ namespace DbRuler
                 Specials[i] = new SpecialAbilities(Convert.ToInt32(tblRet.Rows[i]["ID"]));
             }
             return Specials;
+        }
+        #endregion
+
+        #region Characters
+        public static List<Movie> GetListOfMovieInWorkingFromCharID(int IDChar, int StatusValue = 0)
+        {
+            string strCommand = string.Format("SELECT * " +
+                "FROM Movie AS M " +
+                "INNER JOIN L_CharsMovies AS L ON L.ID_Movie = M.ID " +
+                "WHERE M.Status > {1} AND L.ID_Char = {0};", IDChar, StatusValue);
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            List<Movie> MovieList = new List<Movie>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+                MovieList.Add(new Movie(Convert.ToInt32(tblRet.Rows[i]["ID"])));
+            return MovieList;
+        }
+        public static List<Serial> GetListOfSerialInWorkingFromCharID(int IDChar, int StatusValue = 0)
+        {
+            string strCommand = string.Format("SELECT * " +
+                "FROM Serials AS M " +
+                "INNER JOIN L_CharsSerials AS L ON L.ID_Movie = M.ID " +
+                "WHERE M.Status > {1} AND L.ID_Char = {0};", IDChar, StatusValue);
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            List<Serial> SerialList = new List<Serial>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+                SerialList.Add(new Serial(Convert.ToInt32(tblRet.Rows[i]["ID"])));
+            return SerialList;
         }
         #endregion
 

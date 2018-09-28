@@ -136,5 +136,10 @@ namespace LFM
             CreateSe frmSerial = new CreateSe();
             frmSerial.ShowDialog();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            LFMUtils.PrepareNewGame("ciao");
+        }
     }
 }
