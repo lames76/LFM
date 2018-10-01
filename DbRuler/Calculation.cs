@@ -755,17 +755,20 @@ namespace DbRuler
                 // Ciclo gli altri generi
                 for (int i = 1; i < movieType.Length; i++)
                 {
-                    Inner_Values Max = new Inner_Values();
-                    Inner_Values Min = new Inner_Values();
-                    // Calcolo l'intersezione dei valori e ritorno i nuovi min e max risultati dall'intersezione stessa
-                    bool blnResult = CalculateValueForTwoGenre(JoinedValue.Inner_Val_Max, JoinedValue.Inner_Val_Min, movieType[i].Inner_Val_Max, movieType[i].Inner_Val_Min, out Max, out Min);
-                    // Li assegno al mio Joined Value
-                    JoinedValue.Inner_Val_Max = Max;
-                    JoinedValue.Inner_Val_Min = Min;
-                    // Se i due valori non si intersecavano sto usando due insiemi che non si toccano
-                    if (!blnResult)
-                        // Quindi successo -100 (ALPHA)
-                        Success -= 100;
+                    if (movieType[i] != null)
+                    {
+                        Inner_Values Max = new Inner_Values();
+                        Inner_Values Min = new Inner_Values();
+                        // Calcolo l'intersezione dei valori e ritorno i nuovi min e max risultati dall'intersezione stessa
+                        bool blnResult = CalculateValueForTwoGenre(JoinedValue.Inner_Val_Max, JoinedValue.Inner_Val_Min, movieType[i].Inner_Val_Max, movieType[i].Inner_Val_Min, out Max, out Min);
+                        // Li assegno al mio Joined Value
+                        JoinedValue.Inner_Val_Max = Max;
+                        JoinedValue.Inner_Val_Min = Min;
+                        // Se i due valori non si intersecavano sto usando due insiemi che non si toccano
+                        if (!blnResult)
+                            // Quindi successo -100 (ALPHA)
+                            Success -= 100;
+                    }
                 }
             }
             #endregion
@@ -1293,8 +1296,11 @@ namespace DbRuler
             NewSerial.Base_Audience = Showrunner.Talent + Showrunner.Skills + intBonusAudience;
             foreach (TypeOfMovie ToM in MovieType)
             {
-                NewSerial.Title += ToM.TypeOf + " ";
-                NewSerial.Description += ToM.TypeOf + " ";
+                if (ToM != null)
+                {
+                    NewSerial.Title += ToM.TypeOf + " ";
+                    NewSerial.Description += ToM.TypeOf + " ";
+                }
             }
             NewSerial.Status = 12;
             NewSerial.Title += "serial";

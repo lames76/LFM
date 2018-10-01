@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateSe));
             this.ddlType2 = new System.Windows.Forms.ComboBox();
             this.lblCost = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -512,6 +513,7 @@
             this.Controls.Add(this.btnSetType);
             this.Controls.Add(this.dgWriters);
             this.Controls.Add(this.ddlType1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateSe";
             this.Text = "CreateSe";
             this.Load += new System.EventHandler(this.CreateSe_Load);

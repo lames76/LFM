@@ -141,5 +141,17 @@ namespace LFM
         {
             LFMUtils.PrepareNewGame("ciao");
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            double? dblUno = 1;
+            double? dblDue = 2;
+            double? dblTre = null;
+            double? dblSum = 
+                (dblUno.HasValue ? dblUno : 0) + 
+                (dblDue.HasValue ?  dblDue : 0) + 
+                (dblTre.HasValue ? dblTre : 0);
+            MessageBox.Show(dblSum.HasValue ? dblSum.ToString() : "NINTE");
+        }
     }
 }

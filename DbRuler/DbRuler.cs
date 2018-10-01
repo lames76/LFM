@@ -196,8 +196,8 @@ namespace DbRuler
                 strCommand += " Description = '" + Description.Replace("'", "''") + "',";
                 strCommand += " Title = '" + Title.Replace("'", "''") + "',";
                 strCommand += " ImDB_Link = '" + ImDB_Link + "',";
-                strCommand += " fkMainType = " + fkMainType.ToString() + ",";
-                strCommand += " fkSubType = " + fkSubType.ToString() + ",";
+                strCommand += " fkMainType = " + fkMainType.ID.ToString() + ",";
+                strCommand += " fkSubType = " + fkSubType.ID.ToString() + ",";
                 strCommand += " Sex = " + Inner_Val.Sexappeal.ToString() + ",";
                 strCommand += " Action = " + Inner_Val.Action.ToString() + ",";
                 strCommand += " Episodes = " + Episodes.ToString() + ",";
@@ -213,7 +213,7 @@ namespace DbRuler
             else
             {
                 strCommand = "INSERT INTO Serials ";
-                strCommand += "(Title,Description,ImDB_Link,Sex,Action,Humor,Episodes,Status,Age,Citation,fkTdP,fkFX,fkUniverse,fkMainType,fkSubType) ";
+                strCommand += "(Title,Description,ImDB_Link,Sex,Action,Humor,Episodes,Status,Age,fkTdP,fkFX,fkUniverse,fkMainType,fkSubType) ";
                 strCommand += " VALUES ( ";
                 strCommand += "'" + Title.Replace("'", "''") + "',";
                 strCommand += "'" + Description.Replace("'", "''") + "',";
@@ -233,8 +233,8 @@ namespace DbRuler
                 else
                     strCommand += "-1,";
                 strCommand += fkUniverse.ToString() + ",";
-                strCommand += fkMainType.ToString() + ",";
-                strCommand += fkSubType.ToString() + ");";
+                strCommand += fkMainType.ID.ToString() + ",";
+                strCommand += fkSubType.ID.ToString() + ");";
             }
             bool blnResult = SQLLiteInt.GenericCommand(strCommand);
             if (ID == 0)
