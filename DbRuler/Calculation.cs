@@ -784,7 +784,7 @@ namespace DbRuler
         /// <param name="Scripts"></param>
         /// <param name="MovieType"></param>
         /// <returns></returns>
-        private static Movie CreateMovieFromScript(Script Scripts, TypeOfMovie[] MovieType, int CurrentAge)
+        public static Movie CreateMovieFromScript(Script Scripts, TypeOfMovie[] MovieType, int CurrentAge)
         {            
             Movie NewMovie = new Movie();
             int SuccessByTypeMix = 0;
@@ -1347,7 +1347,7 @@ namespace DbRuler
 
         /// <summary>
         /// This method add the cost of the Showrunner, the cost of the cast and the price of
-        /// TdT and FX (TODO add the cost of bonus).
+        /// TdT and FX (these last two halved) (TODO add the cost of bonus).
         /// </summary>
         /// <param name="MySerial"></param>
         /// <returns></returns>
@@ -1367,6 +1367,16 @@ namespace DbRuler
             Cost += GetPriceOfFX(MySerial) / 2;
             // TODO - Add the cost of the Bonus used to raise Audience
             return Cost;
+        }
+
+        /// <summary>
+        /// This method set the current status = Episode number. It means the Serial is in working
+        /// and just start.
+        /// </summary>
+        /// <param name="MySerial"></param>
+        public static void SetSerialToStart(Serial MySerial)
+        {
+            MySerial.Status = MySerial.Episodes;
         }
         #endregion
         #region Andamento
@@ -1388,6 +1398,23 @@ namespace DbRuler
                 }
             }
             return Cast_Audience;
+        }
+
+        /// <summary>
+        /// This method subtract 1 from the Status. If it reach 0 it return true.
+        /// </summary>
+        /// <param name="MySerial"></param>
+        /// <returns></returns>
+        public static bool SetSerialAdvanceInSeason(Serial MySerial)
+        {
+            MySerial.Status--;
+            if (MySerial.Status <= 0)
+            {
+                MySerial.Status = 0;
+                return true;
+            }
+            else
+                return false;
         }
         #endregion
         #region Fine Stagione
@@ -1414,7 +1441,7 @@ namespace DbRuler
         /// <param name="MySerial"></param>
         public static void CastAdvancementPopularityAndAffinityForSerialSeasonEnd(Serial MySerial)
         {
-            long FakeGain = MySerial.Base_Audience * 100;
+            long FakeGain = MySerial.Base_Audience * 1000;
             int Change = LFMGRule.GetPopularityChange(FakeGain, 0);
             GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
             foreach (GenericCharacters Gen in GenList)
@@ -1440,6 +1467,15 @@ namespace DbRuler
             LinkAff.Affinity -= 10;
             LinkAff.Update();
             return Link.InsertDb();
+        }
+
+        /// <summary>
+        /// This method set the current status of the serial to 0 (i.e. not working).
+        /// </summary>
+        /// <param name="MySerial"></param>
+        public static void SetEndOfSeason(Serial MySerial)
+        {
+            MySerial.Status = 0;
         }
         #endregion
         #endregion

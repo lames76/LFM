@@ -11,12 +11,16 @@ using System.Windows.Forms;
 
 namespace LFM
 {
-    public partial class Form1 : Form
+    public partial class LFM : Form
     {
-        public Form1()
+        private bool blnThereAreGames = false;
+
+        public LFM()
         {
             InitializeComponent();
         }
+
+        #region Test Area
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -152,6 +156,52 @@ namespace LFM
                 (dblDue.HasValue ?  dblDue : 0) + 
                 (dblTre.HasValue ? dblTre : 0);
             MessageBox.Show(dblSum.HasValue ? dblSum.ToString() : "NINTE");
+        }
+        #endregion
+
+        private void btnEsci_Click(object sender, EventArgs e)
+        {
+            DialogResult Res = MessageBox.Show("Sei sicuro di voler uscire?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (Res == DialogResult.Yes)
+            this.Close();
+        }
+
+        private void btnOpzioni_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet implemented", "Opzioni Game");
+        }
+
+        private void btnCarica_Click(object sender, EventArgs e)
+        {
+            MainMenu.frmDirectorySelect frmDir = new MainMenu.frmDirectorySelect();
+            DialogResult Res = frmDir.ShowDialog();
+            if (Res == DialogResult.OK)
+            {
+                string strGameName = frmDir.strSelected;
+                LFMUtils.PrepareConnectionString(strGameName);
+                CaricaPartita();
+            }
+        }
+
+        private void CaricaPartita()
+        {
+            MessageBox.Show("Not yet implemented", "Load Game");
+        }
+
+        private void btnContinueNew_Click(object sender, EventArgs e)
+        {            
+            frmInputBox ibGameName = new frmInputBox();
+            ibGameName.strTesto = "Inserisci il nome della partita";
+            DialogResult Res = ibGameName.ShowDialog();
+            if (Res == DialogResult.OK)
+            {
+                string strGameName = LFMUtils.NormalizeGameName(ibGameName.strOutPut);
+                LFMUtils.PrepareNewGame(strGameName);
+            }
+        }
+
+        private void LFM_Load(object sender, EventArgs e)
+        {
         }
     }
 }

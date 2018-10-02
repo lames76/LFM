@@ -25,7 +25,7 @@ namespace DbRuler
     }
 
     public static class LFMUtils
-    {        
+    {       
         /// <summary>
         /// This method check the current Age (year) with another age (year) and return
         /// the AgeClass (enum).
@@ -86,6 +86,18 @@ namespace DbRuler
                 Directory.CreateDirectory(strNewGamepath);
                 File.Copy(strAppPath + "\\Db\\LFM.db", strNewGamepath + "\\LFM.db");
             }
+            PrepareConnectionString(strGameName);            
+            return true;
+        }
+
+        /// <summary>
+        /// This method prepare the connection string based on the name of the game.
+        /// </summary>
+        /// <param name="strGameName"></param>
+        /// <returns></returns>
+        public static bool PrepareConnectionString(string strGameName)
+        {
+            string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string strConnectionFileLine = string.Format(LFMConst.ConnStringVal, LFMConst.GameDirPath + strGameName + "\\LFM.db");
             File.WriteAllText(strAppPath + "\\" + LFMConst.ConfigurationFile, strConnectionFileLine);
             return true;
@@ -126,9 +138,47 @@ namespace DbRuler
         public static bool RestoreOriginalDb()
         {
             string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            string strConnectionFileLine = string.Format(LFMConst.ConnStringVal, LFMConst.GameDirPath + "\\Db\\LFM.db");
+            string strConnectionFileLine = string.Format(LFMConst.ConnStringVal, "\\Db\\LFM.db");
             File.WriteAllText(strAppPath + "\\" + LFMConst.ConfigurationFile, strConnectionFileLine);
             return true;
+        }
+
+        /// <summary>
+        /// This method check if there is at least one saved game.
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckIfGameExist()
+        {
+            string[] strGames = GetGamesName();
+            if (strGames.Length > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// This method return the list of all the games saved
+        /// </summary>
+        /// <returns></returns>
+        public static string[] GetGamesName()
+        {
+            string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string[] strGames = Directory.GetDirectories(strAppPath + "\\" + LFMConst.GameDirPath);
+            for (int i=0;i<strGames.Length;i++)
+                strGames[i] = strGames[i].Replace(strAppPath + "\\" + LFMConst.GameDirPath,"");
+            return strGames;
+        }
+
+        /// <summary>
+        /// This method "normalize" the input game name removing all the special characters that can
+        /// cause problems.
+        /// </summary>
+        /// <returns></returns>
+        public static string NormalizeGameName(string strName)
+        {
+            string strRetString = strName.Replace(" ","_").Replace("\"","_");
+            return strRetString;
         }
         #endregion
     }

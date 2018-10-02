@@ -829,7 +829,17 @@ namespace DbRuler
     {
         public int ID { get; set; }
         public string TypeOf { get; set; }
-
+        /// <summary>
+        /// "1"	"Writer"
+        /// "2"	"Director"
+        /// "3"	"Actor"
+        /// "4"	"Actress"
+        /// "5"	"Composer"
+        /// "6"	"Sport Star"
+        /// "7"	"Singer"
+        /// "8"	"Showrunner"
+        /// </summary>
+        /// <param name="intID"></param>
         public TypeOfCharacters(int intID)
         {
             ID = intID;
@@ -1941,9 +1951,14 @@ namespace DbRuler
         }
 
         #region Characters
-        public static GenericCharacters[] GetCharacters()
+        public static GenericCharacters[] GetCharacters(TypeOfCharacters Typo = null)
         {
-            string strCommand = "SELECT * FROM GenericCharacter;";
+            string strCommand = "SELECT * FROM GenericCharacter";
+            if (Typo != null)
+            {
+                strCommand += " WHERE fkTypeOf = " + Typo.ID.ToString();
+            }
+            strCommand += ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
@@ -2000,10 +2015,15 @@ namespace DbRuler
             return RetVal;
         }
 
-        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname)
+        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname, TypeOfCharacters Typo = null)
         {
             string strCommand = string.Format("SELECT * FROM GenericCharacter " +
-                "WHERE Surname LIKE '%{0}%';", strSurname);
+                "WHERE Surname LIKE '%{0}%'", strSurname);
+            if (Typo != null)
+            {
+                strCommand += " AND fkTypeOf = " + Typo.ID.ToString();
+            }
+            strCommand += ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
