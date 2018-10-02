@@ -25,7 +25,7 @@ namespace LFM.MainGame.Operativita
         private bool blnCast = false;
 
         private AgeClass AC = AgeClass.NoValue;
-        private long lngPrice = 0;
+        private long lngTOTALPrice = 0;
         private GenericCharacters Actor;
 
         private GenericCharacters Director;
@@ -65,8 +65,9 @@ namespace LFM.MainGame.Operativita
                 //gbxDirector_List.Enabled = false;
                 EnableTab(1, false);
                 EnableTab(2, true);
-                MessageBox.Show("Lo script base del film è stato creato!");
+                MessageBox.Show("Lo script base del film è stato creato!");                
                 MyMovie = Calculation.CreateMovieFromScript(null, ListOfTypes, Age);
+                lngTOTALPrice += 0;
                 blnWri = true;
             }
         }
@@ -81,15 +82,11 @@ namespace LFM.MainGame.Operativita
                 EnableTab(1, false);
                 EnableTab(2, true);
                 MessageBox.Show("Lo script base del film è stato creato!");
-                MyMovie = Calculation.CreateMovieFromWriter(Writer, ListOfTypes, Age, out lngPrice);
+                long Price = 0;
+                MyMovie = Calculation.CreateMovieFromWriter(Writer, ListOfTypes, Age, out Price);
+                lngTOTALPrice += Price;
                 blnWri = true;
             }
-        }
-
-        protected void GenerateMovie()
-        {            
-            MyMovie = Calculation.CreateMovieFromWriter(Writer, ListOfTypes, Age, out lngPrice);
-            MyMovie = Calculation.CreateMovieFromScript(MyScript, ListOfTypes, Age);
         }
         #endregion
 
@@ -159,7 +156,7 @@ namespace LFM.MainGame.Operativita
             //dgFilmografia.DataSource = Retriever.GetMoviesFromPeopleID(intID, true);
             RefreshAssignedSpecials(Director.ID);
             long Price = Calculation.GetCashOfDirector(Director, MyMovie);
-            txtDirPrice.Text = txtCosto.Text = String.Format("{0:n0}", Price).Replace(",", "."); 
+            txtDirPrice.Text = String.Format("{0:n0}", Price).Replace(",", "."); 
         }
 
         private void RefreshAssignedSpecials(int intID)
@@ -210,16 +207,20 @@ namespace LFM.MainGame.Operativita
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            DialogResult Res = MessageBox.Show("Sei sicuro di voler assegnare questo Regista? \nNon potrai cambiare una volta assegnato.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Res == DialogResult.Yes)
+            if (Director != null)
             {
-                //gbxDirector_Details.Enabled = false;
-                //gbxDirector_List.Enabled = false;
-                EnableTab(2, false);
-                EnableTab(3, true);
-                MessageBox.Show("Il regista ha modificato lo script per adattarlo al suo stile");
-                Calculation.DirectorStyleChangeMovie(Director, MyMovie);
-                blnDir = true;
+                DialogResult Res = MessageBox.Show("Sei sicuro di voler assegnare questo Regista? \nNon potrai cambiare una volta assegnato.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Res == DialogResult.Yes)
+                {
+                    //gbxDirector_Details.Enabled = false;
+                    //gbxDirector_List.Enabled = false;
+                    EnableTab(2, false);
+                    EnableTab(3, true);
+                    MessageBox.Show("Il regista ha modificato lo script per adattarlo al suo stile");
+                    Calculation.DirectorStyleChangeMovie(Director, MyMovie);
+                    lngTOTALPrice += Calculation.GetCashOfDirector(Director, MyMovie);
+                    blnDir = true;
+                }
             }
         }
 
@@ -449,24 +450,21 @@ namespace LFM.MainGame.Operativita
         private void LoadDataAfterClickA(int intID)
         {
             Actor = new GenericCharacters(intID);
-            lblAActionName.Text = Actor.Inner_Val.Action.ToString();
-            lblASexappealName.Text = Actor.Inner_Val.Sexappeal.ToString();
-            lblAHumorName.Text = Actor.Inner_Val.Humor.ToString();
-            PopolateDropDownInnerValuesA(Actor);
+            lblAActionName.Text = Retriever.GetNameOfValueFromInnerValue(Actor.Inner_Val.Action, "Action", (ddlASex.Text == "F" ? true : false));
+            lblASexappealName.Text = Retriever.GetNameOfValueFromInnerValue(Actor.Inner_Val.Action, "Sexappeal", (ddlASex.Text == "F" ? true : false));
+            lblAHumorName.Text = Retriever.GetNameOfValueFromInnerValue(Actor.Inner_Val.Action, "Humor", (ddlASex.Text == "F" ? true : false));
             txtAAge.Text = Actor.Age.ToString();
             txtAName.Text = Actor.Name;
             txtAPopularity.Text = Actor.Popularity.ToString();
-            txtASkill.Text = Actor.Skills.ToString();
             txtASurname.Text = Actor.Surname;
-            txtATalent.Text = Actor.Talent.ToString();
             ddlASex.Text = Actor.Sex;
-            txtAImDb_Link.Text = Actor.ImDB_Link;
-
+            txtAPrice.Text = Actor.ImDB_Link;
             LoadRightImageA();
-
             //dgFilmografia.AutoGenerateColumns = false;
             //dgFilmografia.DataSource = Retriever.GetMoviesFromPeopleID(intID, true);
             RefreshAssignedSpecialsA(Actor.ID);
+            long Price = Calculation.GetCashOfActor(Actor, MyMovie);
+            txtAPrice.Text = String.Format("{0:n0}", Price).Replace(",", ".");
         }
 
         private void RefreshAssignedSpecialsA(int intID)
@@ -476,37 +474,6 @@ namespace LFM.MainGame.Operativita
             {
                 lstASpecials.Items.Add(S.Name);
             }
-        }
-
-        private void PopolateDropDownInnerValuesA(GenericCharacters Gen)
-        {
-            string strSex = "";
-            if (Gen != null)
-            {
-                strSex = Gen.Sex;
-            }
-            else
-            {
-                strSex = "F";
-            }
-            DataTable tblAppo = Retriever.GetNameOfValue("Action", (strSex == "F" ? true : false));
-            ddlActionA.DataSource = tblAppo;
-            ddlActionA.DisplayMember = "Name";
-            ddlActionA.ValueMember = "MaxValue";
-            int intValue = (Gen != null ? Convert.ToInt32(Gen.Inner_Val.Action) : 0);
-            ddlActionA.SelectedIndex = GetIndexOfText(Retriever.GetNameOfValueFromInnerValue(intValue, "Action", (strSex == "F" ? true : false)), tblAppo);
-            tblAppo = Retriever.GetNameOfValue("Humor", (strSex == "F" ? true : false));
-            ddlHumorA.DataSource = tblAppo;
-            ddlHumorA.DisplayMember = "Name";
-            ddlHumorA.ValueMember = "MaxValue";
-            intValue = (Gen != null ? Convert.ToInt32(Gen.Inner_Val.Humor) : 0);
-            ddlHumorA.SelectedIndex = GetIndexOfText(Retriever.GetNameOfValueFromInnerValue(intValue, "Humor", (strSex == "F" ? true : false)), tblAppo);
-            tblAppo = Retriever.GetNameOfValue("Sexappeal", (strSex == "F" ? true : false));
-            ddlSexappealA.DataSource = tblAppo;
-            ddlSexappealA.DisplayMember = "Name";
-            ddlSexappealA.ValueMember = "MaxValue";
-            intValue = (Gen != null ? Convert.ToInt32(Gen.Inner_Val.Sexappeal) : 0);
-            ddlSexappealA.SelectedIndex = GetIndexOfText(Retriever.GetNameOfValueFromInnerValue(intValue, "Sexappeal", (strSex == "F" ? true : false)), tblAppo);
         }
 
         private void LoadRightImageA()
@@ -540,16 +507,11 @@ namespace LFM.MainGame.Operativita
 
         private void ClearAllA()
         {
-            txtAImDb_Link.Text = "";
-            txtAAction.Text = "";
+            txtAPrice.Text = "";
             txtAAge.Text = "";
-            txtAHumor.Text = "";
             txtAName.Text = "";
             txtAPopularity.Text = "";
-            txtASexappeal.Text = "";
-            txtASkill.Text = "";
             txtASurname.Text = "";
-            txtATalent.Text = "";
             ddlASex.SelectedIndex = -1;
             pictureBoxA.Image = null;
             Actor = null;
@@ -557,9 +519,6 @@ namespace LFM.MainGame.Operativita
             lblAActionName.Text = "";
             lblASexappealName.Text = "";
             //dgFilmografia.DataSource = null;
-            ddlActionA.DataSource = null;
-            ddlHumorA.DataSource = null;
-            ddlSexappealA.DataSource = null;
             lstASpecials.Clear();
         }
 
@@ -596,14 +555,23 @@ namespace LFM.MainGame.Operativita
 
         private void btnAFinishSelect_Click(object sender, EventArgs e)
         {
-            DialogResult Res = MessageBox.Show("Sei sicuro di voler finire con l'assegnazione del Cast? \nNon potrai cambiare una volta finito.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Res == DialogResult.Yes)
+            if (IsMovie)
+                Cast = Retriever.GetGenericCastFromMovie(MyMovie.ID);
+            else
+                Cast = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
+            if (Cast.Length > 0)
             {
-                //gbxDirector_Details.Enabled = false;
-                //gbxDirector_List.Enabled = false;
-                EnableTab(3, false);
-                EnableTab(4, true);
-                blnCast = true;
+                DialogResult Res = MessageBox.Show("Sei sicuro di voler finire con l'assegnazione del Cast? \nNon potrai cambiare una volta finito.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Res == DialogResult.Yes)
+                {
+                    //gbxDirector_Details.Enabled = false;
+                    //gbxDirector_List.Enabled = false;
+                    EnableTab(3, false);
+                    EnableTab(4, true);
+                    blnCast = true;
+                    foreach (GenericCharacters Gen in Cast)
+                        lngTOTALPrice += Calculation.GetCashOfActor(Gen, MyMovie);
+                }
             }
         }
 

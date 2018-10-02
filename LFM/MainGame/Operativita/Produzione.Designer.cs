@@ -82,28 +82,18 @@
             this.btnAClear = new System.Windows.Forms.Button();
             this.btnASelect = new System.Windows.Forms.Button();
             this.pictureBoxA = new System.Windows.Forms.PictureBox();
-            this.ddlSexappealA = new System.Windows.Forms.ComboBox();
-            this.ddlHumorA = new System.Windows.Forms.ComboBox();
-            this.ddlActionA = new System.Windows.Forms.ComboBox();
             this.lblAHumorName = new System.Windows.Forms.Label();
             this.lblASexappealName = new System.Windows.Forms.Label();
             this.lblAActionName = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtAImDb_Link = new System.Windows.Forms.TextBox();
+            this.txtAPrice = new System.Windows.Forms.TextBox();
             this.txtAAge = new System.Windows.Forms.TextBox();
-            this.txtATalent = new System.Windows.Forms.TextBox();
             this.txtAPopularity = new System.Windows.Forms.TextBox();
-            this.txtAHumor = new System.Windows.Forms.TextBox();
-            this.txtASexappeal = new System.Windows.Forms.TextBox();
-            this.txtAAction = new System.Windows.Forms.TextBox();
-            this.txtASkill = new System.Windows.Forms.TextBox();
             this.ddlASex = new System.Windows.Forms.ComboBox();
             this.txtASurname = new System.Windows.Forms.TextBox();
             this.txtAName = new System.Windows.Forms.TextBox();
@@ -499,6 +489,7 @@
             // 
             this.txtImDb_Link.Location = new System.Drawing.Point(52, 388);
             this.txtImDb_Link.Name = "txtImDb_Link";
+            this.txtImDb_Link.ReadOnly = true;
             this.txtImDb_Link.Size = new System.Drawing.Size(214, 22);
             this.txtImDb_Link.TabIndex = 52;
             // 
@@ -506,6 +497,7 @@
             // 
             this.txtAge.Location = new System.Drawing.Point(52, 350);
             this.txtAge.Name = "txtAge";
+            this.txtAge.ReadOnly = true;
             this.txtAge.Size = new System.Drawing.Size(212, 22);
             this.txtAge.TabIndex = 51;
             // 
@@ -513,6 +505,7 @@
             // 
             this.txtPopularity.Location = new System.Drawing.Point(52, 319);
             this.txtPopularity.Name = "txtPopularity";
+            this.txtPopularity.ReadOnly = true;
             this.txtPopularity.Size = new System.Drawing.Size(212, 22);
             this.txtPopularity.TabIndex = 49;
             // 
@@ -705,28 +698,18 @@
             this.groupBox4.Controls.Add(this.btnAClear);
             this.groupBox4.Controls.Add(this.btnASelect);
             this.groupBox4.Controls.Add(this.pictureBoxA);
-            this.groupBox4.Controls.Add(this.ddlSexappealA);
-            this.groupBox4.Controls.Add(this.ddlHumorA);
-            this.groupBox4.Controls.Add(this.ddlActionA);
             this.groupBox4.Controls.Add(this.lblAHumorName);
             this.groupBox4.Controls.Add(this.lblASexappealName);
             this.groupBox4.Controls.Add(this.lblAActionName);
             this.groupBox4.Controls.Add(this.label23);
             this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.label25);
             this.groupBox4.Controls.Add(this.label26);
             this.groupBox4.Controls.Add(this.label27);
             this.groupBox4.Controls.Add(this.label28);
             this.groupBox4.Controls.Add(this.label29);
-            this.groupBox4.Controls.Add(this.label30);
-            this.groupBox4.Controls.Add(this.txtAImDb_Link);
+            this.groupBox4.Controls.Add(this.txtAPrice);
             this.groupBox4.Controls.Add(this.txtAAge);
-            this.groupBox4.Controls.Add(this.txtATalent);
             this.groupBox4.Controls.Add(this.txtAPopularity);
-            this.groupBox4.Controls.Add(this.txtAHumor);
-            this.groupBox4.Controls.Add(this.txtASexappeal);
-            this.groupBox4.Controls.Add(this.txtAAction);
-            this.groupBox4.Controls.Add(this.txtASkill);
             this.groupBox4.Controls.Add(this.ddlASex);
             this.groupBox4.Controls.Add(this.txtASurname);
             this.groupBox4.Controls.Add(this.txtAName);
@@ -778,37 +761,10 @@
             this.pictureBoxA.TabIndex = 67;
             this.pictureBoxA.TabStop = false;
             // 
-            // ddlSexappealA
-            // 
-            this.ddlSexappealA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlSexappealA.FormattingEnabled = true;
-            this.ddlSexappealA.Location = new System.Drawing.Point(91, 257);
-            this.ddlSexappealA.Name = "ddlSexappealA";
-            this.ddlSexappealA.Size = new System.Drawing.Size(191, 24);
-            this.ddlSexappealA.TabIndex = 66;
-            // 
-            // ddlHumorA
-            // 
-            this.ddlHumorA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlHumorA.FormattingEnabled = true;
-            this.ddlHumorA.Location = new System.Drawing.Point(91, 307);
-            this.ddlHumorA.Name = "ddlHumorA";
-            this.ddlHumorA.Size = new System.Drawing.Size(191, 24);
-            this.ddlHumorA.TabIndex = 65;
-            // 
-            // ddlActionA
-            // 
-            this.ddlActionA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlActionA.FormattingEnabled = true;
-            this.ddlActionA.Location = new System.Drawing.Point(91, 210);
-            this.ddlActionA.Name = "ddlActionA";
-            this.ddlActionA.Size = new System.Drawing.Size(191, 24);
-            this.ddlActionA.TabIndex = 64;
-            // 
             // lblAHumorName
             // 
             this.lblAHumorName.AutoSize = true;
-            this.lblAHumorName.Location = new System.Drawing.Point(91, 334);
+            this.lblAHumorName.Location = new System.Drawing.Point(41, 286);
             this.lblAHumorName.Name = "lblAHumorName";
             this.lblAHumorName.Size = new System.Drawing.Size(54, 17);
             this.lblAHumorName.TabIndex = 63;
@@ -817,7 +773,7 @@
             // lblASexappealName
             // 
             this.lblASexappealName.AutoSize = true;
-            this.lblASexappealName.Location = new System.Drawing.Point(91, 284);
+            this.lblASexappealName.Location = new System.Drawing.Point(41, 232);
             this.lblASexappealName.Name = "lblASexappealName";
             this.lblASexappealName.Size = new System.Drawing.Size(54, 17);
             this.lblASexappealName.TabIndex = 62;
@@ -826,7 +782,7 @@
             // lblAActionName
             // 
             this.lblAActionName.AutoSize = true;
-            this.lblAActionName.Location = new System.Drawing.Point(91, 237);
+            this.lblAActionName.Location = new System.Drawing.Point(41, 183);
             this.lblAActionName.Name = "lblAActionName";
             this.lblAActionName.Size = new System.Drawing.Size(46, 17);
             this.lblAActionName.TabIndex = 61;
@@ -837,32 +793,23 @@
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(9, 462);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(35, 17);
+            this.label23.Size = new System.Drawing.Size(28, 17);
             this.label23.TabIndex = 60;
-            this.label23.Text = "Lnk:";
+            this.label23.Text = "$$:";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(9, 424);
+            this.label24.Location = new System.Drawing.Point(9, 401);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(37, 17);
             this.label24.TabIndex = 59;
             this.label24.Text = "Age:";
             // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(9, 394);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(29, 17);
-            this.label25.TabIndex = 58;
-            this.label25.Text = "Ta:";
-            // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(9, 357);
+            this.label26.Location = new System.Drawing.Point(10, 333);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(29, 17);
             this.label26.TabIndex = 57;
@@ -871,7 +818,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(9, 328);
+            this.label27.Location = new System.Drawing.Point(10, 286);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(30, 17);
             this.label27.TabIndex = 56;
@@ -880,7 +827,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(9, 274);
+            this.label28.Location = new System.Drawing.Point(10, 232);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(29, 17);
             this.label28.TabIndex = 55;
@@ -889,79 +836,35 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(9, 225);
+            this.label29.Location = new System.Drawing.Point(10, 183);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(28, 17);
             this.label29.TabIndex = 54;
             this.label29.Text = "Ac:";
             // 
-            // label30
+            // txtAPrice
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(9, 177);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(28, 17);
-            this.label30.TabIndex = 53;
-            this.label30.Text = "Sk:";
-            // 
-            // txtAImDb_Link
-            // 
-            this.txtAImDb_Link.Location = new System.Drawing.Point(52, 459);
-            this.txtAImDb_Link.Name = "txtAImDb_Link";
-            this.txtAImDb_Link.Size = new System.Drawing.Size(214, 22);
-            this.txtAImDb_Link.TabIndex = 52;
+            this.txtAPrice.Location = new System.Drawing.Point(52, 459);
+            this.txtAPrice.Name = "txtAPrice";
+            this.txtAPrice.ReadOnly = true;
+            this.txtAPrice.Size = new System.Drawing.Size(214, 22);
+            this.txtAPrice.TabIndex = 52;
             // 
             // txtAAge
             // 
-            this.txtAAge.Location = new System.Drawing.Point(52, 421);
+            this.txtAAge.Location = new System.Drawing.Point(52, 398);
             this.txtAAge.Name = "txtAAge";
+            this.txtAAge.ReadOnly = true;
             this.txtAAge.Size = new System.Drawing.Size(212, 22);
             this.txtAAge.TabIndex = 51;
             // 
-            // txtATalent
-            // 
-            this.txtATalent.Location = new System.Drawing.Point(42, 391);
-            this.txtATalent.Name = "txtATalent";
-            this.txtATalent.Size = new System.Drawing.Size(221, 22);
-            this.txtATalent.TabIndex = 50;
-            // 
             // txtAPopularity
             // 
-            this.txtAPopularity.Location = new System.Drawing.Point(43, 354);
+            this.txtAPopularity.Location = new System.Drawing.Point(44, 330);
             this.txtAPopularity.Name = "txtAPopularity";
+            this.txtAPopularity.ReadOnly = true;
             this.txtAPopularity.Size = new System.Drawing.Size(221, 22);
             this.txtAPopularity.TabIndex = 49;
-            // 
-            // txtAHumor
-            // 
-            this.txtAHumor.Location = new System.Drawing.Point(43, 325);
-            this.txtAHumor.Name = "txtAHumor";
-            this.txtAHumor.ReadOnly = true;
-            this.txtAHumor.Size = new System.Drawing.Size(42, 22);
-            this.txtAHumor.TabIndex = 48;
-            // 
-            // txtASexappeal
-            // 
-            this.txtASexappeal.Location = new System.Drawing.Point(43, 271);
-            this.txtASexappeal.Name = "txtASexappeal";
-            this.txtASexappeal.ReadOnly = true;
-            this.txtASexappeal.Size = new System.Drawing.Size(42, 22);
-            this.txtASexappeal.TabIndex = 47;
-            // 
-            // txtAAction
-            // 
-            this.txtAAction.Location = new System.Drawing.Point(45, 222);
-            this.txtAAction.Name = "txtAAction";
-            this.txtAAction.ReadOnly = true;
-            this.txtAAction.Size = new System.Drawing.Size(40, 22);
-            this.txtAAction.TabIndex = 46;
-            // 
-            // txtASkill
-            // 
-            this.txtASkill.Location = new System.Drawing.Point(45, 174);
-            this.txtASkill.Name = "txtASkill";
-            this.txtASkill.Size = new System.Drawing.Size(221, 22);
-            this.txtASkill.TabIndex = 45;
             // 
             // ddlASex
             // 
@@ -981,6 +884,7 @@
             this.txtASurname.Location = new System.Drawing.Point(3, 76);
             this.txtASurname.Multiline = true;
             this.txtASurname.Name = "txtASurname";
+            this.txtASurname.ReadOnly = true;
             this.txtASurname.Size = new System.Drawing.Size(163, 52);
             this.txtASurname.TabIndex = 42;
             // 
@@ -989,6 +893,7 @@
             this.txtAName.Location = new System.Drawing.Point(3, 22);
             this.txtAName.Multiline = true;
             this.txtAName.Name = "txtAName";
+            this.txtAName.ReadOnly = true;
             this.txtAName.Size = new System.Drawing.Size(163, 48);
             this.txtAName.TabIndex = 41;
             // 
@@ -1459,6 +1364,7 @@
             // 
             this.txtDirPrice.Location = new System.Drawing.Point(52, 452);
             this.txtDirPrice.Name = "txtDirPrice";
+            this.txtDirPrice.ReadOnly = true;
             this.txtDirPrice.Size = new System.Drawing.Size(214, 22);
             this.txtDirPrice.TabIndex = 71;
             // 
@@ -1585,28 +1491,18 @@
         private System.Windows.Forms.Button btnAClear;
         private System.Windows.Forms.Button btnASelect;
         private System.Windows.Forms.PictureBox pictureBoxA;
-        private System.Windows.Forms.ComboBox ddlSexappealA;
-        private System.Windows.Forms.ComboBox ddlHumorA;
-        private System.Windows.Forms.ComboBox ddlActionA;
         private System.Windows.Forms.Label lblAHumorName;
         private System.Windows.Forms.Label lblASexappealName;
         private System.Windows.Forms.Label lblAActionName;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox txtAImDb_Link;
+        private System.Windows.Forms.TextBox txtAPrice;
         private System.Windows.Forms.TextBox txtAAge;
-        private System.Windows.Forms.TextBox txtATalent;
         private System.Windows.Forms.TextBox txtAPopularity;
-        private System.Windows.Forms.TextBox txtAHumor;
-        private System.Windows.Forms.TextBox txtASexappeal;
-        private System.Windows.Forms.TextBox txtAAction;
-        private System.Windows.Forms.TextBox txtASkill;
         private System.Windows.Forms.ComboBox ddlASex;
         private System.Windows.Forms.TextBox txtASurname;
         private System.Windows.Forms.TextBox txtAName;
