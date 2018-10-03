@@ -13,7 +13,7 @@ namespace LFM
 {
     public partial class LFM : Form
     {
-        private bool blnThereAreGames = false;
+        //private bool blnThereAreGames = false;
 
         public LFM()
         {
@@ -76,7 +76,8 @@ namespace LFM
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Creator.CreateActor(2018, "F");
+            GenericCharacters G = Creator.CreateActor(2018, "F");
+            MessageBox.Show("Fatto!\nCreata " + G.Name + " " + G.Surname);
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -202,6 +203,19 @@ namespace LFM
 
         private void LFM_Load(object sender, EventArgs e)
         {
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            MainGame.MainGame frmMain = new MainGame.MainGame();
+            frmMain.Balance = 10000000;
+            frmMain.ShowDialog();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            LFMUtils.RestoreOriginalDb();
+            MessageBox.Show("Fatto!");
         }
     }
 }

@@ -48,7 +48,9 @@ namespace SQLLiteInterface
                 da.Fill(tblMinion);                
             }
             catch (Exception exc)
-            { }
+            {
+                throw exc;
+            }
             finally
             {
                 if (connection.State == ConnectionState.Open)
@@ -82,10 +84,10 @@ namespace SQLLiteInterface
                         MyImage = (System.Byte[])rdr[0];
                     }
                 }
-                catch (Exception exc1) {  }
+                catch (Exception exc1) { throw exc1; }
             }
             catch (Exception exc)
-            { }
+            { throw exc; }
             finally
             {
                 if (connection.State == ConnectionState.Open)
@@ -119,6 +121,7 @@ namespace SQLLiteInterface
                 catch (Exception exc1)
                 {
                     blnResult = false;
+                    throw exc1;
                 }
                 connection.Close();
                 blnResult = true;
@@ -126,6 +129,7 @@ namespace SQLLiteInterface
             catch (Exception exc)
             {
                 blnResult = false;
+                throw exc;
             }
             finally
             {
@@ -154,8 +158,9 @@ namespace SQLLiteInterface
                 blnResult = true;
             }
             catch (Exception exc)
-            {
+            {                
                 blnResult = false;
+                throw exc;
             }
             finally
             {

@@ -31,7 +31,7 @@ namespace DbRuler
                 switch (Charact.TypeOf.TypeOf.ToUpper())
                 {
                     case "WRITER":              
-                        long Priw = Calculation.GetCashOfWriter(Charact, GenMovie);
+                        long Priw = Calculation.GetCashOfWriter(Charact);
                         LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
                         long AffinityChangew = Priw * -Linkw.Affinity / 100;                        
                         Price += Priw + AffinityChangew;

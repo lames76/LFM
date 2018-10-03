@@ -31,79 +31,63 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Produzione));
             this.tabControlMovie = new System.Windows.Forms.TabControl();
             this.tabShowrunner = new System.Windows.Forms.TabPage();
+            this.charDisplaySelector1 = new CharacterDiplaySelector.CharDisplaySelector();
             this.tabCreateScript = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblWCounter = new System.Windows.Forms.Label();
+            this.btnWClearFilter = new System.Windows.Forms.Button();
+            this.btnWFilter = new System.Windows.Forms.Button();
+            this.txtWFilter = new System.Windows.Forms.TextBox();
+            this.lblCounter = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtWCost = new System.Windows.Forms.TextBox();
+            this.ddlWSex = new System.Windows.Forms.ComboBox();
+            this.lblWHumor = new System.Windows.Forms.Label();
+            this.lblWSexappeal = new System.Windows.Forms.Label();
+            this.lblWAction = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.pictureBoxW = new System.Windows.Forms.PictureBox();
+            this.txtWSurname = new System.Windows.Forms.TextBox();
+            this.txtWName = new System.Windows.Forms.TextBox();
+            this.dgWritersList = new System.Windows.Forms.DataGridView();
             this.btnSelectWriter = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgScriptsList = new System.Windows.Forms.DataGridView();
             this.btnSelectScript = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabDirector = new System.Windows.Forms.TabPage();
-            this.gbxDirector_List = new System.Windows.Forms.GroupBox();
-            this.btnClearFilter = new System.Windows.Forms.Button();
-            this.btnFilter = new System.Windows.Forms.Button();
-            this.txtFilter = new System.Windows.Forms.TextBox();
-            this.lblCounter = new System.Windows.Forms.Label();
-            this.dgChars = new System.Windows.Forms.DataGridView();
-            this.gbxDirector_Details = new System.Windows.Forms.GroupBox();
-            this.lstSpecials = new System.Windows.Forms.ListView();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnSelect = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblHumorName = new System.Windows.Forms.Label();
-            this.lblSexappealName = new System.Windows.Forms.Label();
-            this.lblActionName = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtImDb_Link = new System.Windows.Forms.TextBox();
-            this.txtAge = new System.Windows.Forms.TextBox();
-            this.txtPopularity = new System.Windows.Forms.TextBox();
-            this.ddlSex = new System.Windows.Forms.ComboBox();
-            this.txtSurname = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.charDisplaySelectorDir = new CharacterDiplaySelector.CharDisplaySelector();
             this.tabCast = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnAFinishSelect = new System.Windows.Forms.Button();
             this.btnRemoveActor = new System.Windows.Forms.Button();
             this.lstListOfCastSel = new System.Windows.Forms.ListView();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.ddlActorOrOthers = new System.Windows.Forms.ComboBox();
-            this.ddlSexFilter = new System.Windows.Forms.ComboBox();
-            this.btnAClearFilter = new System.Windows.Forms.Button();
-            this.btnAFilter = new System.Windows.Forms.Button();
-            this.txtAFilter = new System.Windows.Forms.TextBox();
-            this.lblACounter = new System.Windows.Forms.Label();
-            this.dgAChars = new System.Windows.Forms.DataGridView();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lstASpecials = new System.Windows.Forms.ListView();
-            this.btnAClear = new System.Windows.Forms.Button();
-            this.btnASelect = new System.Windows.Forms.Button();
-            this.pictureBoxA = new System.Windows.Forms.PictureBox();
-            this.lblAHumorName = new System.Windows.Forms.Label();
-            this.lblASexappealName = new System.Windows.Forms.Label();
-            this.lblAActionName = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.txtAPrice = new System.Windows.Forms.TextBox();
-            this.txtAAge = new System.Windows.Forms.TextBox();
-            this.txtAPopularity = new System.Windows.Forms.TextBox();
-            this.ddlASex = new System.Windows.Forms.ComboBox();
-            this.txtASurname = new System.Windows.Forms.TextBox();
-            this.txtAName = new System.Windows.Forms.TextBox();
+            this.charDisplaySelectorActor = new CharacterDiplaySelector.CharDisplaySelector();
             this.tabTdPeFX = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.gbxFX = new System.Windows.Forms.GroupBox();
+            this.btnSelezionaFX = new System.Windows.Forms.Button();
+            this.ddlSpecialEffect = new System.Windows.Forms.ComboBox();
+            this.gbxTdP = new System.Windows.Forms.GroupBox();
+            this.btnSelectTdP = new System.Windows.Forms.Button();
+            this.ddlTheatre = new System.Windows.Forms.ComboBox();
             this.tabRiassunto = new System.Windows.Forms.TabPage();
+            this.btnProduce = new System.Windows.Forms.Button();
             this.gbxRiassunto_Principale = new System.Windows.Forms.GroupBox();
+            this.txtMSpecialEffect = new System.Windows.Forms.TextBox();
+            this.txtMTheatre = new System.Windows.Forms.TextBox();
+            this.txtType4 = new System.Windows.Forms.TextBox();
+            this.txtType3 = new System.Windows.Forms.TextBox();
+            this.txtType2 = new System.Windows.Forms.TextBox();
+            this.txtType1 = new System.Windows.Forms.TextBox();
+            this.lblEpisode = new System.Windows.Forms.Label();
+            this.txtEpisode = new System.Windows.Forms.TextBox();
+            this.btnUpdateMov = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.txtCosto = new System.Windows.Forms.TextBox();
-            this.ddlMSpecialEffect = new System.Windows.Forms.ComboBox();
-            this.ddlMTheatre = new System.Windows.Forms.ComboBox();
             this.lstMActors = new System.Windows.Forms.ListView();
             this.lblDir = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -112,9 +96,6 @@
             this.txtWriter = new System.Windows.Forms.TextBox();
             this.txtDirector = new System.Windows.Forms.TextBox();
             this.lblUniverse = new System.Windows.Forms.Label();
-            this.ddlType4 = new System.Windows.Forms.ComboBox();
-            this.ddlType3 = new System.Windows.Forms.ComboBox();
-            this.ddlType2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -130,41 +111,32 @@
             this.txtMSex = new System.Windows.Forms.TextBox();
             this.txtMAction = new System.Windows.Forms.TextBox();
             this.txtUniverse = new System.Windows.Forms.TextBox();
-            this.ddlType1 = new System.Windows.Forms.ComboBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
-            this.gbxTdP = new System.Windows.Forms.GroupBox();
-            this.ddlTheatre = new System.Windows.Forms.ComboBox();
-            this.gbxFX = new System.Windows.Forms.GroupBox();
-            this.ddlSpecialEffect = new System.Windows.Forms.ComboBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.btnSelectTdP = new System.Windows.Forms.Button();
-            this.btnSelezionaFX = new System.Windows.Forms.Button();
-            this.btnUpdateMov = new System.Windows.Forms.Button();
-            this.lblEpisode = new System.Windows.Forms.Label();
-            this.txtEpisode = new System.Windows.Forms.TextBox();
-            this.btnProduce = new System.Windows.Forms.Button();
+            this.gbxMoney = new System.Windows.Forms.GroupBox();
+            this.txtDifference = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCostoTotale = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBudget = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtDirPrice = new System.Windows.Forms.TextBox();
             this.tabControlMovie.SuspendLayout();
+            this.tabShowrunner.SuspendLayout();
             this.tabCreateScript.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxW)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWritersList)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgScriptsList)).BeginInit();
             this.tabDirector.SuspendLayout();
-            this.gbxDirector_List.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgChars)).BeginInit();
-            this.gbxDirector_Details.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabCast.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgAChars)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxA)).BeginInit();
             this.tabTdPeFX.SuspendLayout();
+            this.gbxFX.SuspendLayout();
+            this.gbxTdP.SuspendLayout();
             this.tabRiassunto.SuspendLayout();
             this.gbxRiassunto_Principale.SuspendLayout();
-            this.gbxTdP.SuspendLayout();
-            this.gbxFX.SuspendLayout();
+            this.gbxMoney.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMovie
@@ -175,8 +147,8 @@
             this.tabControlMovie.Controls.Add(this.tabCast);
             this.tabControlMovie.Controls.Add(this.tabTdPeFX);
             this.tabControlMovie.Controls.Add(this.tabRiassunto);
-            this.tabControlMovie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlMovie.Location = new System.Drawing.Point(0, 0);
+            this.tabControlMovie.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabControlMovie.Location = new System.Drawing.Point(0, 42);
             this.tabControlMovie.Name = "tabControlMovie";
             this.tabControlMovie.SelectedIndex = 0;
             this.tabControlMovie.Size = new System.Drawing.Size(1048, 683);
@@ -185,12 +157,30 @@
             // 
             // tabShowrunner
             // 
+            this.tabShowrunner.Controls.Add(this.charDisplaySelector1);
             this.tabShowrunner.Location = new System.Drawing.Point(4, 25);
             this.tabShowrunner.Name = "tabShowrunner";
             this.tabShowrunner.Size = new System.Drawing.Size(1040, 654);
             this.tabShowrunner.TabIndex = 5;
             this.tabShowrunner.Text = "Assegna Showrunner";
             this.tabShowrunner.UseVisualStyleBackColor = true;
+            // 
+            // charDisplaySelector1
+            // 
+            this.charDisplaySelector1.AC = DbRuler.AgeClass.NoValue;
+            this.charDisplaySelector1.CharacterType = DbRuler.CharTypeEnum.Showrunner;
+            this.charDisplaySelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.charDisplaySelector1.Gener = null;
+            this.charDisplaySelector1.IsMovie = false;
+            this.charDisplaySelector1.ListOfTypes = null;
+            this.charDisplaySelector1.Location = new System.Drawing.Point(0, 0);
+            this.charDisplaySelector1.MyMovie = null;
+            this.charDisplaySelector1.MySerial = null;
+            this.charDisplaySelector1.Name = "charDisplaySelector1";
+            this.charDisplaySelector1.Price = ((long)(0));
+            this.charDisplaySelector1.Size = new System.Drawing.Size(1040, 654);
+            this.charDisplaySelector1.TabIndex = 0;
+            this.charDisplaySelector1.Year = 0;
             // 
             // tabCreateScript
             // 
@@ -207,18 +197,213 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.label30);
+            this.groupBox3.Controls.Add(this.txtWCost);
+            this.groupBox3.Controls.Add(this.ddlWSex);
+            this.groupBox3.Controls.Add(this.lblWHumor);
+            this.groupBox3.Controls.Add(this.lblWSexappeal);
+            this.groupBox3.Controls.Add(this.lblWAction);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.label22);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.pictureBoxW);
+            this.groupBox3.Controls.Add(this.txtWSurname);
+            this.groupBox3.Controls.Add(this.txtWName);
+            this.groupBox3.Controls.Add(this.dgWritersList);
             this.groupBox3.Controls.Add(this.btnSelectWriter);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 325);
+            this.groupBox3.Location = new System.Drawing.Point(3, 269);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(647, 326);
+            this.groupBox3.Size = new System.Drawing.Size(647, 382);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Writers";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lblWCounter);
+            this.groupBox4.Controls.Add(this.btnWClearFilter);
+            this.groupBox4.Controls.Add(this.btnWFilter);
+            this.groupBox4.Controls.Add(this.txtWFilter);
+            this.groupBox4.Controls.Add(this.lblCounter);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox4.Location = new System.Drawing.Point(3, 18);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(641, 46);
+            this.groupBox4.TabIndex = 84;
+            this.groupBox4.TabStop = false;
+            // 
+            // lblWCounter
+            // 
+            this.lblWCounter.AutoSize = true;
+            this.lblWCounter.Location = new System.Drawing.Point(3, 19);
+            this.lblWCounter.Name = "lblWCounter";
+            this.lblWCounter.Size = new System.Drawing.Size(46, 17);
+            this.lblWCounter.TabIndex = 57;
+            this.lblWCounter.Text = "label1";
+            // 
+            // btnWClearFilter
+            // 
+            this.btnWClearFilter.Location = new System.Drawing.Point(214, 15);
+            this.btnWClearFilter.Name = "btnWClearFilter";
+            this.btnWClearFilter.Size = new System.Drawing.Size(31, 25);
+            this.btnWClearFilter.TabIndex = 56;
+            this.btnWClearFilter.Text = "x";
+            this.btnWClearFilter.UseVisualStyleBackColor = true;
+            this.btnWClearFilter.Click += new System.EventHandler(this.btnWClearFilter_Click);
+            // 
+            // btnWFilter
+            // 
+            this.btnWFilter.Location = new System.Drawing.Point(532, 13);
+            this.btnWFilter.Name = "btnWFilter";
+            this.btnWFilter.Size = new System.Drawing.Size(106, 25);
+            this.btnWFilter.TabIndex = 55;
+            this.btnWFilter.Text = "Filter";
+            this.btnWFilter.UseVisualStyleBackColor = true;
+            this.btnWFilter.Click += new System.EventHandler(this.btnWFilter_Click);
+            // 
+            // txtWFilter
+            // 
+            this.txtWFilter.Location = new System.Drawing.Point(263, 16);
+            this.txtWFilter.Name = "txtWFilter";
+            this.txtWFilter.Size = new System.Drawing.Size(263, 22);
+            this.txtWFilter.TabIndex = 54;
+            this.txtWFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtWFilter_KeyDown);
+            // 
+            // lblCounter
+            // 
+            this.lblCounter.AutoSize = true;
+            this.lblCounter.Location = new System.Drawing.Point(-132, 9);
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(46, 17);
+            this.lblCounter.TabIndex = 53;
+            this.lblCounter.Text = "label1";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(489, 242);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(28, 17);
+            this.label30.TabIndex = 83;
+            this.label30.Text = "$$:";
+            // 
+            // txtWCost
+            // 
+            this.txtWCost.Location = new System.Drawing.Point(492, 262);
+            this.txtWCost.Name = "txtWCost";
+            this.txtWCost.ReadOnly = true;
+            this.txtWCost.Size = new System.Drawing.Size(149, 22);
+            this.txtWCost.TabIndex = 82;
+            // 
+            // ddlWSex
+            // 
+            this.ddlWSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlWSex.FormattingEnabled = true;
+            this.ddlWSex.Items.AddRange(new object[] {
+            "M",
+            "F",
+            "A"});
+            this.ddlWSex.Location = new System.Drawing.Point(6, 351);
+            this.ddlWSex.Name = "ddlWSex";
+            this.ddlWSex.Size = new System.Drawing.Size(163, 24);
+            this.ddlWSex.TabIndex = 81;
+            // 
+            // lblWHumor
+            // 
+            this.lblWHumor.AutoSize = true;
+            this.lblWHumor.Location = new System.Drawing.Point(358, 340);
+            this.lblWHumor.Name = "lblWHumor";
+            this.lblWHumor.Size = new System.Drawing.Size(54, 17);
+            this.lblWHumor.TabIndex = 80;
+            this.lblWHumor.Text = "label11";
+            // 
+            // lblWSexappeal
+            // 
+            this.lblWSexappeal.AutoSize = true;
+            this.lblWSexappeal.Location = new System.Drawing.Point(358, 298);
+            this.lblWSexappeal.Name = "lblWSexappeal";
+            this.lblWSexappeal.Size = new System.Drawing.Size(54, 17);
+            this.lblWSexappeal.TabIndex = 79;
+            this.lblWSexappeal.Text = "label10";
+            // 
+            // lblWAction
+            // 
+            this.lblWAction.AutoSize = true;
+            this.lblWAction.Location = new System.Drawing.Point(358, 249);
+            this.lblWAction.Name = "lblWAction";
+            this.lblWAction.Size = new System.Drawing.Size(46, 17);
+            this.lblWAction.TabIndex = 78;
+            this.lblWAction.Text = "label9";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(318, 340);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(30, 17);
+            this.label21.TabIndex = 77;
+            this.label21.Text = "Hu:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(318, 298);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 17);
+            this.label22.TabIndex = 76;
+            this.label22.Text = "Sh:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(318, 249);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(28, 17);
+            this.label25.TabIndex = 75;
+            this.label25.Text = "Ac:";
+            // 
+            // pictureBoxW
+            // 
+            this.pictureBoxW.Location = new System.Drawing.Point(178, 237);
+            this.pictureBoxW.Name = "pictureBoxW";
+            this.pictureBoxW.Size = new System.Drawing.Size(127, 140);
+            this.pictureBoxW.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxW.TabIndex = 74;
+            this.pictureBoxW.TabStop = false;
+            // 
+            // txtWSurname
+            // 
+            this.txtWSurname.Location = new System.Drawing.Point(6, 290);
+            this.txtWSurname.Multiline = true;
+            this.txtWSurname.Name = "txtWSurname";
+            this.txtWSurname.ReadOnly = true;
+            this.txtWSurname.Size = new System.Drawing.Size(163, 52);
+            this.txtWSurname.TabIndex = 73;
+            // 
+            // txtWName
+            // 
+            this.txtWName.Location = new System.Drawing.Point(6, 236);
+            this.txtWName.Multiline = true;
+            this.txtWName.Name = "txtWName";
+            this.txtWName.ReadOnly = true;
+            this.txtWName.Size = new System.Drawing.Size(163, 48);
+            this.txtWName.TabIndex = 72;
+            // 
+            // dgWritersList
+            // 
+            this.dgWritersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgWritersList.Location = new System.Drawing.Point(3, 70);
+            this.dgWritersList.Name = "dgWritersList";
+            this.dgWritersList.RowTemplate.Height = 24;
+            this.dgWritersList.Size = new System.Drawing.Size(641, 160);
+            this.dgWritersList.TabIndex = 91;
+            this.dgWritersList.DoubleClick += new System.EventHandler(this.dgWritersList_DoubleClick);
             // 
             // btnSelectWriter
             // 
-            this.btnSelectWriter.Location = new System.Drawing.Point(540, 288);
+            this.btnSelectWriter.Location = new System.Drawing.Point(540, 340);
             this.btnSelectWriter.Name = "btnSelectWriter";
             this.btnSelectWriter.Size = new System.Drawing.Size(101, 33);
             this.btnSelectWriter.TabIndex = 69;
@@ -228,18 +413,31 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.dgScriptsList);
             this.groupBox2.Controls.Add(this.btnSelectScript);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(647, 322);
+            this.groupBox2.Size = new System.Drawing.Size(647, 266);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
+            // dgScriptsList
+            // 
+            this.dgScriptsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgScriptsList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgScriptsList.Location = new System.Drawing.Point(3, 18);
+            this.dgScriptsList.Name = "dgScriptsList";
+            this.dgScriptsList.RowTemplate.Height = 24;
+            this.dgScriptsList.Size = new System.Drawing.Size(641, 213);
+            this.dgScriptsList.TabIndex = 70;
+            this.dgScriptsList.DoubleClick += new System.EventHandler(this.dgScriptsList_DoubleClick);
+            // 
             // btnSelectScript
             // 
-            this.btnSelectScript.Location = new System.Drawing.Point(540, 283);
+            this.btnSelectScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectScript.Location = new System.Drawing.Point(540, 233);
             this.btnSelectScript.Name = "btnSelectScript";
             this.btnSelectScript.Size = new System.Drawing.Size(101, 33);
             this.btnSelectScript.TabIndex = 69;
@@ -259,8 +457,7 @@
             // 
             // tabDirector
             // 
-            this.tabDirector.Controls.Add(this.gbxDirector_List);
-            this.tabDirector.Controls.Add(this.gbxDirector_Details);
+            this.tabDirector.Controls.Add(this.charDisplaySelectorDir);
             this.tabDirector.Location = new System.Drawing.Point(4, 25);
             this.tabDirector.Name = "tabDirector";
             this.tabDirector.Padding = new System.Windows.Forms.Padding(3);
@@ -269,282 +466,27 @@
             this.tabDirector.Text = "Assegna Regista";
             this.tabDirector.UseVisualStyleBackColor = true;
             // 
-            // gbxDirector_List
+            // charDisplaySelectorDir
             // 
-            this.gbxDirector_List.Controls.Add(this.btnClearFilter);
-            this.gbxDirector_List.Controls.Add(this.btnFilter);
-            this.gbxDirector_List.Controls.Add(this.txtFilter);
-            this.gbxDirector_List.Controls.Add(this.lblCounter);
-            this.gbxDirector_List.Controls.Add(this.dgChars);
-            this.gbxDirector_List.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbxDirector_List.Location = new System.Drawing.Point(311, 3);
-            this.gbxDirector_List.Name = "gbxDirector_List";
-            this.gbxDirector_List.Size = new System.Drawing.Size(726, 398);
-            this.gbxDirector_List.TabIndex = 61;
-            this.gbxDirector_List.TabStop = false;
-            this.gbxDirector_List.Text = "groupBox1";
-            // 
-            // btnClearFilter
-            // 
-            this.btnClearFilter.Location = new System.Drawing.Point(274, 24);
-            this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(27, 25);
-            this.btnClearFilter.TabIndex = 62;
-            this.btnClearFilter.Text = "x";
-            this.btnClearFilter.UseVisualStyleBackColor = true;
-            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
-            // 
-            // btnFilter
-            // 
-            this.btnFilter.Location = new System.Drawing.Point(592, 28);
-            this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(102, 25);
-            this.btnFilter.TabIndex = 61;
-            this.btnFilter.Text = "Filter";
-            this.btnFilter.UseVisualStyleBackColor = true;
-            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Location = new System.Drawing.Point(311, 27);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(259, 22);
-            this.txtFilter.TabIndex = 60;
-            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
-            // 
-            // lblCounter
-            // 
-            this.lblCounter.AutoSize = true;
-            this.lblCounter.Location = new System.Drawing.Point(12, 24);
-            this.lblCounter.Name = "lblCounter";
-            this.lblCounter.Size = new System.Drawing.Size(46, 17);
-            this.lblCounter.TabIndex = 59;
-            this.lblCounter.Text = "label1";
-            // 
-            // dgChars
-            // 
-            this.dgChars.AllowUserToAddRows = false;
-            this.dgChars.AllowUserToDeleteRows = false;
-            this.dgChars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgChars.Location = new System.Drawing.Point(15, 59);
-            this.dgChars.Name = "dgChars";
-            this.dgChars.RowTemplate.Height = 24;
-            this.dgChars.Size = new System.Drawing.Size(696, 313);
-            this.dgChars.TabIndex = 58;
-            this.dgChars.DoubleClick += new System.EventHandler(this.dgChars_DoubleClick);
-            // 
-            // gbxDirector_Details
-            // 
-            this.gbxDirector_Details.Controls.Add(this.label1);
-            this.gbxDirector_Details.Controls.Add(this.txtDirPrice);
-            this.gbxDirector_Details.Controls.Add(this.lstSpecials);
-            this.gbxDirector_Details.Controls.Add(this.btnClear);
-            this.gbxDirector_Details.Controls.Add(this.btnSelect);
-            this.gbxDirector_Details.Controls.Add(this.pictureBox1);
-            this.gbxDirector_Details.Controls.Add(this.lblHumorName);
-            this.gbxDirector_Details.Controls.Add(this.lblSexappealName);
-            this.gbxDirector_Details.Controls.Add(this.lblActionName);
-            this.gbxDirector_Details.Controls.Add(this.label8);
-            this.gbxDirector_Details.Controls.Add(this.label7);
-            this.gbxDirector_Details.Controls.Add(this.label5);
-            this.gbxDirector_Details.Controls.Add(this.label4);
-            this.gbxDirector_Details.Controls.Add(this.label3);
-            this.gbxDirector_Details.Controls.Add(this.label2);
-            this.gbxDirector_Details.Controls.Add(this.txtImDb_Link);
-            this.gbxDirector_Details.Controls.Add(this.txtAge);
-            this.gbxDirector_Details.Controls.Add(this.txtPopularity);
-            this.gbxDirector_Details.Controls.Add(this.ddlSex);
-            this.gbxDirector_Details.Controls.Add(this.txtSurname);
-            this.gbxDirector_Details.Controls.Add(this.txtName);
-            this.gbxDirector_Details.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gbxDirector_Details.Location = new System.Drawing.Point(3, 3);
-            this.gbxDirector_Details.Name = "gbxDirector_Details";
-            this.gbxDirector_Details.Size = new System.Drawing.Size(308, 648);
-            this.gbxDirector_Details.TabIndex = 60;
-            this.gbxDirector_Details.TabStop = false;
-            this.gbxDirector_Details.Text = "groupBox2";
-            // 
-            // lstSpecials
-            // 
-            this.lstSpecials.LabelWrap = false;
-            this.lstSpecials.Location = new System.Drawing.Point(3, 497);
-            this.lstSpecials.MultiSelect = false;
-            this.lstSpecials.Name = "lstSpecials";
-            this.lstSpecials.Size = new System.Drawing.Size(279, 90);
-            this.lstSpecials.TabIndex = 70;
-            this.lstSpecials.UseCompatibleStateImageBehavior = false;
-            this.lstSpecials.View = System.Windows.Forms.View.List;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(3, 606);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(108, 33);
-            this.btnClear.TabIndex = 69;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnSelect
-            // 
-            this.btnSelect.Location = new System.Drawing.Point(181, 606);
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(101, 33);
-            this.btnSelect.TabIndex = 68;
-            this.btnSelect.Text = "Seleziona";
-            this.btnSelect.UseVisualStyleBackColor = true;
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(175, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(127, 140);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 67;
-            this.pictureBox1.TabStop = false;
-            // 
-            // lblHumorName
-            // 
-            this.lblHumorName.AutoSize = true;
-            this.lblHumorName.Location = new System.Drawing.Point(49, 281);
-            this.lblHumorName.Name = "lblHumorName";
-            this.lblHumorName.Size = new System.Drawing.Size(54, 17);
-            this.lblHumorName.TabIndex = 63;
-            this.lblHumorName.Text = "label11";
-            // 
-            // lblSexappealName
-            // 
-            this.lblSexappealName.AutoSize = true;
-            this.lblSexappealName.Location = new System.Drawing.Point(49, 239);
-            this.lblSexappealName.Name = "lblSexappealName";
-            this.lblSexappealName.Size = new System.Drawing.Size(54, 17);
-            this.lblSexappealName.TabIndex = 62;
-            this.lblSexappealName.Text = "label10";
-            // 
-            // lblActionName
-            // 
-            this.lblActionName.AutoSize = true;
-            this.lblActionName.Location = new System.Drawing.Point(49, 190);
-            this.lblActionName.Name = "lblActionName";
-            this.lblActionName.Size = new System.Drawing.Size(46, 17);
-            this.lblActionName.TabIndex = 61;
-            this.lblActionName.Text = "label9";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 391);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 17);
-            this.label8.TabIndex = 60;
-            this.label8.Text = "Lnk:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 353);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 17);
-            this.label7.TabIndex = 59;
-            this.label7.Text = "Age:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 322);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 17);
-            this.label5.TabIndex = 57;
-            this.label5.Text = "Po:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 281);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 17);
-            this.label4.TabIndex = 56;
-            this.label4.Text = "Hu:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 239);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 17);
-            this.label3.TabIndex = 55;
-            this.label3.Text = "Sh:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 190);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 17);
-            this.label2.TabIndex = 54;
-            this.label2.Text = "Ac:";
-            // 
-            // txtImDb_Link
-            // 
-            this.txtImDb_Link.Location = new System.Drawing.Point(52, 388);
-            this.txtImDb_Link.Name = "txtImDb_Link";
-            this.txtImDb_Link.ReadOnly = true;
-            this.txtImDb_Link.Size = new System.Drawing.Size(214, 22);
-            this.txtImDb_Link.TabIndex = 52;
-            // 
-            // txtAge
-            // 
-            this.txtAge.Location = new System.Drawing.Point(52, 350);
-            this.txtAge.Name = "txtAge";
-            this.txtAge.ReadOnly = true;
-            this.txtAge.Size = new System.Drawing.Size(212, 22);
-            this.txtAge.TabIndex = 51;
-            // 
-            // txtPopularity
-            // 
-            this.txtPopularity.Location = new System.Drawing.Point(52, 319);
-            this.txtPopularity.Name = "txtPopularity";
-            this.txtPopularity.ReadOnly = true;
-            this.txtPopularity.Size = new System.Drawing.Size(212, 22);
-            this.txtPopularity.TabIndex = 49;
-            // 
-            // ddlSex
-            // 
-            this.ddlSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlSex.FormattingEnabled = true;
-            this.ddlSex.Items.AddRange(new object[] {
-            "M",
-            "F",
-            "A"});
-            this.ddlSex.Location = new System.Drawing.Point(12, 144);
-            this.ddlSex.Name = "ddlSex";
-            this.ddlSex.Size = new System.Drawing.Size(125, 24);
-            this.ddlSex.TabIndex = 43;
-            // 
-            // txtSurname
-            // 
-            this.txtSurname.Location = new System.Drawing.Point(3, 76);
-            this.txtSurname.Multiline = true;
-            this.txtSurname.Name = "txtSurname";
-            this.txtSurname.ReadOnly = true;
-            this.txtSurname.Size = new System.Drawing.Size(163, 52);
-            this.txtSurname.TabIndex = 42;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(3, 22);
-            this.txtName.Multiline = true;
-            this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(163, 48);
-            this.txtName.TabIndex = 41;
+            this.charDisplaySelectorDir.AC = DbRuler.AgeClass.NoValue;
+            this.charDisplaySelectorDir.CharacterType = DbRuler.CharTypeEnum.Director;
+            this.charDisplaySelectorDir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.charDisplaySelectorDir.Gener = null;
+            this.charDisplaySelectorDir.IsMovie = false;
+            this.charDisplaySelectorDir.ListOfTypes = null;
+            this.charDisplaySelectorDir.Location = new System.Drawing.Point(3, 3);
+            this.charDisplaySelectorDir.MyMovie = null;
+            this.charDisplaySelectorDir.MySerial = null;
+            this.charDisplaySelectorDir.Name = "charDisplaySelectorDir";
+            this.charDisplaySelectorDir.Price = ((long)(0));
+            this.charDisplaySelectorDir.Size = new System.Drawing.Size(1034, 648);
+            this.charDisplaySelectorDir.TabIndex = 0;
+            this.charDisplaySelectorDir.Year = 0;
             // 
             // tabCast
             // 
             this.tabCast.Controls.Add(this.groupBox6);
-            this.tabCast.Controls.Add(this.groupBox5);
-            this.tabCast.Controls.Add(this.groupBox4);
+            this.tabCast.Controls.Add(this.charDisplaySelectorActor);
             this.tabCast.Location = new System.Drawing.Point(4, 25);
             this.tabCast.Name = "tabCast";
             this.tabCast.Size = new System.Drawing.Size(1040, 654);
@@ -557,7 +499,6 @@
             this.groupBox6.Controls.Add(this.btnAFinishSelect);
             this.groupBox6.Controls.Add(this.btnRemoveActor);
             this.groupBox6.Controls.Add(this.lstListOfCastSel);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(308, 398);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(732, 256);
@@ -599,303 +540,22 @@
             this.lstListOfCastSel.UseCompatibleStateImageBehavior = false;
             this.lstListOfCastSel.View = System.Windows.Forms.View.List;
             // 
-            // groupBox5
+            // charDisplaySelectorActor
             // 
-            this.groupBox5.Controls.Add(this.ddlActorOrOthers);
-            this.groupBox5.Controls.Add(this.ddlSexFilter);
-            this.groupBox5.Controls.Add(this.btnAClearFilter);
-            this.groupBox5.Controls.Add(this.btnAFilter);
-            this.groupBox5.Controls.Add(this.txtAFilter);
-            this.groupBox5.Controls.Add(this.lblACounter);
-            this.groupBox5.Controls.Add(this.dgAChars);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox5.Location = new System.Drawing.Point(308, 0);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(732, 398);
-            this.groupBox5.TabIndex = 62;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox1";
-            // 
-            // ddlActorOrOthers
-            // 
-            this.ddlActorOrOthers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlActorOrOthers.FormattingEnabled = true;
-            this.ddlActorOrOthers.Items.AddRange(new object[] {
-            "Actors",
-            "Sports",
-            "Singer"});
-            this.ddlActorOrOthers.Location = new System.Drawing.Point(159, 28);
-            this.ddlActorOrOthers.Name = "ddlActorOrOthers";
-            this.ddlActorOrOthers.Size = new System.Drawing.Size(106, 24);
-            this.ddlActorOrOthers.TabIndex = 64;
-            this.ddlActorOrOthers.SelectedIndexChanged += new System.EventHandler(this.ddlActorOrOthers_SelectedIndexChanged);
-            // 
-            // ddlSexFilter
-            // 
-            this.ddlSexFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlSexFilter.FormattingEnabled = true;
-            this.ddlSexFilter.Items.AddRange(new object[] {
-            "M",
-            "F"});
-            this.ddlSexFilter.Location = new System.Drawing.Point(271, 27);
-            this.ddlSexFilter.Name = "ddlSexFilter";
-            this.ddlSexFilter.Size = new System.Drawing.Size(67, 24);
-            this.ddlSexFilter.TabIndex = 63;
-            this.ddlSexFilter.SelectedIndexChanged += new System.EventHandler(this.ddlSexFilter_SelectedIndexChanged);
-            // 
-            // btnAClearFilter
-            // 
-            this.btnAClearFilter.Location = new System.Drawing.Point(684, 29);
-            this.btnAClearFilter.Name = "btnAClearFilter";
-            this.btnAClearFilter.Size = new System.Drawing.Size(27, 24);
-            this.btnAClearFilter.TabIndex = 62;
-            this.btnAClearFilter.Text = "x";
-            this.btnAClearFilter.UseVisualStyleBackColor = true;
-            this.btnAClearFilter.Click += new System.EventHandler(this.btnAClearFilter_Click);
-            // 
-            // btnAFilter
-            // 
-            this.btnAFilter.Location = new System.Drawing.Point(609, 28);
-            this.btnAFilter.Name = "btnAFilter";
-            this.btnAFilter.Size = new System.Drawing.Size(78, 25);
-            this.btnAFilter.TabIndex = 61;
-            this.btnAFilter.Text = "Filter";
-            this.btnAFilter.UseVisualStyleBackColor = true;
-            this.btnAFilter.Click += new System.EventHandler(this.btnAFilter_Click);
-            // 
-            // txtAFilter
-            // 
-            this.txtAFilter.Location = new System.Drawing.Point(344, 29);
-            this.txtAFilter.Name = "txtAFilter";
-            this.txtAFilter.Size = new System.Drawing.Size(259, 22);
-            this.txtAFilter.TabIndex = 60;
-            this.txtAFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAFilter_KeyDown);
-            // 
-            // lblACounter
-            // 
-            this.lblACounter.AutoSize = true;
-            this.lblACounter.Location = new System.Drawing.Point(12, 24);
-            this.lblACounter.Name = "lblACounter";
-            this.lblACounter.Size = new System.Drawing.Size(46, 17);
-            this.lblACounter.TabIndex = 59;
-            this.lblACounter.Text = "label1";
-            // 
-            // dgAChars
-            // 
-            this.dgAChars.AllowUserToAddRows = false;
-            this.dgAChars.AllowUserToDeleteRows = false;
-            this.dgAChars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgAChars.Location = new System.Drawing.Point(15, 59);
-            this.dgAChars.Name = "dgAChars";
-            this.dgAChars.RowTemplate.Height = 24;
-            this.dgAChars.Size = new System.Drawing.Size(696, 313);
-            this.dgAChars.TabIndex = 58;
-            this.dgAChars.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.lstASpecials);
-            this.groupBox4.Controls.Add(this.btnAClear);
-            this.groupBox4.Controls.Add(this.btnASelect);
-            this.groupBox4.Controls.Add(this.pictureBoxA);
-            this.groupBox4.Controls.Add(this.lblAHumorName);
-            this.groupBox4.Controls.Add(this.lblASexappealName);
-            this.groupBox4.Controls.Add(this.lblAActionName);
-            this.groupBox4.Controls.Add(this.label23);
-            this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.label26);
-            this.groupBox4.Controls.Add(this.label27);
-            this.groupBox4.Controls.Add(this.label28);
-            this.groupBox4.Controls.Add(this.label29);
-            this.groupBox4.Controls.Add(this.txtAPrice);
-            this.groupBox4.Controls.Add(this.txtAAge);
-            this.groupBox4.Controls.Add(this.txtAPopularity);
-            this.groupBox4.Controls.Add(this.ddlASex);
-            this.groupBox4.Controls.Add(this.txtASurname);
-            this.groupBox4.Controls.Add(this.txtAName);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(308, 654);
-            this.groupBox4.TabIndex = 61;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox2";
-            // 
-            // lstASpecials
-            // 
-            this.lstASpecials.LabelWrap = false;
-            this.lstASpecials.Location = new System.Drawing.Point(3, 497);
-            this.lstASpecials.MultiSelect = false;
-            this.lstASpecials.Name = "lstASpecials";
-            this.lstASpecials.Size = new System.Drawing.Size(279, 90);
-            this.lstASpecials.TabIndex = 70;
-            this.lstASpecials.UseCompatibleStateImageBehavior = false;
-            this.lstASpecials.View = System.Windows.Forms.View.List;
-            // 
-            // btnAClear
-            // 
-            this.btnAClear.Location = new System.Drawing.Point(3, 606);
-            this.btnAClear.Name = "btnAClear";
-            this.btnAClear.Size = new System.Drawing.Size(108, 33);
-            this.btnAClear.TabIndex = 69;
-            this.btnAClear.Text = "Clear";
-            this.btnAClear.UseVisualStyleBackColor = true;
-            this.btnAClear.Click += new System.EventHandler(this.btnAClear_Click);
-            // 
-            // btnASelect
-            // 
-            this.btnASelect.Location = new System.Drawing.Point(181, 606);
-            this.btnASelect.Name = "btnASelect";
-            this.btnASelect.Size = new System.Drawing.Size(101, 33);
-            this.btnASelect.TabIndex = 68;
-            this.btnASelect.Text = "Seleziona";
-            this.btnASelect.UseVisualStyleBackColor = true;
-            this.btnASelect.Click += new System.EventHandler(this.btnASelect_Click);
-            // 
-            // pictureBoxA
-            // 
-            this.pictureBoxA.Location = new System.Drawing.Point(175, 8);
-            this.pictureBoxA.Name = "pictureBoxA";
-            this.pictureBoxA.Size = new System.Drawing.Size(127, 140);
-            this.pictureBoxA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxA.TabIndex = 67;
-            this.pictureBoxA.TabStop = false;
-            // 
-            // lblAHumorName
-            // 
-            this.lblAHumorName.AutoSize = true;
-            this.lblAHumorName.Location = new System.Drawing.Point(41, 286);
-            this.lblAHumorName.Name = "lblAHumorName";
-            this.lblAHumorName.Size = new System.Drawing.Size(54, 17);
-            this.lblAHumorName.TabIndex = 63;
-            this.lblAHumorName.Text = "label11";
-            // 
-            // lblASexappealName
-            // 
-            this.lblASexappealName.AutoSize = true;
-            this.lblASexappealName.Location = new System.Drawing.Point(41, 232);
-            this.lblASexappealName.Name = "lblASexappealName";
-            this.lblASexappealName.Size = new System.Drawing.Size(54, 17);
-            this.lblASexappealName.TabIndex = 62;
-            this.lblASexappealName.Text = "label10";
-            // 
-            // lblAActionName
-            // 
-            this.lblAActionName.AutoSize = true;
-            this.lblAActionName.Location = new System.Drawing.Point(41, 183);
-            this.lblAActionName.Name = "lblAActionName";
-            this.lblAActionName.Size = new System.Drawing.Size(46, 17);
-            this.lblAActionName.TabIndex = 61;
-            this.lblAActionName.Text = "label9";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(9, 462);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(28, 17);
-            this.label23.TabIndex = 60;
-            this.label23.Text = "$$:";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(9, 401);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(37, 17);
-            this.label24.TabIndex = 59;
-            this.label24.Text = "Age:";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(10, 333);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(29, 17);
-            this.label26.TabIndex = 57;
-            this.label26.Text = "Po:";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(10, 286);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(30, 17);
-            this.label27.TabIndex = 56;
-            this.label27.Text = "Hu:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(10, 232);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(29, 17);
-            this.label28.TabIndex = 55;
-            this.label28.Text = "Sh:";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(10, 183);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(28, 17);
-            this.label29.TabIndex = 54;
-            this.label29.Text = "Ac:";
-            // 
-            // txtAPrice
-            // 
-            this.txtAPrice.Location = new System.Drawing.Point(52, 459);
-            this.txtAPrice.Name = "txtAPrice";
-            this.txtAPrice.ReadOnly = true;
-            this.txtAPrice.Size = new System.Drawing.Size(214, 22);
-            this.txtAPrice.TabIndex = 52;
-            // 
-            // txtAAge
-            // 
-            this.txtAAge.Location = new System.Drawing.Point(52, 398);
-            this.txtAAge.Name = "txtAAge";
-            this.txtAAge.ReadOnly = true;
-            this.txtAAge.Size = new System.Drawing.Size(212, 22);
-            this.txtAAge.TabIndex = 51;
-            // 
-            // txtAPopularity
-            // 
-            this.txtAPopularity.Location = new System.Drawing.Point(44, 330);
-            this.txtAPopularity.Name = "txtAPopularity";
-            this.txtAPopularity.ReadOnly = true;
-            this.txtAPopularity.Size = new System.Drawing.Size(221, 22);
-            this.txtAPopularity.TabIndex = 49;
-            // 
-            // ddlASex
-            // 
-            this.ddlASex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlASex.FormattingEnabled = true;
-            this.ddlASex.Items.AddRange(new object[] {
-            "M",
-            "F",
-            "A"});
-            this.ddlASex.Location = new System.Drawing.Point(3, 134);
-            this.ddlASex.Name = "ddlASex";
-            this.ddlASex.Size = new System.Drawing.Size(125, 24);
-            this.ddlASex.TabIndex = 43;
-            // 
-            // txtASurname
-            // 
-            this.txtASurname.Location = new System.Drawing.Point(3, 76);
-            this.txtASurname.Multiline = true;
-            this.txtASurname.Name = "txtASurname";
-            this.txtASurname.ReadOnly = true;
-            this.txtASurname.Size = new System.Drawing.Size(163, 52);
-            this.txtASurname.TabIndex = 42;
-            // 
-            // txtAName
-            // 
-            this.txtAName.Location = new System.Drawing.Point(3, 22);
-            this.txtAName.Multiline = true;
-            this.txtAName.Name = "txtAName";
-            this.txtAName.ReadOnly = true;
-            this.txtAName.Size = new System.Drawing.Size(163, 48);
-            this.txtAName.TabIndex = 41;
+            this.charDisplaySelectorActor.AC = DbRuler.AgeClass.NoValue;
+            this.charDisplaySelectorActor.CharacterType = DbRuler.CharTypeEnum.Actor;
+            this.charDisplaySelectorActor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.charDisplaySelectorActor.Gener = null;
+            this.charDisplaySelectorActor.IsMovie = false;
+            this.charDisplaySelectorActor.ListOfTypes = null;
+            this.charDisplaySelectorActor.Location = new System.Drawing.Point(0, 0);
+            this.charDisplaySelectorActor.MyMovie = null;
+            this.charDisplaySelectorActor.MySerial = null;
+            this.charDisplaySelectorActor.Name = "charDisplaySelectorActor";
+            this.charDisplaySelectorActor.Price = ((long)(0));
+            this.charDisplaySelectorActor.Size = new System.Drawing.Size(1040, 654);
+            this.charDisplaySelectorActor.TabIndex = 64;
+            this.charDisplaySelectorActor.Year = 0;
             // 
             // tabTdPeFX
             // 
@@ -909,6 +569,78 @@
             this.tabTdPeFX.Text = "Set ed Effetti Speciali";
             this.tabTdPeFX.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox9.Location = new System.Drawing.Point(0, 235);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(1040, 419);
+            this.groupBox9.TabIndex = 2;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "groupBox9";
+            // 
+            // gbxFX
+            // 
+            this.gbxFX.Controls.Add(this.btnSelezionaFX);
+            this.gbxFX.Controls.Add(this.ddlSpecialEffect);
+            this.gbxFX.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbxFX.Location = new System.Drawing.Point(0, 120);
+            this.gbxFX.Name = "gbxFX";
+            this.gbxFX.Size = new System.Drawing.Size(1040, 115);
+            this.gbxFX.TabIndex = 1;
+            this.gbxFX.TabStop = false;
+            this.gbxFX.Text = "Seleziona Effetti Speciali:";
+            // 
+            // btnSelezionaFX
+            // 
+            this.btnSelezionaFX.Location = new System.Drawing.Point(870, 25);
+            this.btnSelezionaFX.Name = "btnSelezionaFX";
+            this.btnSelezionaFX.Size = new System.Drawing.Size(133, 59);
+            this.btnSelezionaFX.TabIndex = 63;
+            this.btnSelezionaFX.Text = "Seleziona";
+            this.btnSelezionaFX.UseVisualStyleBackColor = true;
+            this.btnSelezionaFX.Click += new System.EventHandler(this.btnSelezionaFX_Click);
+            // 
+            // ddlSpecialEffect
+            // 
+            this.ddlSpecialEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlSpecialEffect.FormattingEnabled = true;
+            this.ddlSpecialEffect.Location = new System.Drawing.Point(28, 43);
+            this.ddlSpecialEffect.Name = "ddlSpecialEffect";
+            this.ddlSpecialEffect.Size = new System.Drawing.Size(226, 24);
+            this.ddlSpecialEffect.TabIndex = 62;
+            // 
+            // gbxTdP
+            // 
+            this.gbxTdP.Controls.Add(this.btnSelectTdP);
+            this.gbxTdP.Controls.Add(this.ddlTheatre);
+            this.gbxTdP.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbxTdP.Location = new System.Drawing.Point(0, 0);
+            this.gbxTdP.Name = "gbxTdP";
+            this.gbxTdP.Size = new System.Drawing.Size(1040, 120);
+            this.gbxTdP.TabIndex = 0;
+            this.gbxTdP.TabStop = false;
+            this.gbxTdP.Text = "Seleziona il Set:";
+            // 
+            // btnSelectTdP
+            // 
+            this.btnSelectTdP.Location = new System.Drawing.Point(870, 28);
+            this.btnSelectTdP.Name = "btnSelectTdP";
+            this.btnSelectTdP.Size = new System.Drawing.Size(133, 59);
+            this.btnSelectTdP.TabIndex = 61;
+            this.btnSelectTdP.Text = "Seleziona";
+            this.btnSelectTdP.UseVisualStyleBackColor = true;
+            this.btnSelectTdP.Click += new System.EventHandler(this.btnSelectTdP_Click);
+            // 
+            // ddlTheatre
+            // 
+            this.ddlTheatre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlTheatre.FormattingEnabled = true;
+            this.ddlTheatre.Location = new System.Drawing.Point(28, 49);
+            this.ddlTheatre.Name = "ddlTheatre";
+            this.ddlTheatre.Size = new System.Drawing.Size(226, 24);
+            this.ddlTheatre.TabIndex = 60;
+            // 
             // tabRiassunto
             // 
             this.tabRiassunto.Controls.Add(this.btnProduce);
@@ -920,15 +652,30 @@
             this.tabRiassunto.Text = "Riassunto";
             this.tabRiassunto.UseVisualStyleBackColor = true;
             // 
+            // btnProduce
+            // 
+            this.btnProduce.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnProduce.Location = new System.Drawing.Point(857, 535);
+            this.btnProduce.Name = "btnProduce";
+            this.btnProduce.Size = new System.Drawing.Size(183, 119);
+            this.btnProduce.TabIndex = 101;
+            this.btnProduce.Text = "Produci";
+            this.btnProduce.UseVisualStyleBackColor = true;
+            this.btnProduce.Click += new System.EventHandler(this.btnProduce_Click);
+            // 
             // gbxRiassunto_Principale
             // 
+            this.gbxRiassunto_Principale.Controls.Add(this.txtMSpecialEffect);
+            this.gbxRiassunto_Principale.Controls.Add(this.txtMTheatre);
+            this.gbxRiassunto_Principale.Controls.Add(this.txtType4);
+            this.gbxRiassunto_Principale.Controls.Add(this.txtType3);
+            this.gbxRiassunto_Principale.Controls.Add(this.txtType2);
+            this.gbxRiassunto_Principale.Controls.Add(this.txtType1);
             this.gbxRiassunto_Principale.Controls.Add(this.lblEpisode);
             this.gbxRiassunto_Principale.Controls.Add(this.txtEpisode);
             this.gbxRiassunto_Principale.Controls.Add(this.btnUpdateMov);
             this.gbxRiassunto_Principale.Controls.Add(this.label12);
             this.gbxRiassunto_Principale.Controls.Add(this.txtCosto);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlMSpecialEffect);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlMTheatre);
             this.gbxRiassunto_Principale.Controls.Add(this.lstMActors);
             this.gbxRiassunto_Principale.Controls.Add(this.lblDir);
             this.gbxRiassunto_Principale.Controls.Add(this.label19);
@@ -937,9 +684,6 @@
             this.gbxRiassunto_Principale.Controls.Add(this.txtWriter);
             this.gbxRiassunto_Principale.Controls.Add(this.txtDirector);
             this.gbxRiassunto_Principale.Controls.Add(this.lblUniverse);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlType4);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlType3);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlType2);
             this.gbxRiassunto_Principale.Controls.Add(this.label9);
             this.gbxRiassunto_Principale.Controls.Add(this.label10);
             this.gbxRiassunto_Principale.Controls.Add(this.label11);
@@ -955,7 +699,6 @@
             this.gbxRiassunto_Principale.Controls.Add(this.txtMSex);
             this.gbxRiassunto_Principale.Controls.Add(this.txtMAction);
             this.gbxRiassunto_Principale.Controls.Add(this.txtUniverse);
-            this.gbxRiassunto_Principale.Controls.Add(this.ddlType1);
             this.gbxRiassunto_Principale.Controls.Add(this.txtTitle);
             this.gbxRiassunto_Principale.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbxRiassunto_Principale.Location = new System.Drawing.Point(0, 0);
@@ -964,6 +707,80 @@
             this.gbxRiassunto_Principale.TabIndex = 0;
             this.gbxRiassunto_Principale.TabStop = false;
             this.gbxRiassunto_Principale.Text = "groupBox1";
+            // 
+            // txtMSpecialEffect
+            // 
+            this.txtMSpecialEffect.Location = new System.Drawing.Point(406, 422);
+            this.txtMSpecialEffect.Name = "txtMSpecialEffect";
+            this.txtMSpecialEffect.ReadOnly = true;
+            this.txtMSpecialEffect.Size = new System.Drawing.Size(228, 22);
+            this.txtMSpecialEffect.TabIndex = 108;
+            // 
+            // txtMTheatre
+            // 
+            this.txtMTheatre.Location = new System.Drawing.Point(406, 391);
+            this.txtMTheatre.Name = "txtMTheatre";
+            this.txtMTheatre.ReadOnly = true;
+            this.txtMTheatre.Size = new System.Drawing.Size(228, 22);
+            this.txtMTheatre.TabIndex = 107;
+            // 
+            // txtType4
+            // 
+            this.txtType4.Location = new System.Drawing.Point(198, 77);
+            this.txtType4.Name = "txtType4";
+            this.txtType4.ReadOnly = true;
+            this.txtType4.Size = new System.Drawing.Size(103, 22);
+            this.txtType4.TabIndex = 106;
+            // 
+            // txtType3
+            // 
+            this.txtType3.Location = new System.Drawing.Point(49, 77);
+            this.txtType3.Name = "txtType3";
+            this.txtType3.ReadOnly = true;
+            this.txtType3.Size = new System.Drawing.Size(103, 22);
+            this.txtType3.TabIndex = 105;
+            // 
+            // txtType2
+            // 
+            this.txtType2.Location = new System.Drawing.Point(198, 49);
+            this.txtType2.Name = "txtType2";
+            this.txtType2.ReadOnly = true;
+            this.txtType2.Size = new System.Drawing.Size(103, 22);
+            this.txtType2.TabIndex = 104;
+            // 
+            // txtType1
+            // 
+            this.txtType1.Location = new System.Drawing.Point(49, 49);
+            this.txtType1.Name = "txtType1";
+            this.txtType1.ReadOnly = true;
+            this.txtType1.Size = new System.Drawing.Size(103, 22);
+            this.txtType1.TabIndex = 103;
+            // 
+            // lblEpisode
+            // 
+            this.lblEpisode.AutoSize = true;
+            this.lblEpisode.Location = new System.Drawing.Point(9, 372);
+            this.lblEpisode.Name = "lblEpisode";
+            this.lblEpisode.Size = new System.Drawing.Size(29, 17);
+            this.lblEpisode.TabIndex = 102;
+            this.lblEpisode.Text = "Ep:";
+            // 
+            // txtEpisode
+            // 
+            this.txtEpisode.Location = new System.Drawing.Point(49, 369);
+            this.txtEpisode.Name = "txtEpisode";
+            this.txtEpisode.Size = new System.Drawing.Size(252, 22);
+            this.txtEpisode.TabIndex = 101;
+            // 
+            // btnUpdateMov
+            // 
+            this.btnUpdateMov.Location = new System.Drawing.Point(616, 478);
+            this.btnUpdateMov.Name = "btnUpdateMov";
+            this.btnUpdateMov.Size = new System.Drawing.Size(89, 32);
+            this.btnUpdateMov.TabIndex = 100;
+            this.btnUpdateMov.Text = "Salva";
+            this.btnUpdateMov.UseVisualStyleBackColor = true;
+            this.btnUpdateMov.Click += new System.EventHandler(this.btnUpdateMov_Click);
             // 
             // label12
             // 
@@ -981,24 +798,6 @@
             this.txtCosto.ReadOnly = true;
             this.txtCosto.Size = new System.Drawing.Size(252, 22);
             this.txtCosto.TabIndex = 98;
-            // 
-            // ddlMSpecialEffect
-            // 
-            this.ddlMSpecialEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlMSpecialEffect.FormattingEnabled = true;
-            this.ddlMSpecialEffect.Location = new System.Drawing.Point(408, 428);
-            this.ddlMSpecialEffect.Name = "ddlMSpecialEffect";
-            this.ddlMSpecialEffect.Size = new System.Drawing.Size(226, 24);
-            this.ddlMSpecialEffect.TabIndex = 97;
-            // 
-            // ddlMTheatre
-            // 
-            this.ddlMTheatre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlMTheatre.FormattingEnabled = true;
-            this.ddlMTheatre.Location = new System.Drawing.Point(408, 398);
-            this.ddlMTheatre.Name = "ddlMTheatre";
-            this.ddlMTheatre.Size = new System.Drawing.Size(226, 24);
-            this.ddlMTheatre.TabIndex = 96;
             // 
             // lstMActors
             // 
@@ -1071,33 +870,6 @@
             this.lblUniverse.Size = new System.Drawing.Size(46, 17);
             this.lblUniverse.TabIndex = 86;
             this.lblUniverse.Text = "label9";
-            // 
-            // ddlType4
-            // 
-            this.ddlType4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlType4.FormattingEnabled = true;
-            this.ddlType4.Location = new System.Drawing.Point(198, 79);
-            this.ddlType4.Name = "ddlType4";
-            this.ddlType4.Size = new System.Drawing.Size(103, 24);
-            this.ddlType4.TabIndex = 83;
-            // 
-            // ddlType3
-            // 
-            this.ddlType3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlType3.FormattingEnabled = true;
-            this.ddlType3.Location = new System.Drawing.Point(49, 81);
-            this.ddlType3.Name = "ddlType3";
-            this.ddlType3.Size = new System.Drawing.Size(103, 24);
-            this.ddlType3.TabIndex = 82;
-            // 
-            // ddlType2
-            // 
-            this.ddlType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlType2.FormattingEnabled = true;
-            this.ddlType2.Location = new System.Drawing.Point(198, 49);
-            this.ddlType2.Name = "ddlType2";
-            this.ddlType2.Size = new System.Drawing.Size(103, 24);
-            this.ddlType2.TabIndex = 81;
             // 
             // label9
             // 
@@ -1226,15 +998,6 @@
             this.txtUniverse.Size = new System.Drawing.Size(151, 22);
             this.txtUniverse.TabIndex = 64;
             // 
-            // ddlType1
-            // 
-            this.ddlType1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlType1.FormattingEnabled = true;
-            this.ddlType1.Location = new System.Drawing.Point(49, 49);
-            this.ddlType1.Name = "ddlType1";
-            this.ddlType1.Size = new System.Drawing.Size(103, 24);
-            this.ddlType1.TabIndex = 63;
-            // 
             // txtTitle
             // 
             this.txtTitle.Location = new System.Drawing.Point(49, 21);
@@ -1242,137 +1005,86 @@
             this.txtTitle.Size = new System.Drawing.Size(252, 22);
             this.txtTitle.TabIndex = 62;
             // 
-            // gbxTdP
+            // gbxMoney
             // 
-            this.gbxTdP.Controls.Add(this.btnSelectTdP);
-            this.gbxTdP.Controls.Add(this.ddlTheatre);
-            this.gbxTdP.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbxTdP.Location = new System.Drawing.Point(0, 0);
-            this.gbxTdP.Name = "gbxTdP";
-            this.gbxTdP.Size = new System.Drawing.Size(1040, 120);
-            this.gbxTdP.TabIndex = 0;
-            this.gbxTdP.TabStop = false;
-            this.gbxTdP.Text = "Seleziona il Set:";
+            this.gbxMoney.Controls.Add(this.txtDifference);
+            this.gbxMoney.Controls.Add(this.label3);
+            this.gbxMoney.Controls.Add(this.txtCostoTotale);
+            this.gbxMoney.Controls.Add(this.label2);
+            this.gbxMoney.Controls.Add(this.txtBudget);
+            this.gbxMoney.Controls.Add(this.label1);
+            this.gbxMoney.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbxMoney.Location = new System.Drawing.Point(0, 0);
+            this.gbxMoney.Name = "gbxMoney";
+            this.gbxMoney.Size = new System.Drawing.Size(1048, 36);
+            this.gbxMoney.TabIndex = 1;
+            this.gbxMoney.TabStop = false;
             // 
-            // ddlTheatre
+            // txtDifference
             // 
-            this.ddlTheatre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlTheatre.FormattingEnabled = true;
-            this.ddlTheatre.Location = new System.Drawing.Point(28, 49);
-            this.ddlTheatre.Name = "ddlTheatre";
-            this.ddlTheatre.Size = new System.Drawing.Size(226, 24);
-            this.ddlTheatre.TabIndex = 60;
+            this.txtDifference.Location = new System.Drawing.Point(806, 7);
+            this.txtDifference.Name = "txtDifference";
+            this.txtDifference.ReadOnly = true;
+            this.txtDifference.Size = new System.Drawing.Size(238, 22);
+            this.txtDifference.TabIndex = 5;
+            this.txtDifference.Text = "";
             // 
-            // gbxFX
+            // label3
             // 
-            this.gbxFX.Controls.Add(this.btnSelezionaFX);
-            this.gbxFX.Controls.Add(this.ddlSpecialEffect);
-            this.gbxFX.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbxFX.Location = new System.Drawing.Point(0, 120);
-            this.gbxFX.Name = "gbxFX";
-            this.gbxFX.Size = new System.Drawing.Size(1040, 115);
-            this.gbxFX.TabIndex = 1;
-            this.gbxFX.TabStop = false;
-            this.gbxFX.Text = "Seleziona Effetti Speciali:";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(712, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 17);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Difference:";
             // 
-            // ddlSpecialEffect
+            // txtCostoTotale
             // 
-            this.ddlSpecialEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlSpecialEffect.FormattingEnabled = true;
-            this.ddlSpecialEffect.Location = new System.Drawing.Point(28, 43);
-            this.ddlSpecialEffect.Name = "ddlSpecialEffect";
-            this.ddlSpecialEffect.Size = new System.Drawing.Size(226, 24);
-            this.ddlSpecialEffect.TabIndex = 62;
+            this.txtCostoTotale.BackColor = System.Drawing.Color.LightPink;
+            this.txtCostoTotale.Location = new System.Drawing.Point(428, 8);
+            this.txtCostoTotale.Name = "txtCostoTotale";
+            this.txtCostoTotale.ReadOnly = true;
+            this.txtCostoTotale.Size = new System.Drawing.Size(238, 22);
+            this.txtCostoTotale.TabIndex = 3;
+            this.txtCostoTotale.Text = "";
             // 
-            // groupBox9
+            // label2
             // 
-            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox9.Location = new System.Drawing.Point(0, 235);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1040, 419);
-            this.groupBox9.TabIndex = 2;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "groupBox9";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(377, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Cost:";
             // 
-            // btnSelectTdP
+            // txtBudget
             // 
-            this.btnSelectTdP.Location = new System.Drawing.Point(870, 28);
-            this.btnSelectTdP.Name = "btnSelectTdP";
-            this.btnSelectTdP.Size = new System.Drawing.Size(133, 59);
-            this.btnSelectTdP.TabIndex = 61;
-            this.btnSelectTdP.Text = "Seleziona";
-            this.btnSelectTdP.UseVisualStyleBackColor = true;
-            this.btnSelectTdP.Click += new System.EventHandler(this.btnSelectTdP_Click);
-            // 
-            // btnSelezionaFX
-            // 
-            this.btnSelezionaFX.Location = new System.Drawing.Point(870, 25);
-            this.btnSelezionaFX.Name = "btnSelezionaFX";
-            this.btnSelezionaFX.Size = new System.Drawing.Size(133, 59);
-            this.btnSelezionaFX.TabIndex = 63;
-            this.btnSelezionaFX.Text = "Seleziona";
-            this.btnSelezionaFX.UseVisualStyleBackColor = true;
-            this.btnSelezionaFX.Click += new System.EventHandler(this.btnSelezionaFX_Click);
-            // 
-            // btnUpdateMov
-            // 
-            this.btnUpdateMov.Location = new System.Drawing.Point(616, 478);
-            this.btnUpdateMov.Name = "btnUpdateMov";
-            this.btnUpdateMov.Size = new System.Drawing.Size(89, 32);
-            this.btnUpdateMov.TabIndex = 100;
-            this.btnUpdateMov.Text = "Salva";
-            this.btnUpdateMov.UseVisualStyleBackColor = true;
-            this.btnUpdateMov.Click += new System.EventHandler(this.btnUpdateMov_Click);
-            // 
-            // lblEpisode
-            // 
-            this.lblEpisode.AutoSize = true;
-            this.lblEpisode.Location = new System.Drawing.Point(9, 372);
-            this.lblEpisode.Name = "lblEpisode";
-            this.lblEpisode.Size = new System.Drawing.Size(29, 17);
-            this.lblEpisode.TabIndex = 102;
-            this.lblEpisode.Text = "Ep:";
-            // 
-            // txtEpisode
-            // 
-            this.txtEpisode.Location = new System.Drawing.Point(49, 369);
-            this.txtEpisode.Name = "txtEpisode";
-            this.txtEpisode.Size = new System.Drawing.Size(252, 22);
-            this.txtEpisode.TabIndex = 101;
-            // 
-            // btnProduce
-            // 
-            this.btnProduce.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnProduce.Location = new System.Drawing.Point(857, 535);
-            this.btnProduce.Name = "btnProduce";
-            this.btnProduce.Size = new System.Drawing.Size(183, 119);
-            this.btnProduce.TabIndex = 101;
-            this.btnProduce.Text = "Produci";
-            this.btnProduce.UseVisualStyleBackColor = true;
-            this.btnProduce.Click += new System.EventHandler(this.btnProduce_Click);
+            this.txtBudget.BackColor = System.Drawing.Color.PaleGreen;
+            this.txtBudget.Location = new System.Drawing.Point(71, 8);
+            this.txtBudget.Name = "txtBudget";
+            this.txtBudget.ReadOnly = true;
+            this.txtBudget.Size = new System.Drawing.Size(238, 22);
+            this.txtBudget.TabIndex = 1;
+            this.txtBudget.Text = "";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 455);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 17);
-            this.label1.TabIndex = 72;
-            this.label1.Text = "$$:";
-            // 
-            // txtDirPrice
-            // 
-            this.txtDirPrice.Location = new System.Drawing.Point(52, 452);
-            this.txtDirPrice.Name = "txtDirPrice";
-            this.txtDirPrice.ReadOnly = true;
-            this.txtDirPrice.Size = new System.Drawing.Size(214, 22);
-            this.txtDirPrice.TabIndex = 71;
+            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Budget:";
             // 
             // Produzione
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 683);
+            this.ClientSize = new System.Drawing.Size(1048, 725);
+            this.Controls.Add(this.gbxMoney);
             this.Controls.Add(this.tabControlMovie);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Produzione";
@@ -1380,30 +1092,27 @@
             this.Text = "Produzione";
             this.Load += new System.EventHandler(this.Produzione_Load);
             this.tabControlMovie.ResumeLayout(false);
+            this.tabShowrunner.ResumeLayout(false);
             this.tabCreateScript.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.tabDirector.ResumeLayout(false);
-            this.gbxDirector_List.ResumeLayout(false);
-            this.gbxDirector_List.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgChars)).EndInit();
-            this.gbxDirector_Details.ResumeLayout(false);
-            this.gbxDirector_Details.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabCast.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgAChars)).EndInit();
+            this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxW)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWritersList)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgScriptsList)).EndInit();
+            this.tabDirector.ResumeLayout(false);
+            this.tabCast.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.tabTdPeFX.ResumeLayout(false);
+            this.gbxFX.ResumeLayout(false);
+            this.gbxTdP.ResumeLayout(false);
             this.tabRiassunto.ResumeLayout(false);
             this.gbxRiassunto_Principale.ResumeLayout(false);
             this.gbxRiassunto_Principale.PerformLayout();
-            this.gbxTdP.ResumeLayout(false);
-            this.gbxFX.ResumeLayout(false);
+            this.gbxMoney.ResumeLayout(false);
+            this.gbxMoney.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1416,37 +1125,8 @@
         private System.Windows.Forms.TabPage tabCast;
         private System.Windows.Forms.TabPage tabTdPeFX;
         private System.Windows.Forms.TabPage tabRiassunto;
-        private System.Windows.Forms.GroupBox gbxDirector_List;
-        private System.Windows.Forms.Button btnClearFilter;
-        private System.Windows.Forms.Button btnFilter;
-        private System.Windows.Forms.TextBox txtFilter;
-        private System.Windows.Forms.Label lblCounter;
-        private System.Windows.Forms.DataGridView dgChars;
-        private System.Windows.Forms.GroupBox gbxDirector_Details;
-        private System.Windows.Forms.ListView lstSpecials;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnSelect;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblHumorName;
-        private System.Windows.Forms.Label lblSexappealName;
-        private System.Windows.Forms.Label lblActionName;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtImDb_Link;
-        private System.Windows.Forms.TextBox txtAge;
-        private System.Windows.Forms.TextBox txtPopularity;
-        private System.Windows.Forms.ComboBox ddlSex;
-        private System.Windows.Forms.TextBox txtSurname;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.GroupBox gbxRiassunto_Principale;
         private System.Windows.Forms.Label lblUniverse;
-        private System.Windows.Forms.ComboBox ddlType4;
-        private System.Windows.Forms.ComboBox ddlType3;
-        private System.Windows.Forms.ComboBox ddlType2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
@@ -1462,7 +1142,6 @@
         private System.Windows.Forms.TextBox txtMSex;
         private System.Windows.Forms.TextBox txtMAction;
         private System.Windows.Forms.TextBox txtUniverse;
-        private System.Windows.Forms.ComboBox ddlType1;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label lblDir;
         private System.Windows.Forms.Label label19;
@@ -1471,46 +1150,15 @@
         private System.Windows.Forms.TextBox txtWriter;
         private System.Windows.Forms.TextBox txtDirector;
         private System.Windows.Forms.ListView lstMActors;
-        private System.Windows.Forms.ComboBox ddlMSpecialEffect;
-        private System.Windows.Forms.ComboBox ddlMTheatre;
-        private System.Windows.Forms.TabPage tabShowrunner;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnSelectWriter;
         private System.Windows.Forms.Button btnSelectScript;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button btnAClearFilter;
-        private System.Windows.Forms.Button btnAFilter;
-        private System.Windows.Forms.TextBox txtAFilter;
-        private System.Windows.Forms.Label lblACounter;
-        private System.Windows.Forms.DataGridView dgAChars;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ListView lstASpecials;
-        private System.Windows.Forms.Button btnAClear;
-        private System.Windows.Forms.Button btnASelect;
-        private System.Windows.Forms.PictureBox pictureBoxA;
-        private System.Windows.Forms.Label lblAHumorName;
-        private System.Windows.Forms.Label lblASexappealName;
-        private System.Windows.Forms.Label lblAActionName;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox txtAPrice;
-        private System.Windows.Forms.TextBox txtAAge;
-        private System.Windows.Forms.TextBox txtAPopularity;
-        private System.Windows.Forms.ComboBox ddlASex;
-        private System.Windows.Forms.TextBox txtASurname;
-        private System.Windows.Forms.TextBox txtAName;
         private System.Windows.Forms.ListView lstListOfCastSel;
         private System.Windows.Forms.Button btnRemoveActor;
         private System.Windows.Forms.Button btnAFinishSelect;
-        private System.Windows.Forms.ComboBox ddlSexFilter;
-        private System.Windows.Forms.ComboBox ddlActorOrOthers;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtCosto;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -1524,7 +1172,42 @@
         private System.Windows.Forms.Label lblEpisode;
         private System.Windows.Forms.TextBox txtEpisode;
         private System.Windows.Forms.Button btnProduce;
+        private System.Windows.Forms.DataGridView dgWritersList;
+        private System.Windows.Forms.DataGridView dgScriptsList;
+        private System.Windows.Forms.PictureBox pictureBoxW;
+        private System.Windows.Forms.TextBox txtWSurname;
+        private System.Windows.Forms.TextBox txtWName;
+        private System.Windows.Forms.ComboBox ddlWSex;
+        private System.Windows.Forms.Label lblWHumor;
+        private System.Windows.Forms.Label lblWSexappeal;
+        private System.Windows.Forms.Label lblWAction;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txtWCost;
+        private System.Windows.Forms.TabPage tabShowrunner;
+        private CharacterDiplaySelector.CharDisplaySelector charDisplaySelector1;
+        private CharacterDiplaySelector.CharDisplaySelector charDisplaySelectorDir;
+        private CharacterDiplaySelector.CharDisplaySelector charDisplaySelectorActor;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnWClearFilter;
+        private System.Windows.Forms.Button btnWFilter;
+        private System.Windows.Forms.TextBox txtWFilter;
+        private System.Windows.Forms.Label lblCounter;
+        private System.Windows.Forms.Label lblWCounter;
+        private System.Windows.Forms.GroupBox gbxMoney;
+        private System.Windows.Forms.RichTextBox txtDifference;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox txtCostoTotale;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox txtBudget;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtDirPrice;
+        private System.Windows.Forms.TextBox txtType4;
+        private System.Windows.Forms.TextBox txtType3;
+        private System.Windows.Forms.TextBox txtType2;
+        private System.Windows.Forms.TextBox txtType1;
+        private System.Windows.Forms.TextBox txtMSpecialEffect;
+        private System.Windows.Forms.TextBox txtMTheatre;
     }
 }

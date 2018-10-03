@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DbRuler;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,11 @@ namespace LFM.MainGame.Operativita
 {
     public partial class Operativita : Form
     {
+        public long TotalPrice { get; set; }
+        public long Balance { get; set; }
+        public Movie MyMovie { get; set; }
+        public Serial MySerial { get; set; }
+
         public Operativita()
         {
             InitializeComponent();
@@ -19,16 +25,19 @@ namespace LFM.MainGame.Operativita
 
         private void btnProduceFilm_Click(object sender, EventArgs e)
         {
-            Produzione frmProd = new Produzione();
-            frmProd.IsMovie = true;
-            frmProd.ShowDialog();
-        }
-
-        private void btnProduceSerial_Click(object sender, EventArgs e)
-        {
-            Produzione frmProd = new Produzione();
-            frmProd.IsMovie = false;
-            frmProd.ShowDialog();
+            GenreSelector frmScelta = new GenreSelector();
+            frmScelta.Balance = Balance;
+            this.Hide();
+            DialogResult Res = frmScelta.ShowDialog();
+            if (Res == DialogResult.OK)
+            {
+                if (frmScelta.blnIsMovie)
+                    MyMovie = frmScelta.MyMovie;
+                else
+                    MySerial = frmScelta.MySerial;
+                TotalPrice = frmScelta.TotalPrice;
+            }
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

@@ -625,7 +625,7 @@ namespace DbRuler
             // La variazione su humor è dimezzata
             int VarianceH = Math.Abs(GetDifferenceFromValues(Actor.Inner_Val, MyMovie, "H") / 2);
             int Variance =  VarianceH + VarianceS + VarianceV;
-            long BasePrize = Actor.Popularity * 20000;
+            long BasePrize = Actor.Popularity * 50000;
             if (Variance > 0)
                 BasePrize += Variance * 10000;
             else
@@ -638,7 +638,7 @@ namespace DbRuler
         public static long GetCashOfActor(GenericCharacters Actor, Serial MyMovie)
         {
             Random rndCasual = new Random();
-            long BasePrize = Actor.Popularity * 20000;
+            long BasePrize = Actor.Popularity * 50000;
             if (rndCasual.Next(-10,11) > 0)
                 BasePrize += 20000;
             else
@@ -657,33 +657,29 @@ namespace DbRuler
             // La variazione su humor è dimezzata
             int VarianceH = Math.Abs(GetDifferenceFromValues(Actor.Inner_Val, MyMovie, "H") / 2);
             int Variance = VarianceH + VarianceS + VarianceV;
-            long BasePrize = Actor.Popularity * 100000;
+            long BasePrize = Actor.Popularity * 40000;
             if (Variance > 0)
-                BasePrize += Variance * 100000;
+                BasePrize += Variance * 10000;
             else
-                BasePrize -= Variance * 500000;
+                BasePrize -= Variance * 50000;
             return BasePrize;
         }
 
-        public static long GetCashOfWriter(GenericCharacters Writer, Movie MyMovie)
+        public static long GetCashOfWriter(GenericCharacters Writer)
         {
-            int VarianceV = Math.Abs(GetDifferenceFromValues(Writer.Inner_Val, MyMovie, "V"));
-            int VarianceS = Math.Abs(GetDifferenceFromValues(Writer.Inner_Val, MyMovie, "S"));
-            int VarianceH = Math.Abs(GetDifferenceFromValues(Writer.Inner_Val, MyMovie, "H"));
-            int Variance = VarianceH + VarianceS + VarianceV;
-
-            long Base_Prize = MyMovie.Success * 10000 + MyMovie.Base_Audience * 20000;
-            if (Variance > 0)
-                Base_Prize += Variance * 25000;
+            Random rndCasuale = new Random();
+            long Base_Prize = Writer.Skills * 20000 + Writer.Popularity * 30000;
+            if (rndCasuale.Next(-10,11) > 0)
+                Base_Prize += 15000;
             else
-                Base_Prize -= Variance * 5000;
+                Base_Prize -= 5000;
             return Base_Prize;
         }
 
         public static long GetCashOfShowrunner(GenericCharacters Showrunner)
         {
             Random rndCasuale = new Random();
-            long Base_Prize = (Showrunner.Talent + Showrunner.Skills) * 20000;
+            long Base_Prize = (Showrunner.Talent + Showrunner.Skills) * 40000;
             if (rndCasuale.Next(-10,11) > 0)
                 Base_Prize += 25000;
             else
@@ -843,9 +839,12 @@ namespace DbRuler
             NewMovie.Base_Audience = Writer.Popularity + intBonusAudience;
             foreach (TypeOfMovie ToM in MovieType)
             {
-                NewMovie.Title += ToM.TypeOf + " ";
-                NewMovie.Description += ToM.TypeOf + " ";
-                NewMovie.Status += ToM.GetTotalProductionTime();
+                if (ToM != null)
+                {
+                    NewMovie.Title += ToM.TypeOf + " ";
+                    NewMovie.Description += ToM.TypeOf + " ";
+                    NewMovie.Status += ToM.GetTotalProductionTime();
+                }
             }
             NewMovie.Status /= MovieType.Length;
             NewMovie.Title += "movie";
@@ -857,7 +856,7 @@ namespace DbRuler
             NewMovie.Base_Audience += intBonusAudience;
             NewMovie.Success += intBonusSuccess;
             #endregion
-            Price = GetCashOfWriter(Writer, NewMovie);
+            Price = GetCashOfWriter(Writer);
             return NewMovie;
         }
 
@@ -1215,6 +1214,51 @@ namespace DbRuler
         #endregion
 
         #region Movie Cost
+        public static long GetCastCostFromMovie(Movie GenMovie)
+        {
+            long Price = 0;
+            #region Cast Costs
+            GenericCharacters[] GenChars = Retriever.GetGenericCastFromMovie(GenMovie.ID);
+            foreach (GenericCharacters Charact in GenChars)
+            {
+                switch (Charact.TypeOf.TypeOf.ToUpper())
+                {
+                    case "WRITER":
+                        long Priw = Calculation.GetCashOfWriter(Charact);
+                        LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChangew = Priw * -Linkw.Affinity / 100;
+                        Price += Priw + AffinityChangew;
+                        break;
+                    case "DIRECTOR":
+                        long Prid = Calculation.GetCashOfDirector(Charact, GenMovie);
+                        LG_CharPlayerAffinity Linkd = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChanged = Prid * -Linkd.Affinity / 100;
+                        Price += Prid + AffinityChanged;
+                        break;
+                    case "ACTOR":
+                    case "ACTRESS":
+                        long Pri = Calculation.GetCashOfActor(Charact, GenMovie);
+                        LG_CharPlayerAffinity Link = new LG_CharPlayerAffinity(Charact.ID);
+                        long AffinityChange = Pri * -Link.Affinity / 100;
+                        Price += Pri + AffinityChange;
+                        break;
+                }
+            }
+            #endregion
+            return Price;
+        }
+        public static long GetStructureCostFromMovie(Movie GenMovie)
+        {
+            long Price = 0;
+            #region Structure Cost
+            if (GenMovie.fkTdP != null)
+                Price += GetPriceOfTheatre(GenMovie);
+            if (GenMovie.fkFX != null)
+                Price += GetPriceOfFX(GenMovie);
+            #endregion
+            return Price;
+        }
+
         public static long GetTotalMovieCost(Movie GenMovie)
         {
             long Price = 0;
@@ -1225,7 +1269,7 @@ namespace DbRuler
                 switch (Charact.TypeOf.TypeOf.ToUpper())
                 {
                     case "WRITER":
-                        long Priw = Calculation.GetCashOfWriter(Charact, GenMovie);
+                        long Priw = Calculation.GetCashOfWriter(Charact);
                         LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
                         long AffinityChangew = Priw * -Linkw.Affinity / 100;
                         Price += Priw + AffinityChangew;
@@ -1247,8 +1291,10 @@ namespace DbRuler
             }
             #endregion
             #region Structure Cost
-            Price += GetPriceOfTheatre(GenMovie);
-            Price += GetPriceOfFX(GenMovie);
+            if (GenMovie.fkTdP != null)
+                Price += GetPriceOfTheatre(GenMovie);
+            if (GenMovie.fkFX != null)
+                Price += GetPriceOfFX(GenMovie);
             #endregion
 
             return Price;
@@ -1355,20 +1401,36 @@ namespace DbRuler
         {
             long Cost = 0;
             L_CharsSerials LinkShow = new L_CharsSerials(MySerial.ID, "Showrunner");
-            GenericCharacters ShowR = new GenericCharacters(LinkShow.ID_Char);
-            Cost += GetCashOfShowrunner(ShowR);
+            if (LinkShow.ID_Char > 0)
+            {
+                GenericCharacters ShowR = new GenericCharacters(LinkShow.ID_Char);
+                Cost += GetCashOfShowrunner(ShowR);
+            }
             GenericCharacters[] GenList = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
             foreach (GenericCharacters Gen in GenList)
             {
                 if (Gen.TypeOf.TypeOf != "Showrunner")
                     Cost += GetCashOfActor(Gen, MySerial);
             }
-            Cost += GetPriceOfTheatre(MySerial) / 2;
-            Cost += GetPriceOfFX(MySerial) / 2;
+            if (MySerial.fkTdP != null)
+                Cost += GetPriceOfTheatre(MySerial) / 2;
+            if (MySerial.fkFX != null)
+                Cost += GetPriceOfFX(MySerial) / 2;
             // TODO - Add the cost of the Bonus used to raise Audience
             return Cost;
         }
 
+        public static long GetStructureCostFromMovie(Serial MySerial)
+        {
+            long Price = 0;
+            #region Structure Cost
+            if (MySerial.fkTdP != null)
+                Price += GetPriceOfTheatre(MySerial);
+            if (MySerial.fkFX != null)
+                Price += GetPriceOfFX(MySerial);
+            #endregion
+            return Price;
+        }
         /// <summary>
         /// This method set the current status = Episode number. It means the Serial is in working
         /// and just start.

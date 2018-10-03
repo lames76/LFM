@@ -80,6 +80,12 @@
     <Compile Include="MainGame\MainGame.Designer.cs">
       <DependentUpon>MainGame.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainGame\Operativita\GenreSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Operativita\GenreSelector.Designer.cs">
+      <DependentUpon>GenreSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGame\Operativita\Operativita.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     <EmbeddedResource Include="MainGame\MainGame.resx">
       <DependentUpon>MainGame.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Operativita\GenreSelector.resx">
+      <DependentUpon>GenreSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Operativita\Operativita.resx">
       <DependentUpon>Operativita.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,6 +223,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CharacterDiplaySelector\CharacterDiplaySelector.csproj">
+      <Project>{E9028B36-E541-425F-AAB0-E702534AC722}</Project>
+      <Name>CharacterDiplaySelector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DbRuler\DbRuler.csproj">
       <Project>{53a9c2aa-a60b-4243-9a5c-7f996b071ba8}</Project>
       <Name>DbRuler</Name>
@@ -221,10 +234,6 @@
     <ProjectReference Include="..\ImDbReader\ImDbReader.csproj">
       <Project>{7468a65e-65cb-4ef7-902b-0cc9e635a65c}</Project>
       <Name>ImDbReader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MACTrackBarLib\MACTrackBarLib.csproj">
-      <Project>{77A112B1-5440-440B-A0F6-2EDCC5B093CB}</Project>
-      <Name>MACTrackBarLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyImDbParser\MyImDbParser.csproj">
       <Project>{7a65a903-daaf-4b38-967a-71fd3afb3c5c}</Project>

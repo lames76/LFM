@@ -24,18 +24,27 @@ namespace DbRuler
         Elf = 11
     }
 
+    public enum CharTypeEnum
+    {
+        NoValue = 0,
+        Writer = 1,
+        Director = 2,
+        Actor = 3,
+        Actress = 4,
+        Showrunner = 8,
+    }
     public static class LFMUtils
-    {       
+    {
         /// <summary>
         /// This method check the current Age (year) with another age (year) and return
         /// the AgeClass (enum).
         /// </summary>
-        /// <param name="intCurrentAge"></param>
-        /// <param name="intReferralAge"></param>
+        /// <param name="intDoBYear">Date of birth or past year</param>
+        /// <param name="intReferralAge">Age of referral (i.e. Current Year)</param>
         /// <returns></returns>
-        public static AgeClass GetAgeClassFromDate(int intCurrentAge, int intReferralAge)
+        public static AgeClass GetAgeClassFromDate(int intDoBYear, int intReferralAge)
         {
-            int intAppo = intCurrentAge - intReferralAge;
+            int intAppo = intDoBYear - intReferralAge;
             if (intAppo < 0)
                 return AgeClass.Timelord;
             if (intAppo > 100)

@@ -41,6 +41,7 @@ namespace DbRuler
         {
             ID_Char = intID_Char;
             ID_Serial = intID_Serial;
+            Char_Name = strName;
             LoadFromDb(strName);
         }
 
@@ -205,9 +206,11 @@ namespace DbRuler
                 strCommand += " Status = " + Status.ToString() + ",";
                 strCommand += " Age = " + Age.ToString() + ",";
                 strCommand += " Base_Audience = '" + Base_Audience + "',";
-                strCommand += " fkUniverse = " + fkUniverse.ToString() + ",";
-                strCommand += " fkTdP = " + fkTdP.ID.ToString() + ",";
-                strCommand += " fkFX = " + fkFX.ID.ToString();
+                strCommand += " fkUniverse = " + fkUniverse.ToString();
+                if (fkTdP != null)
+                    strCommand += ", fkTdP = " + fkTdP.ID.ToString() + ",";
+                if (fkFX != null)
+                    strCommand += ", fkFX = " + fkFX.ID.ToString();
                 strCommand += " WHERE ID = " + ID.ToString() + ";";
             }
             else
@@ -852,7 +855,8 @@ namespace DbRuler
             string strCommand = "SELECT * FROM TypeOfCharacter";
             strCommand += " WHERE ID = " + ID.ToString() + ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
-            TypeOf = tblRet.Rows[0]["TypeOf"].ToString();
+            if (tblRet.Rows.Count > 0)
+                TypeOf = tblRet.Rows[0]["TypeOf"].ToString();
         }
         #endregion
     }
@@ -954,20 +958,23 @@ namespace DbRuler
             string strCommand = "SELECT * FROM GenericCharacter";
             strCommand += " WHERE ID = " + ID.ToString() + ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
-            Inner_Val = new Inner_Values();
-            Inner_Val.Action = Convert.ToInt32(tblRet.Rows[0]["Action"]);
-            Age = Convert.ToInt32(tblRet.Rows[0]["Age"]);
-            Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[0]["Humor"]);
-            Name = tblRet.Rows[0]["Name"].ToString();
-            Popularity = Convert.ToInt32(tblRet.Rows[0]["Popularity"]);
-            Sex = tblRet.Rows[0]["Sex"].ToString();
-            Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[0]["Sexappeal"]);
-            Skills = Convert.ToInt32(tblRet.Rows[0]["Skill"]);
-            Surname = tblRet.Rows[0]["Surname"].ToString();
-            Talent = Convert.ToInt32(tblRet.Rows[0]["Talent"]);
-            TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[0]["fkTypeOf"]));
-            TypeOf = typo;
-            ImDB_Link = tblRet.Rows[0]["ImDB_Link"].ToString();
+            if (tblRet.Rows.Count > 0)
+            {
+                Inner_Val = new Inner_Values();
+                Inner_Val.Action = Convert.ToInt32(tblRet.Rows[0]["Action"]);
+                Age = Convert.ToInt32(tblRet.Rows[0]["Age"]);
+                Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[0]["Humor"]);
+                Name = tblRet.Rows[0]["Name"].ToString();
+                Popularity = Convert.ToInt32(tblRet.Rows[0]["Popularity"]);
+                Sex = tblRet.Rows[0]["Sex"].ToString();
+                Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[0]["Sexappeal"]);
+                Skills = Convert.ToInt32(tblRet.Rows[0]["Skill"]);
+                Surname = tblRet.Rows[0]["Surname"].ToString();
+                Talent = Convert.ToInt32(tblRet.Rows[0]["Talent"]);
+                TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[0]["fkTypeOf"]));
+                TypeOf = typo;
+                ImDB_Link = tblRet.Rows[0]["ImDB_Link"].ToString();
+            }
         }
 
         public bool GenericCharacters_WriteOnDb()
@@ -1201,8 +1208,11 @@ namespace DbRuler
         {
             for (int i = 0; i < fkType.Length; i++)
             {
-                L_MovieType L = new L_MovieType(ID, fkType[i].ID);
-                L.L_MovieType_InsertDb();
+                if (fkType[i] != null)
+                {
+                    L_MovieType L = new L_MovieType(ID, fkType[i].ID);
+                    L.L_MovieType_InsertDb();
+                }
             }
         }
 
@@ -1222,12 +1232,15 @@ namespace DbRuler
         {            
             foreach (TypeOfMovie Typ in fkType)
             {
-                if (Typ.Pre_Production > Pre_Production)
-                    Pre_Production = Typ.Pre_Production;
-                if (Typ.Filming > Filming)
-                    Filming = Typ.Filming;
-                if (Typ.Post_Production > Post_Production)
-                    Post_Production = Typ.Post_Production;
+                if (Typ != null)
+                {
+                    if (Typ.Pre_Production > Pre_Production)
+                        Pre_Production = Typ.Pre_Production;
+                    if (Typ.Filming > Filming)
+                        Filming = Typ.Filming;
+                    if (Typ.Post_Production > Post_Production)
+                        Post_Production = Typ.Post_Production;
+                }
             }
             return Pre_Production + Filming + Post_Production;
         }
@@ -1278,6 +1291,12 @@ namespace DbRuler
         public Script()
         {
             ID = 0;
+        }
+
+        public Script(int intID)
+        {
+            ID = intID;
+            Script_LoadFromDb();
         }
 
         #region Load and Write Data
@@ -2215,7 +2234,7 @@ namespace DbRuler
                     break;
             }
             strCommand += "FROM Name_Of_Values WHERE "; 
-            strCommand += " MaxValue < " + Val + " ORDER BY MaxValue DESC;";
+            strCommand += " MaxValue <= " + Val + " ORDER BY MaxValue DESC;";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             if (tblRet.Rows.Count > 0)
             {
@@ -2298,17 +2317,17 @@ namespace DbRuler
             {
                 jo.Property("contentRating").Remove();
             }
-            catch (Exception exc) { }
+            catch (Exception exc) { throw exc; }
             try
             {
                 jo.Property("review").Remove();
             }
-            catch (Exception exc) { }
+            catch (Exception exc) { throw exc; }
             try
             {
                 jo.Property("aggregateRating").Remove();
             }
-            catch (Exception exc) { }
+            catch (Exception exc) { throw exc; }
             EntryJson = jo.ToString();
 
             // Se ha solo un genere

@@ -12,6 +12,9 @@ namespace LFM.MainGame
 {
     public partial class MainGame : Form
     {
+        public long Balance { get; set; }
+        public long ActualCost { get; set; }
+
         public MainGame()
         {
             InitializeComponent();
@@ -20,7 +23,12 @@ namespace LFM.MainGame
         private void btnOperatività_Click(object sender, EventArgs e)
         {
             Operativita.Operativita frmOp = new Operativita.Operativita();
-            frmOp.ShowDialog();
+            frmOp.Balance = Balance;
+            DialogResult Res = frmOp.ShowDialog();
+            if (Res == DialogResult.OK)
+            {
+                ActualCost = frmOp.TotalPrice;
+            }
         }
 
         private void btnGestione_Click(object sender, EventArgs e)
