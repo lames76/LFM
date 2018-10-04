@@ -49,7 +49,6 @@ namespace SQLLiteInterface
             }
             catch (Exception exc)
             {
-                throw exc;
             }
             finally
             {

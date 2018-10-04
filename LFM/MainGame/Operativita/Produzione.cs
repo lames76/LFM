@@ -14,6 +14,8 @@ namespace LFM.MainGame.Operativita
 {
     public partial class Produzione : Form
     {
+        public bool IsAgingOn { get; set; }
+        public List<LastCashMovement> ListTotalCost { get; set; }
         public bool IsMovie { get; set; }
         public TypeOfMovie[] ListOfTypes { get; set; }
         public long Balance { get; set; }
@@ -21,7 +23,9 @@ namespace LFM.MainGame.Operativita
         public Serial MySerial { get; set; }
         public long lngTOTALPrice { get; set; } = 0;
 
-        public int Age { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Week { get; set; }
         private bool blnTdP = false;
         private bool blnFX = false;
         private bool blnShR = false;
@@ -57,11 +61,22 @@ namespace LFM.MainGame.Operativita
         #region Showrunner
         protected void OnCharSelectedShowRunner(object sender, EventArgs e)
         {
-            Showrunner = new GenericCharacters(charDisplaySelector1.Gener.ID);             
-            lngTOTALPrice = charDisplaySelector1.Price;
+            Showrunner = new GenericCharacters(charDisplaySelector1.Gener.ID);
             long PriceCalc = 0;
-            MySerial = Calculation.CreateSerialFromShowrunner(Showrunner, ListOfTypes, Age, out PriceCalc);
+            MySerial = Calculation.CreateSerialFromShowrunner(Showrunner, ListOfTypes, Year, out PriceCalc);
             MessageBox.Show("Lo Showrunner ha creato il nuovo serial.");
+            // Add Showrunner to expense List
+            LastCashMovement Mov = new LastCashMovement();
+            Mov.ID_Target = MySerial.ID;
+            Mov.Target = TypeOfObject.Serial;
+            Mov.ID_Movement = Showrunner.ID;
+            Mov.MovementValue = charDisplaySelector1.Price;
+            Mov.TypeOfMovement = TypeOfObject.Showrunner;
+            Mov.Year = Year;
+            Mov.Month = Month;
+            Mov.Week = Week;
+            ListTotalCost.Add(Mov);
+
             blnShR = true;
             EnableTab(0, false);
             EnableTab(1, true);
@@ -92,9 +107,17 @@ namespace LFM.MainGame.Operativita
                     DataGridViewRow selectedRow = dgScriptsList.Rows[selectedrowindex];
                     int intID = Convert.ToInt32(selectedRow.Cells[0].Value);
                     MyScript = new Script(intID);
-                    MyMovie = Calculation.CreateMovieFromScript(null, ListOfTypes, Age);
-                    lngTOTALPrice += 0;
+                    long lngScriptPrice = 0;
+                    MyMovie = Calculation.CreateMovieFromScript(null, ListOfTypes, Year);
                     blnWri = true;
+                    // Add Script to expense List
+                    LastCashMovement Mov = new LastCashMovement();
+                    Mov.ID_Target = MyMovie.ID;
+                    Mov.Target = TypeOfObject.Movie;
+                    Mov.ID_Movement = MyScript.ID;
+                    Mov.MovementValue = lngScriptPrice;
+                    Mov.TypeOfMovement = TypeOfObject.Script;
+                    ListTotalCost.Add(Mov);
                 }
             }
         }
@@ -165,10 +188,20 @@ namespace LFM.MainGame.Operativita
                 EnableTab(1, true);
                 MessageBox.Show("Lo script base del film è stato creato!");
                 long Price = Convert.ToInt64(txtWCost.Text.Replace(".",""));
-                MyMovie = Calculation.CreateMovieFromWriter(Writer, ListOfTypes, Age, out Price);
-                lngTOTALPrice += Price;
+                MyMovie = Calculation.CreateMovieFromWriter(Writer, ListOfTypes, Year, out Price);
                 blnWri = true;
                 charDisplaySelectorDir.MyMovie = MyMovie;
+                // Add Writer to expense List
+                LastCashMovement Mov = new LastCashMovement();
+                Mov.ID_Target = MyMovie.ID;
+                Mov.Target = TypeOfObject.Movie;
+                Mov.ID_Movement = Writer.ID;
+                Mov.MovementValue = Price;
+                Mov.TypeOfMovement = TypeOfObject.Writer;
+                Mov.Year = Year;
+                Mov.Month = Month;
+                Mov.Week = Week;
+                ListTotalCost.Add(Mov);
             }
         }
 
@@ -194,13 +227,24 @@ namespace LFM.MainGame.Operativita
         protected void OnCharSelectedDirector(object sender, EventArgs e)
         {
             Director = charDisplaySelectorDir.Gener;
-            lngTOTALPrice += charDisplaySelectorDir.Price;
             MessageBox.Show("Il regista ha modificato lo script per adattarlo al suo stile.");
             Calculation.DirectorStyleChangeMovie(Director, MyMovie);
+            L_CharsSerials Link = new L_CharsSerials(MyMovie.ID, Director.ID, "Director");
             EnableTab(1, false);
             EnableTab(2, true);
             blnDir = true;
             charDisplaySelectorActor.MyMovie = MyMovie;
+            // Add Director to expense List
+            LastCashMovement Mov = new LastCashMovement();
+            Mov.ID_Target = MyMovie.ID;
+            Mov.Target = TypeOfObject.Movie;
+            Mov.ID_Movement = Director.ID;
+            Mov.MovementValue = charDisplaySelectorDir.Price;
+            Mov.TypeOfMovement = TypeOfObject.Director;
+            Mov.Year = Year;
+            Mov.Month = Month;
+            Mov.Week = Week;
+            ListTotalCost.Add(Mov);
         }
         #endregion
 
@@ -210,10 +254,22 @@ namespace LFM.MainGame.Operativita
             DialogResult Res = MessageBox.Show("Sei sicuro di voler selezionare questi effetti speciali? \nNon potrai cambiare una volta scelti.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Res == DialogResult.Yes)
             {
+                // Add FX to expense List
+                LastCashMovement Mov = new LastCashMovement();
                 if (IsMovie)
-                    MyMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                {
+                    MyMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                    Mov.ID_Target = MyMovie.ID;
+                    Mov.Target = TypeOfObject.Movie;
+                    Mov.MovementValue = Calculation.GetFXCostFromMovie(MyMovie);
+                }
                 else
-                    MySerial.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                {                   
+                    MySerial.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                    Mov.ID_Target = MySerial.ID;
+                    Mov.Target = TypeOfObject.Serial;
+                    Mov.MovementValue = Calculation.GetFXCostFromMovie(MySerial);
+                }
 
                 blnFX = true;
                 if (blnTdP && blnFX)
@@ -222,13 +278,14 @@ namespace LFM.MainGame.Operativita
                         EnableTab(3, false);
                     else
                         EnableTab(1, false);
-                    if (IsMovie)
-                        lngTOTALPrice += Calculation.GetStructureCostFromMovie(MyMovie);
-                    else
-                        lngTOTALPrice += Calculation.GetStructureCostFromMovie(MySerial);
                 }
-                else
-                    gbxFX.Enabled = false;
+                gbxFX.Enabled = false;
+                Mov.ID_Movement = Convert.ToInt32(ddlSpecialEffect.SelectedValue);                
+                Mov.TypeOfMovement = TypeOfObject.FX;
+                Mov.Year = Year;
+                Mov.Month = Month;
+                Mov.Week = Week;
+                ListTotalCost.Add(Mov);
             }            
         }
 
@@ -237,10 +294,22 @@ namespace LFM.MainGame.Operativita
             DialogResult Res = MessageBox.Show("Sei sicuro di voler selezionare questo questo Set? \nNon potrai cambiare una volta scelto.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Res == DialogResult.Yes)
             {
+                // Add TdP to expense List
+                LastCashMovement Mov = new LastCashMovement();
                 if (IsMovie)
-                    MyMovie.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                {
+                    MyMovie.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                    Mov.ID_Target = MyMovie.ID;
+                    Mov.Target = TypeOfObject.Movie;
+                    Mov.MovementValue = Calculation.GetTdPCostFromMovie(MyMovie);
+                }
                 else
-                    MySerial.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+                {
+                    MySerial.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+                    Mov.ID_Target = MySerial.ID;
+                    Mov.Target = TypeOfObject.Serial;
+                    Mov.MovementValue = Calculation.GetTdPCostFromMovie(MySerial);
+                }
 
                 blnTdP = true;
                 if (blnTdP && blnFX)
@@ -249,14 +318,27 @@ namespace LFM.MainGame.Operativita
                         EnableTab(3, false);
                     else
                         EnableTab(1, false);
-                    if (IsMovie)
-                        lngTOTALPrice += Calculation.GetStructureCostFromMovie(MyMovie);
-                    else
-                        lngTOTALPrice += Calculation.GetStructureCostFromMovie(MySerial);
                 }
-                else
-                    gbxTdP.Enabled = false;
+                gbxTdP.Enabled = false;
+                Mov.ID_Movement = Convert.ToInt32(ddlTheatre.SelectedValue);
+                Mov.TypeOfMovement = TypeOfObject.TdP;
+                Mov.Year = Year;
+                Mov.Month = Month;
+                Mov.Week = Week;
+                ListTotalCost.Add(Mov);
             }            
+        }
+
+        private void ddlTheatre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Theatre T = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
+            lblTdPCost.Text = String.Format("{0:n0}", Calculation.GetPriceOfTheatre(T)).Replace(",", ".");
+        }
+
+        private void ddlSpecialEffect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SpecialEffectCompany SP = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
+            lblFXCost.Text = String.Format("{0:n0}", Calculation.GetPriceOfFX(SP)).Replace(",", "."); 
         }
         #endregion
 
@@ -293,6 +375,7 @@ namespace LFM.MainGame.Operativita
                         txtMTheatre.Text = MyMovie.fkTdP.Name;
                     if (MyMovie.fkFX != null)
                         txtMSpecialEffect.Text = MyMovie.fkFX.Name;
+                    lngTOTALPrice = Calculation.GetTotalCost(ListTotalCost);
                     txtCosto.Text = String.Format("{0:n0}", lngTOTALPrice).Replace(",", ".");
                     txtCostoTotale.Text = String.Format("{0:n0}", lngTOTALPrice).Replace(",", ".");
                     lblEpisode.Text = "Cit:";
@@ -415,18 +498,51 @@ namespace LFM.MainGame.Operativita
                 DialogResult Res = MessageBox.Show("Sei sicuro di voler finire con l'assegnazione del Cast? \nNon potrai cambiare una volta finito.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (Res == DialogResult.Yes)
                 {
+                    foreach (GenericCharacters Gen in Cast)
+                    {
+                        // Add Actor to expense List
+                        LastCashMovement Mov = new LastCashMovement();                        
+                        Mov.ID_Movement = Gen.ID;
+                        if (IsMovie)
+                        {
+                            Mov.ID_Target = MyMovie.ID;
+                            Mov.Target = TypeOfObject.Movie;                            
+                            Mov.MovementValue = Calculation.GetCashOfActor(Gen, MyMovie); ;
+                        }
+                        else
+                        {
+                            Mov.ID_Target = MySerial.ID;
+                            Mov.Target = TypeOfObject.Serial;
+                            Mov.MovementValue = Calculation.GetCashOfActor(Gen, MySerial);
+                        }
+                        switch (Gen.TypeOf.TypeOf)
+                        {
+                            case "Actor":
+                            case "Actress":
+                                Mov.TypeOfMovement = TypeOfObject.Actor;
+                                break;
+                            case "Singer":
+                                Mov.TypeOfMovement = TypeOfObject.Singer;
+                                break;
+                            case "Sport Star":
+                                Mov.TypeOfMovement = TypeOfObject.Sport;
+                                break;
+                        }
+                        Mov.Year = Year;
+                        Mov.Month = Month;
+                        Mov.Week = Week;
+                        ListTotalCost.Add(Mov);
+                    }
+
                     if (IsMovie)
                     {
                         EnableTab(2, false);
-                        EnableTab(3, true);
-                        lngTOTALPrice += Calculation.GetCastCostFromMovie(MyMovie);
+                        EnableTab(3, true);                        
                     }
                     else
                     {
                         EnableTab(1, false);
-                        EnableTab(2, true);
-                        foreach (GenericCharacters Gen in Cast)
-                            lngTOTALPrice += Calculation.GetCashOfActor(Gen, MySerial);
+                        EnableTab(2, true);                            
                     }
                     blnCast = true;
                     
@@ -460,20 +576,24 @@ namespace LFM.MainGame.Operativita
         #endregion
 
         private void Produzione_Load(object sender, EventArgs e)
-        {            
+        {
+            ListTotalCost = new List<LastCashMovement>();
             txtBudget.Text = String.Format("{0:n0}", Balance).Replace(",", ".");
             txtCostoTotale.Text = "0";
             txtDifference.Text = "0";
-            charDisplaySelector1.Year = Age;
+            charDisplaySelector1.Year = Year;
             charDisplaySelector1.ListOfTypes = ListOfTypes;
             charDisplaySelector1.IsMovie = IsMovie;
-            charDisplaySelectorDir.Year = Age;
+            charDisplaySelector1.IsAgingOn = IsAgingOn;
+            charDisplaySelectorDir.Year = Year;
             charDisplaySelectorDir.ListOfTypes = ListOfTypes;
             charDisplaySelectorDir.IsMovie = IsMovie;
             charDisplaySelectorDir.MyMovie = MyMovie;
-            charDisplaySelectorActor.Year = Age;
+            charDisplaySelectorDir.IsAgingOn = IsAgingOn;
+            charDisplaySelectorActor.Year = Year;
             charDisplaySelectorActor.ListOfTypes = ListOfTypes;
             charDisplaySelectorActor.IsMovie = IsMovie;
+            charDisplaySelectorActor.IsAgingOn = IsAgingOn;
             if (IsMovie)
                 charDisplaySelectorActor.MyMovie = MyMovie;
             else
@@ -531,8 +651,7 @@ namespace LFM.MainGame.Operativita
                         DialogResult Res = MessageBox.Show("Questo film ti porterà in rosso, sei sicuro di volerlo produrre?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (Res == DialogResult.Yes)
                         {
-                            //this.DialogResult = DialogResult.OK;
-                            MessageBox.Show("Not yet implemented!");
+                            this.DialogResult = DialogResult.OK;                            
                         }
                     }
                 }
@@ -543,13 +662,48 @@ namespace LFM.MainGame.Operativita
             {
                 if (blnShR && blnFX && blnTdP && blnCast)
                 {
-                    //this.DialogResult = DialogResult.OK;
-                    MessageBox.Show("Not yet implemented!");
+                    this.DialogResult = DialogResult.OK;                    
                 }
                 else
                     MessageBox.Show("Manca ancora qualcosa");
             }
         }
+
+        private void Produzione_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Se ho fatto cancel devo cancellare tutto quello che ho creato finora
+            if (this.DialogResult != DialogResult.OK)
+            {
+                if (IsMovie)
+                {
+                    if (MyMovie != null)
+                    {
+                        // Cancello tutti gli attori/regista/writer aggiunti
+                        L_CharsMovies[] Link = Retriever.GetCastFromMovie(MyMovie.ID);
+                        foreach (L_CharsMovies L in Link)
+                            L.L_CharsMovies_Delete();
+                        // Cancello il film
+                        MyMovie.Delete();                        
+                    }
+                }
+                else
+                {
+                    if (MySerial != null)
+                    {
+                        // Cancello tutti gli attori/showrunner aggiunti
+                        L_CharsSerials[] Link = Retriever.GetCastFromSerial(MySerial.ID, 1);
+                        foreach (L_CharsSerials L in Link)
+                            L.L_CharsMovies_Delete();
+                        // Cancello il film
+                        MySerial.Delete();
+                    }
+                }
+                // Tolgo tutte le spese
+                lngTOTALPrice = 0;
+                ListTotalCost = new List<LastCashMovement>();
+            }
+        }
+
         
     }
 }

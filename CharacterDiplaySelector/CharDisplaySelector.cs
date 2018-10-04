@@ -14,6 +14,7 @@ namespace CharacterDiplaySelector
 {
     public partial class CharDisplaySelector: UserControl
     {
+        public bool IsAgingOn { get; set; }
         public bool IsMovie { get; set; }
         public int Year { get; set; }
         private CharTypeEnum CharacterTypeInternal;
@@ -110,9 +111,12 @@ namespace CharacterDiplaySelector
             lblAction.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Action, "Action", (ddlSex.Text == "F" ? true : false));
             lblSexappeal.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Sexappeal, "Sexappeal", (ddlSex.Text == "F" ? true : false));
             lblHumor.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Humor, "Humor", (ddlSex.Text == "F" ? true : false));
-            int CalcAge = Gener.Age - Year;
+            int CalcAge = Year - Gener.Age;
             txtAge.Text = CalcAge.ToString();
-            AC = LFMUtils.GetAgeClassFromDate(Gener.Age, Year);
+            if (IsAgingOn)
+                AC = LFMUtils.GetAgeClassFromDate(Gener.Age, Year);
+            else
+                AC = AgeClass.Average;
             txtName.Text = Gener.Name;
             txtPopularity.Text = Gener.Popularity.ToString();
             txtSurname.Text = Gener.Surname;

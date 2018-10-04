@@ -648,7 +648,7 @@ namespace LFM
         private void btnCalculatePrice_Click(object sender, EventArgs e)
         {
             long Price = 0;
-            Price = Calculation.GetTotalMovieCost(GenMovie);
+            //Price = Calculation.GetTotalMovieCost(GenMovie);
             txtPrice.Text = String.Format("{0:n0}", Price).Replace(",",".") + " $";
             if (cbxShowReport.Checked)
             {

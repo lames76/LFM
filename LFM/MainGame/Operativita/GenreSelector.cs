@@ -13,11 +13,16 @@ namespace LFM.MainGame.Operativita
 {
     public partial class GenreSelector : Form
     {
+        public bool IsAgingOn { get; set; }
+        public List<LastCashMovement> ListTotalCost { get; set; }
         public bool blnIsMovie { get; set; }
         public long TotalPrice { get; set; }
         public long Balance { get; set; }
         public Movie MyMovie { get; set; }
         public Serial MySerial { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Week { get; set; }
 
         public GenreSelector()
         {
@@ -96,6 +101,10 @@ namespace LFM.MainGame.Operativita
                 frmPro.IsMovie = blnIsMovie;
                 frmPro.ListOfTypes = MyTypeList;
                 frmPro.Balance = Balance;
+                frmPro.Year = Year;
+                frmPro.Month = Month;
+                frmPro.Week = Week;
+                frmPro.IsAgingOn = IsAgingOn;
                 this.Hide();
                 DialogResult Res = frmPro.ShowDialog();
                 if (Res == DialogResult.OK)
@@ -105,8 +114,12 @@ namespace LFM.MainGame.Operativita
                     else
                         MySerial = frmPro.MySerial;
                     TotalPrice = frmPro.lngTOTALPrice;
+                    ListTotalCost = frmPro.ListTotalCost;
+                    this.DialogResult = DialogResult.OK;
                 }
-                this.DialogResult = DialogResult.OK;
+                else
+                    this.DialogResult = DialogResult.Cancel;
+                
             }
             else
                 MessageBox.Show("Devi selezionare almeno un genere","Errore",MessageBoxButtons.OK,MessageBoxIcon.Error);

@@ -13,10 +13,16 @@ namespace LFM.MainGame.Operativita
 {
     public partial class Operativita : Form
     {
+        public bool IsAgingOn {get;set;}
+        public List<LastCashMovement> ListTotalCost { get; set; }
         public long TotalPrice { get; set; }
         public long Balance { get; set; }
+        public bool IsMovie { get; set; } = true;
         public Movie MyMovie { get; set; }
         public Serial MySerial { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Week { get; set; }
 
         public Operativita()
         {
@@ -27,6 +33,10 @@ namespace LFM.MainGame.Operativita
         {
             GenreSelector frmScelta = new GenreSelector();
             frmScelta.Balance = Balance;
+            frmScelta.Year = Year;
+            frmScelta.Month = Month;
+            frmScelta.Week = Week;
+            frmScelta.IsAgingOn = IsAgingOn;
             this.Hide();
             DialogResult Res = frmScelta.ShowDialog();
             if (Res == DialogResult.OK)
@@ -36,8 +46,12 @@ namespace LFM.MainGame.Operativita
                 else
                     MySerial = frmScelta.MySerial;
                 TotalPrice = frmScelta.TotalPrice;
+                IsMovie = frmScelta.blnIsMovie;
+                ListTotalCost = frmScelta.ListTotalCost;
+                this.DialogResult = DialogResult.OK;
             }
-            this.DialogResult = DialogResult.OK;
+            else
+                this.DialogResult = DialogResult.Cancel;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace DbRuler
         /// <returns></returns>
         public static AgeClass GetAgeClassFromDate(int intDoBYear, int intReferralAge)
         {
-            int intAppo = intDoBYear - intReferralAge;
+            int intAppo = intReferralAge - intDoBYear;
             if (intAppo < 0)
                 return AgeClass.Timelord;
             if (intAppo > 100)
@@ -184,9 +184,11 @@ namespace DbRuler
         /// cause problems.
         /// </summary>
         /// <returns></returns>
-        public static string NormalizeGameName(string strName)
+        public static string NormalizeGameName(string strName, bool IsDir)
         {
-            string strRetString = strName.Replace(" ","_").Replace("\"","_");
+            string strRetString = strName.Replace("\"","_").Replace("'","").Replace("\"","");
+            if (IsDir)
+                strRetString = strRetString.Replace(" ", "_");
             return strRetString;
         }
         #endregion

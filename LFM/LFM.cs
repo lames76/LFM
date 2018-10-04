@@ -180,13 +180,17 @@ namespace LFM
             {
                 string strGameName = frmDir.strSelected;
                 LFMUtils.PrepareConnectionString(strGameName);
-                CaricaPartita();
+                CaricaPartita(strGameName);
             }
         }
 
-        private void CaricaPartita()
+        private void CaricaPartita(string strGameName)
         {
-            MessageBox.Show("Not yet implemented", "Load Game");
+            MainGame.MainGame frmMainGame = new MainGame.MainGame();
+            frmMainGame.GameName = strGameName;
+            this.Hide();
+            frmMainGame.ShowDialog();
+            this.Show();
         }
 
         private void btnContinueNew_Click(object sender, EventArgs e)
@@ -196,8 +200,51 @@ namespace LFM
             DialogResult Res = ibGameName.ShowDialog();
             if (Res == DialogResult.OK)
             {
-                string strGameName = LFMUtils.NormalizeGameName(ibGameName.strOutPut);
+                string strGameName = LFMUtils.NormalizeGameName(ibGameName.strOutPut, true);
                 LFMUtils.PrepareNewGame(strGameName);
+                ibGameName = new frmInputBox();
+                ibGameName.strTesto = "Inserisci il nome del tuo avatar in gioco";
+                Res = ibGameName.ShowDialog();
+                if (Res == DialogResult.OK)
+                {
+                    string strPlayerName = LFMUtils.NormalizeGameName(ibGameName.strOutPut, false);
+                    ibGameName = new frmInputBox();
+                    ibGameName.strTesto = "Inserisci il nome della tua casa di produzione";
+                    Res = ibGameName.ShowDialog();
+                    if (Res == DialogResult.OK)
+                    {
+                        string strStudiosName = LFMUtils.NormalizeGameName(ibGameName.strOutPut, false);
+                        ibGameName = new frmInputBox();
+                        ibGameName.IsNumeric = true;
+                        ibGameName.strTesto = "Inserisci l'anno di partenza";
+                        Res = ibGameName.ShowDialog();
+                        if (Res == DialogResult.OK)
+                        {
+                            int intSelectedYear = Convert.ToInt32(ibGameName.strOutPut);
+                            bool blnAgingOn = false;
+                            Res = MessageBox.Show("Vuoi che i vari personaggi invecchino?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                            if (Res == DialogResult.Yes)
+                                blnAgingOn = true;
+
+                            LG_MainGameData oMainGame = new LG_MainGameData(strGameName);
+                            oMainGame.Name = strPlayerName;
+                            oMainGame.StudiosName = strStudiosName;
+                            oMainGame.Year = intSelectedYear;
+                            oMainGame.Week = 1;
+                            oMainGame.Month = 1;
+                            oMainGame.AgingOn = blnAgingOn;
+                            if (oMainGame.InsertInDb())
+                            {
+                                CaricaPartita(strGameName);
+                            }
+
+                        }
+                    }
+                    else
+                        return;
+                }
+                else
+                    return;
             }
         }
 
@@ -207,9 +254,8 @@ namespace LFM
 
         private void button10_Click(object sender, EventArgs e)
         {
-            MainGame.MainGame frmMain = new MainGame.MainGame();
-            frmMain.Balance = 10000000;
-            frmMain.ShowDialog();
+            Test.AggiustatoreFoto frmo = new Test.AggiustatoreFoto();
+            frmo.Show();
         }
 
         private void button11_Click(object sender, EventArgs e)

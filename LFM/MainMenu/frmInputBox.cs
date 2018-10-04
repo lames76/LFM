@@ -15,6 +15,8 @@ namespace LFM
         public string strTesto = "";
         public string strOutPut { get; set; } = "";
 
+        public bool IsNumeric = false;
+
         public frmInputBox()
         {
             InitializeComponent();
@@ -34,13 +36,27 @@ namespace LFM
                 MessageBox.Show("Devi inserire un testo!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                if (txtInputBox.Text.Contains(@"\") || txtInputBox.Text.Contains(@"/") ||
-                    txtInputBox.Text.Contains(@"?") || txtInputBox.Text.Contains(@"*"))
-                    MessageBox.Show("La stringa contiene caratteri invalidi", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (IsNumeric)
+                {
+                    bool blnIsNumber = int.TryParse(txtInputBox.Text, out int n);
+                    if (blnIsNumber)
+                    {
+                        strOutPut = txtInputBox.Text;
+                        this.DialogResult = DialogResult.OK;                        
+                    }
+                    else
+                        MessageBox.Show("Devi inserire un numero", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else
                 {
-                    this.DialogResult = DialogResult.OK;
-                    strOutPut = txtInputBox.Text;
+                    if (txtInputBox.Text.Contains(@"\") || txtInputBox.Text.Contains(@"/") ||
+                        txtInputBox.Text.Contains(@"?") || txtInputBox.Text.Contains(@"*"))
+                        MessageBox.Show("La stringa contiene caratteri invalidi", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                    {
+                        strOutPut = txtInputBox.Text;
+                        this.DialogResult = DialogResult.OK;                        
+                    }
                 }
             }
         }

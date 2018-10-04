@@ -119,6 +119,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtBudget = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblTdPCost = new System.Windows.Forms.Label();
+            this.lblFXCost = new System.Windows.Forms.Label();
             this.tabControlMovie.SuspendLayout();
             this.tabShowrunner.SuspendLayout();
             this.tabCreateScript.SuspendLayout();
@@ -171,6 +173,7 @@
             this.charDisplaySelector1.CharacterType = DbRuler.CharTypeEnum.Showrunner;
             this.charDisplaySelector1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelector1.Gener = null;
+            this.charDisplaySelector1.IsAgingOn = false;
             this.charDisplaySelector1.IsMovie = false;
             this.charDisplaySelector1.ListOfTypes = null;
             this.charDisplaySelector1.Location = new System.Drawing.Point(0, 0);
@@ -472,6 +475,7 @@
             this.charDisplaySelectorDir.CharacterType = DbRuler.CharTypeEnum.Director;
             this.charDisplaySelectorDir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelectorDir.Gener = null;
+            this.charDisplaySelectorDir.IsAgingOn = false;
             this.charDisplaySelectorDir.IsMovie = false;
             this.charDisplaySelectorDir.ListOfTypes = null;
             this.charDisplaySelectorDir.Location = new System.Drawing.Point(3, 3);
@@ -546,6 +550,7 @@
             this.charDisplaySelectorActor.CharacterType = DbRuler.CharTypeEnum.Actor;
             this.charDisplaySelectorActor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelectorActor.Gener = null;
+            this.charDisplaySelectorActor.IsAgingOn = false;
             this.charDisplaySelectorActor.IsMovie = false;
             this.charDisplaySelectorActor.ListOfTypes = null;
             this.charDisplaySelectorActor.Location = new System.Drawing.Point(0, 0);
@@ -581,6 +586,7 @@
             // 
             // gbxFX
             // 
+            this.gbxFX.Controls.Add(this.lblFXCost);
             this.gbxFX.Controls.Add(this.btnSelezionaFX);
             this.gbxFX.Controls.Add(this.ddlSpecialEffect);
             this.gbxFX.Dock = System.Windows.Forms.DockStyle.Top;
@@ -609,9 +615,11 @@
             this.ddlSpecialEffect.Name = "ddlSpecialEffect";
             this.ddlSpecialEffect.Size = new System.Drawing.Size(226, 24);
             this.ddlSpecialEffect.TabIndex = 62;
+            this.ddlSpecialEffect.SelectedIndexChanged += new System.EventHandler(this.ddlSpecialEffect_SelectedIndexChanged);
             // 
             // gbxTdP
             // 
+            this.gbxTdP.Controls.Add(this.lblTdPCost);
             this.gbxTdP.Controls.Add(this.btnSelectTdP);
             this.gbxTdP.Controls.Add(this.ddlTheatre);
             this.gbxTdP.Dock = System.Windows.Forms.DockStyle.Top;
@@ -640,6 +648,7 @@
             this.ddlTheatre.Name = "ddlTheatre";
             this.ddlTheatre.Size = new System.Drawing.Size(226, 24);
             this.ddlTheatre.TabIndex = 60;
+            this.ddlTheatre.SelectedIndexChanged += new System.EventHandler(this.ddlTheatre_SelectedIndexChanged);
             // 
             // tabRiassunto
             // 
@@ -1079,6 +1088,24 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Budget:";
             // 
+            // lblTdPCost
+            // 
+            this.lblTdPCost.AutoSize = true;
+            this.lblTdPCost.Location = new System.Drawing.Point(300, 52);
+            this.lblTdPCost.Name = "lblTdPCost";
+            this.lblTdPCost.Size = new System.Drawing.Size(46, 17);
+            this.lblTdPCost.TabIndex = 62;
+            this.lblTdPCost.Text = "label4";
+            // 
+            // lblFXCost
+            // 
+            this.lblFXCost.AutoSize = true;
+            this.lblFXCost.Location = new System.Drawing.Point(300, 46);
+            this.lblFXCost.Name = "lblFXCost";
+            this.lblFXCost.Size = new System.Drawing.Size(46, 17);
+            this.lblFXCost.TabIndex = 64;
+            this.lblFXCost.Text = "label4";
+            // 
             // Produzione
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1090,6 +1117,7 @@
             this.Name = "Produzione";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Produzione";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Produzione_FormClosing);
             this.Load += new System.EventHandler(this.Produzione_Load);
             this.tabControlMovie.ResumeLayout(false);
             this.tabShowrunner.ResumeLayout(false);
@@ -1107,7 +1135,9 @@
             this.groupBox6.ResumeLayout(false);
             this.tabTdPeFX.ResumeLayout(false);
             this.gbxFX.ResumeLayout(false);
+            this.gbxFX.PerformLayout();
             this.gbxTdP.ResumeLayout(false);
+            this.gbxTdP.PerformLayout();
             this.tabRiassunto.ResumeLayout(false);
             this.gbxRiassunto_Principale.ResumeLayout(false);
             this.gbxRiassunto_Principale.PerformLayout();
@@ -1209,5 +1239,7 @@
         private System.Windows.Forms.TextBox txtType1;
         private System.Windows.Forms.TextBox txtMSpecialEffect;
         private System.Windows.Forms.TextBox txtMTheatre;
+        private System.Windows.Forms.Label lblFXCost;
+        private System.Windows.Forms.Label lblTdPCost;
     }
 }

@@ -600,6 +600,13 @@ namespace DbRuler
         #endregion
 
         # region Cost Actors + Writer + Director + Structure + Showrunner
+        public static long GetTotalCost(List<LastCashMovement> ListMov)
+        {
+            long lngRetVal = 0;
+            foreach (LastCashMovement LCM in ListMov)
+                lngRetVal += LCM.MovementValue;
+            return lngRetVal;
+        }
         /// <summary>
         /// This method return the Affinity between the passed character and the player.
         /// </summary>
@@ -664,7 +671,7 @@ namespace DbRuler
                 BasePrize -= Variance * 50000;
             return BasePrize;
         }
-
+       
         public static long GetCashOfWriter(GenericCharacters Writer)
         {
             Random rndCasuale = new Random();
@@ -689,12 +696,30 @@ namespace DbRuler
             return Base_Prize;
         }
 
+        public static long GetPriceOfTheatre(Theatre T)
+        {
+            Random rndCasuale = new Random();
+            long Price = T.SuccessBonus + T.AudienceBonus;
+            long BasePrize = Price * 5000;
+            BasePrize += rndCasuale.Next(1, 5) * 10000;
+            return BasePrize;
+        }
+
         public static long GetPriceOfTheatre(Movie MyMovie)
         {
             Random rndCasuale = new Random();
             long Price = MyMovie.fkTdP.SuccessBonus + MyMovie.fkTdP.AudienceBonus;
+            long BasePrize = Price * 5000;
+            BasePrize += rndCasuale.Next(1,5) * 10000;            
+            return BasePrize;
+        }
+
+        public static long GetPriceOfFX(SpecialEffectCompany FX)
+        {
+            Random rndCasuale = new Random();
+            long Price = FX.SuccessBonus + FX.AudienceBonus;
             long BasePrize = Price * 10000;
-            BasePrize += rndCasuale.Next(1,5) * 100000;            
+            BasePrize += rndCasuale.Next(1, 5) * 10000;
             return BasePrize;
         }
 
@@ -703,7 +728,7 @@ namespace DbRuler
             Random rndCasuale = new Random();
             long Price = MyMovie.fkFX.SuccessBonus + MyMovie.fkFX.AudienceBonus;
             long BasePrize = Price * 10000;
-            BasePrize += rndCasuale.Next(1, 5) * 100000;
+            BasePrize += rndCasuale.Next(1, 5) * 10000;
             return BasePrize;
         }
 
@@ -711,8 +736,8 @@ namespace DbRuler
         {
             Random rndCasuale = new Random();
             long Price = MySerial.fkTdP.SuccessBonus + MySerial.fkTdP.AudienceBonus;
-            long BasePrize = Price * 10000;
-            BasePrize += rndCasuale.Next(1, 5) * 100000;
+            long BasePrize = Price * 5000;
+            BasePrize += rndCasuale.Next(1, 5) * 10000;
             return BasePrize;
         }
 
@@ -721,7 +746,7 @@ namespace DbRuler
             Random rndCasuale = new Random();
             long Price = MySerial.fkFX.SuccessBonus + MySerial.fkFX.AudienceBonus;
             long BasePrize = Price * 10000;
-            BasePrize += rndCasuale.Next(1, 5) * 100000;
+            BasePrize += rndCasuale.Next(1, 5) * 10000;
             return BasePrize;
         }
 
@@ -807,6 +832,8 @@ namespace DbRuler
         /// <summary>
         /// This method create the base movie from a writer.
         /// This is the second method to create a movie.
+        /// Save the movie on the database.
+        /// Add the Writer to the cast of Movie.
         /// </summary>
         /// <param name="Writer"></param>
         /// <param name="MovieType"></param>
@@ -857,6 +884,9 @@ namespace DbRuler
             NewMovie.Success += intBonusSuccess;
             #endregion
             Price = GetCashOfWriter(Writer);
+            NewMovie.Movie_WriteOnDb();
+            L_CharsMovies Link = new L_CharsMovies(Writer.ID, NewMovie.ID, "Writer");
+            Link.L_CharsMovies_InsertDb();
             return NewMovie;
         }
 
@@ -1188,7 +1218,8 @@ namespace DbRuler
         {
             #region Movie Player
             LG_MoviePlayer MovPla = new LG_MoviePlayer(MyMov.ID);
-            MovPla.Price = GetTotalMovieCost(MyMov);
+            // Retrieve data from Db for Total Cost
+            MovPla.Price += GetPriceOfFX(MyMov) + GetPriceOfTheatre(MyMov);// + GetCostOfCast(MyMov);
             int RealAudience = LFMGRule.CalculateRealAudience(MyMov);
             long Cash = LFMGRule.CalculateMoney(RealAudience);
             int Change = LFMGRule.GetPopularityChange(Cash, MovPla.Price);
@@ -1247,56 +1278,31 @@ namespace DbRuler
             #endregion
             return Price;
         }
-        public static long GetStructureCostFromMovie(Movie GenMovie)
+        public static long GetTdPCostFromMovie(Movie GenMovie)
         {
             long Price = 0;
             #region Structure Cost
             if (GenMovie.fkTdP != null)
                 Price += GetPriceOfTheatre(GenMovie);
+            #endregion
+            return Price;
+        }
+        public static long GetFXCostFromMovie(Movie GenMovie)
+        {
+            long Price = 0;
+            #region Structure Cost
             if (GenMovie.fkFX != null)
                 Price += GetPriceOfFX(GenMovie);
             #endregion
             return Price;
         }
-
-        public static long GetTotalMovieCost(Movie GenMovie)
+        public static long GetTdPCost(Theatre Tea)
         {
             long Price = 0;
-            #region Cast Costs
-            GenericCharacters[] GenChars = Retriever.GetGenericCastFromMovie(GenMovie.ID);
-            foreach (GenericCharacters Charact in GenChars)
-            {
-                switch (Charact.TypeOf.TypeOf.ToUpper())
-                {
-                    case "WRITER":
-                        long Priw = Calculation.GetCashOfWriter(Charact);
-                        LG_CharPlayerAffinity Linkw = new LG_CharPlayerAffinity(Charact.ID);
-                        long AffinityChangew = Priw * -Linkw.Affinity / 100;
-                        Price += Priw + AffinityChangew;
-                        break;
-                    case "DIRECTOR":
-                        long Prid = Calculation.GetCashOfDirector(Charact, GenMovie);
-                        LG_CharPlayerAffinity Linkd = new LG_CharPlayerAffinity(Charact.ID);
-                        long AffinityChanged = Prid * -Linkd.Affinity / 100;
-                        Price += Prid + AffinityChanged;
-                        break;
-                    case "ACTOR":
-                    case "ACTRESS":
-                        long Pri = Calculation.GetCashOfActor(Charact, GenMovie);
-                        LG_CharPlayerAffinity Link = new LG_CharPlayerAffinity(Charact.ID);
-                        long AffinityChange = Pri * -Link.Affinity / 100;
-                        Price += Pri + AffinityChange;
-                        break;
-                }
-            }
-            #endregion
             #region Structure Cost
-            if (GenMovie.fkTdP != null)
-                Price += GetPriceOfTheatre(GenMovie);
-            if (GenMovie.fkFX != null)
-                Price += GetPriceOfFX(GenMovie);
+            if (Tea != null)
+                Price += GetPriceOfTheatre(Tea);
             #endregion
-
             return Price;
         }
         #endregion
@@ -1309,6 +1315,7 @@ namespace DbRuler
         /// <summary>
         /// This method create the base serial from a showrunner.
         /// This is the only method to create a serial.
+        /// Add also the Showrunner to the cast list
         /// </summary>
         /// <param name="Showrunner"></param>
         /// <param name="MovieType"></param>
@@ -1420,12 +1427,19 @@ namespace DbRuler
             return Cost;
         }
 
-        public static long GetStructureCostFromMovie(Serial MySerial)
+        public static long GetTdPCostFromMovie(Serial MySerial)
         {
             long Price = 0;
             #region Structure Cost
             if (MySerial.fkTdP != null)
                 Price += GetPriceOfTheatre(MySerial);
+            #endregion
+            return Price;
+        }
+        public static long GetFXCostFromMovie(Serial MySerial)
+        {
+            long Price = 0;
+            #region Structure Cost
             if (MySerial.fkFX != null)
                 Price += GetPriceOfFX(MySerial);
             #endregion

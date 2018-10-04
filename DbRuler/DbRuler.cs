@@ -245,7 +245,14 @@ namespace DbRuler
                 ID = Retriever.GetMaxSerialID();
             }
             return blnResult;
-        }     
+        }
+        #endregion
+        #region Delete
+        public bool Delete()
+        {
+            string strCommand = "DELETE FROM Serials WHERE ID = " + ID.ToString() + ";";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
         #endregion
     }
 
@@ -486,6 +493,15 @@ namespace DbRuler
             strCommand += " AND AgeValue = " + (int)AgeValue;
             strCommand += ";";
             return SQLLiteInt.GenericCommandBynary(strCommand, Image);
+        }
+
+        public bool CharImages_DeleteImage()
+        {
+            string strCommand = "";
+            strCommand += "DELETE FROM CharImages WHERE IDChar = " + IDChar.ToString();
+            strCommand += " AND AgeValue = " + (int)AgeValue;
+            strCommand += ";";
+            return SQLLiteInt.GenericCommand(strCommand);
         }
 
         public bool CharImages_Create()
@@ -1132,9 +1148,11 @@ namespace DbRuler
                 strCommand += " Age = " + Age.ToString() + ",";
                 strCommand += " Citation = '" + Citation.Replace("'", "''") + "',";
                 strCommand += " Base_Audience = '" + Base_Audience + "',";
-                strCommand += " fkUniverse = " + fkUniverse.ToString() + ",";
-                strCommand += " fkTdP = " + fkTdP.ID.ToString() + ",";
-                strCommand += " fkFX = " + fkFX.ID.ToString();
+                strCommand += " fkUniverse = " + fkUniverse.ToString();
+                if (fkTdP != null)
+                    strCommand += ", fkTdP = " + fkTdP.ID.ToString();
+                if (fkFX != null)
+                    strCommand += ", fkFX = " + fkFX.ID.ToString();
                 strCommand += " WHERE ID = " + ID.ToString() + ";";
             }
             else
@@ -1183,18 +1201,19 @@ namespace DbRuler
             int[] ActualGenre = Retriever.GetMovieTypes(ID, true);
             for (int i = 0; i < fkType.Length; i++)
             {
-                if (!ActualGenre.Contains(fkType[i].ID))
-                {
-                    L_MovieType L = new L_MovieType(ID, fkType[i].ID);
-                    L.L_MovieType_InsertDb();
-                }
+                if (fkType[i] != null)
+                    if (!ActualGenre.Contains(fkType[i].ID))
+                    {
+                        L_MovieType L = new L_MovieType(ID, fkType[i].ID);
+                        L.L_MovieType_InsertDb();
+                    }
             }
         }
 
         private void UpdateLocationOfMovie()
         {
             int[] ActualLocation = Retriever.GetMovieLocations(ID);
-            for (int i = 0; i < fkLocations.Length; i++)
+            for (int i = 0; i < ActualLocation.Length; i++)
             {
                 if (!ActualLocation.Contains(fkLocations[i].ID))
                 {
@@ -1226,6 +1245,13 @@ namespace DbRuler
             }
         }
         #endregion
+        #endregion
+        #region Delete
+        public bool Delete()
+        {
+            string strCommand = "DELETE FROM Movie WHERE ID = " + ID.ToString() + ";";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
         #endregion
 
         public int GetTotalProductionTime()
@@ -1423,6 +1449,7 @@ namespace DbRuler
         #endregion
     }
     #endregion
+
     #region Game Tables
     public class LG_CharPlayerAffinity
     {
@@ -1522,6 +1549,119 @@ namespace DbRuler
             string strCommand = "INSERT INTO LG_MoviePlayer (IDMovie,Price,RealAudience,Cash,Change) VALUES (" +
                     IDMovie.ToString() + "," + Price.ToString() + "," + RealAudience.ToString() +
                     Cash.ToString() + "," + Change.ToString() + ");";
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+    }
+
+    public class LG_CashMovement
+    {
+        public List<LastCashMovement> Movement { get; }
+
+        public LG_CashMovement()
+        {
+            string strCommand = "SELECT * FROM LG_CashMovement ORDER BY Year, MOnth, Week ASC" +
+                ";";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            Movement = new List<LastCashMovement>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                LastCashMovement LCM = new LastCashMovement();
+                LCM.ID_Movement = Convert.ToInt32(tblRet.Rows[i]["ID_Movement"]);
+                LCM.ID_Target = Convert.ToInt32(tblRet.Rows[i]["ID_Target"]);                
+                LCM.MovementValue = Convert.ToInt64(tblRet.Rows[i]["MovementValue"]);
+                LCM.Target = (TypeOfObject)Convert.ToInt32(tblRet.Rows[i]["Target"]);
+                LCM.TypeOfMovement = (TypeOfObject)Convert.ToInt32(tblRet.Rows[i]["TypeOfMovement"]);
+                LCM.Week = Convert.ToInt32(tblRet.Rows[i]["Week"]);
+                LCM.Month = Convert.ToInt32(tblRet.Rows[i]["Month"]);
+                LCM.Year = Convert.ToInt32(tblRet.Rows[i]["Year"]);
+                Movement.Add(LCM);
+            }
+        }
+
+        public bool AddLine(LastCashMovement Line)
+        {
+            Movement.Add(Line);
+            return InsertInDb(Line);
+        }
+
+        public bool AddLineBulk(List<LastCashMovement> Lines)
+        {
+            bool blnRes = false;
+            foreach (LastCashMovement Line in Lines)
+            {
+                blnRes = AddLine(Line);
+            }
+            return blnRes;
+        }
+
+        private bool InsertInDb(LastCashMovement line)
+        {
+            string strCommand = string.Format("INSERT INTO LG_CashMovement " +
+                "(ID_Movement,ID_Target,MovementValue,Target,TypeOfMovement,Week,Month,Year)" +
+                " VALUES ({0},{1},{2},{3},{4},{5},{6},{7});", line.ID_Movement,line.ID_Target,line.MovementValue,line.MovementValue,
+                (int)line.Target,(int)line.TypeOfMovement,line.Week,line.MovementValue,line.Year);
+            return SQLLiteInt.GenericCommand(strCommand);
+
+        }
+
+        public long Balance()
+        {
+            List<LastCashMovement> Bal = (from m in Movement
+                                          where m.ID_Target == -1
+                                          select m).ToList();
+            long RetVal = 0;
+            foreach (LastCashMovement lcm in Bal)
+            {
+                RetVal += lcm.MovementValue;
+            }
+            return RetVal;
+        }
+    }
+
+    public class LG_MainGameData
+    {
+        public string SaveGameDir { get; set; }
+        public string Name { get; set; }
+        public string StudiosName { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Week { get; set; }
+        public bool AgingOn { get; set; }
+
+        public LG_MainGameData(string strGameName)
+        {
+            SaveGameDir = strGameName;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            string strCommand = string.Format("SELECT * FROM LG_MainGameData WHERE SaveGameDir = '{0}';", SaveGameDir);
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count > 0)
+            {
+                Name = tblRet.Rows[0]["Name"].ToString();
+                StudiosName = tblRet.Rows[0]["StudiosName"].ToString();
+                Year = Convert.ToInt32(tblRet.Rows[0]["Year"]);
+                Month = Convert.ToInt32(tblRet.Rows[0]["Month"]);
+                Week = Convert.ToInt32(tblRet.Rows[0]["Week"]);
+                AgingOn = (Convert.ToInt32(tblRet.Rows[0]["AgingOn"]) == 1 ? true : false);
+            }
+        }
+
+        public bool InsertInDb()
+        {
+            string strCommand = string.Format("INSERT INTO LG_MainGameData " +
+                " (SaveGameDir,Name,StudiosName,Year,Month,Week,AgingOn) " +
+                " VALUES ('{0}','{1}','{2}',{3},{4},{5},{6});", SaveGameDir, Name, StudiosName, Year, Month, Week, (AgingOn ? 1 : 0));
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+
+        public bool UpdateDb()
+        {
+            string strCommand = string.Format("UPDATE LG_MainGameData " +
+                " SET Name = '{0}', StudiosName = '{1}', Year = {2}, Month = {3}, Week = {4} " +
+                " WHERE SaveGameDir ='{5}');", Name, StudiosName, Year, Month, Week, SaveGameDir);
             return SQLLiteInt.GenericCommand(strCommand);
         }
     }
