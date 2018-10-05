@@ -651,6 +651,7 @@ namespace LFM.MainGame.Operativita
                         DialogResult Res = MessageBox.Show("Questo film ti porterà in rosso, sei sicuro di volerlo produrre?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (Res == DialogResult.Yes)
                         {
+                            MyMovie.Status = MyMovie.GetTotalProductionTime();
                             this.DialogResult = DialogResult.OK;                            
                         }
                     }
@@ -662,6 +663,7 @@ namespace LFM.MainGame.Operativita
             {
                 if (blnShR && blnFX && blnTdP && blnCast)
                 {
+                    MySerial.Status = MySerial.Episodes + 24; // (24 = 6 month production time)
                     this.DialogResult = DialogResult.OK;                    
                 }
                 else

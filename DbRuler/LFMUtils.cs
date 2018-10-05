@@ -35,6 +35,24 @@ namespace DbRuler
     }
     public static class LFMUtils
     {
+        public static List<TKey> RemoveByValue<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TValue someValue)
+        {
+            List<TKey> itemsToRemove = new List<TKey>();
+
+            foreach (var pair in dictionary)
+            {
+                if (pair.Value.Equals(someValue))
+                    itemsToRemove.Add(pair.Key);
+            }
+
+            foreach (TKey item in itemsToRemove)
+            {
+                dictionary.Remove(item);
+            }
+            return itemsToRemove;
+        }
+
+
         /// <summary>
         /// This method check the current Age (year) with another age (year) and return
         /// the AgeClass (enum).
@@ -66,8 +84,7 @@ namespace DbRuler
         /// <param name="IDChar"></param>
         /// <returns></returns>
         public static bool CheckIfCharacterIsFree(int IDChar)
-        {
-            
+        {            
             int[] MovieList = Retriever.GetMovieInWorking();
             int[] SerialList = Retriever.GetSerialSeasoning();
             List<Movie> MovieCastList = Retriever.GetListOfMovieInWorkingFromCharID(IDChar);

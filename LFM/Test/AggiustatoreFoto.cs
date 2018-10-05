@@ -145,5 +145,23 @@ namespace LFM.Test
             CharImages Img = new CharImages(Genes[intIndex].ID, AC);
             Img.CharImages_DeleteImage();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // Displays an OpenFileDialog so the user can select a Cursor.
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            openFileDialog1.Title = "Seleziona Foto";
+
+            // Show the Dialog.
+            // If the user clicked OK in the dialog and
+            // a .CUR file was selected, open it.
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // Assign the cursor in the Stream to the Form's Cursor property.
+                string strViso = openFileDialog1.FileName;
+                pictureBox1.Image = Image.FromFile(strViso);
+            }            
+        }
     }
 }

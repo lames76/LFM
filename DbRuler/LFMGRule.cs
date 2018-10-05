@@ -112,13 +112,53 @@ namespace DbRuler
 
         /// <summary>
         /// This method calculate the cash get from the movie. The value is:
-        /// RealAudience * 100000.
+        /// RealAudience * 150000.
         /// </summary>
         /// <param name="RealAudience"></param>
         /// <returns></returns>
         public static long CalculateMoney(int RealAudience)
         {
             return RealAudience * 150000;
+        }
+
+        /// <summary>
+        /// This method get the RealAudience (calulated only one time since it have random inside)
+        /// and return the money gon in the selected week
+        /// </summary>
+        /// <param name="RealAudience"></param>
+        /// <param name="Week"></param>
+        /// <returns></returns>
+        public static long CalculateMoneyByWeeks(int RealAudience, int Week)
+        {
+            long lngMoneyThisWeek = 0;
+            long TotalMoney = CalculateMoney(RealAudience);
+            long Appo34Perc = (TotalMoney * 34) / 100;
+            long Appo33Perc = (TotalMoney * 33) / 100;
+            switch (Week)
+            {
+                // Nella prima settimana si incassa il 34% dell'incasso.
+                case 1:
+                    lngMoneyThisWeek = Appo34Perc;
+                    break;
+                // Un 33% si incassa nelle successive 2 settimane (75% del 25% nella 1 ed il resto nella seconda).
+                case 2:
+                    lngMoneyThisWeek = (Appo33Perc * 75) / 100;
+                    break;
+                case 3:
+                    lngMoneyThisWeek = (Appo33Perc * 25) / 100;
+                    break;
+                // Infine l'ultimo 33% è incassato nelle successive 3 settimane (55% 30% 15%).
+                case 4:
+                    lngMoneyThisWeek = (Appo33Perc * 55) / 100;
+                    break;
+                case 5:
+                    lngMoneyThisWeek = (Appo33Perc * 30) / 100;
+                    break;
+                case 6:
+                    lngMoneyThisWeek = (Appo33Perc * 15) / 100;
+                    break;
+            }
+            return lngMoneyThisWeek;
         }
 
         /// <summary>
@@ -156,6 +196,35 @@ namespace DbRuler
             return Change;
         }
 
+        /// <summary>
+        /// Get the change from the audience
+        /// </summary>
+        /// <param name="MySerial"></param>
+        /// <returns></returns>
+        public static int GetPopularityChange(Serial MySerial)
+        {
+            int Change = 0;
+            long Difference = MySerial.Base_Audience - 100;
+            // More than 10.000.000 is a big success
+            if (Difference >= 50)
+                Change = 10;
+            else
+            {
+                // More than 0 is a success
+                if (Difference > 0)
+                    Change = 5;
+                else
+                {
+                    // More than 10.000.000 of loose is a big unsuccess
+                    if (Difference <= -50)
+                        Change = -10;
+                    // Else is a small unsuccess.
+                    else
+                        Change = -5;
+                }
+            }
+            return Change;
+        }
         /// <summary>
         /// This method apply the popularity chagne to the character and save it.
         /// </summary>

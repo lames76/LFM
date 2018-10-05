@@ -254,6 +254,16 @@ namespace DbRuler
             return SQLLiteInt.GenericCommand(strCommand);
         }
         #endregion
+        public long Price(LG_CashMovement bank)
+        {
+            List<LastCashMovement> Bal = (from m in bank.Movement
+                                          where m.ID_Target == ID
+                                          select m).ToList();
+            long Price = 0;
+            foreach (LastCashMovement L in Bal)
+                Price += L.MovementValue;
+            return Price;
+        }
     }
 
     public class Universes
@@ -956,6 +966,7 @@ namespace DbRuler
         public int Age { get; set; }
         public int Films { get; set; }
         public string ImDB_Link { get; set; }
+        public int Active { get; set; }
 
         public GenericCharacters(int intID)
         {
@@ -990,6 +1001,7 @@ namespace DbRuler
                 TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[0]["fkTypeOf"]));
                 TypeOf = typo;
                 ImDB_Link = tblRet.Rows[0]["ImDB_Link"].ToString();
+                Active = Convert.ToInt32(tblRet.Rows[0]["Active"]);
             }
         }
 
@@ -1010,13 +1022,14 @@ namespace DbRuler
                 strCommand += " Humor = " + Inner_Val.Humor.ToString() + ",";
                 strCommand += " Popularity = " + Popularity.ToString() + ",";
                 strCommand += " Talent = " + Talent.ToString() + ",";
+                strCommand += " Active = " + Active.ToString() + ",";
                 strCommand += " Age = " + Age.ToString();
                 strCommand += " WHERE ID = " + ID.ToString() + ";";
             }
             else
             {
                 strCommand = "INSERT INTO GenericCharacter ";
-                strCommand += "(Name,Surname,ImDB_Link,Sex,fkTypeOf,Skill,Action,Sexappeal,Humor,Popularity,Talent,Age) ";
+                strCommand += "(Name,Surname,ImDB_Link,Sex,fkTypeOf,Skill,Action,Sexappeal,Humor,Popularity,Talent,Active,Age) ";
                 strCommand += " VALUES ( ";
                 strCommand += "'" + Name + "',";
                 strCommand += "'" + Surname + "',";
@@ -1029,6 +1042,7 @@ namespace DbRuler
                 strCommand += Inner_Val.Humor.ToString() + ",";
                 strCommand += Popularity.ToString() + ",";
                 strCommand += Talent.ToString() + ",";
+                strCommand += Active.ToString() + ",";
                 strCommand += Age.ToString() + ");";
             }
             bool blnResult = SQLLiteInt.GenericCommand(strCommand);
@@ -1051,6 +1065,12 @@ namespace DbRuler
             return blnResult;
         }
         #endregion
+
+        public void SetActive(int intValue)
+        {
+            Active = intValue;
+            GenericCharacters_WriteOnDb();
+        }
     }
     public class Movie
     {
@@ -1302,7 +1322,18 @@ namespace DbRuler
             return strStatus;
         }
 
+        public long Price(LG_CashMovement bank)
+        {
+            List<LastCashMovement> Bal = (from m in bank.Movement
+                                          where m.ID_Target == ID
+                                          select m).ToList();
+            long Price = 0;
+            foreach (LastCashMovement L in Bal)
+                Price += L.MovementValue;
+            return Price;
+        }
     }
+
     public class Script
     {        
         public int ID { get; set; }
@@ -1559,7 +1590,7 @@ namespace DbRuler
 
         public LG_CashMovement()
         {
-            string strCommand = "SELECT * FROM LG_CashMovement ORDER BY Year, MOnth, Week ASC" +
+            string strCommand = "SELECT * FROM LG_CashMovement ORDER BY Year, Month, Week ASC" +
                 ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             Movement = new List<LastCashMovement>();
@@ -2110,12 +2141,12 @@ namespace DbRuler
         }
 
         #region Characters
-        public static GenericCharacters[] GetCharacters(TypeOfCharacters Typo = null)
+        public static GenericCharacters[] GetCharacters(TypeOfCharacters Typo = null, int Active = 1)
         {
-            string strCommand = "SELECT * FROM GenericCharacter";
+            string strCommand = "SELECT * FROM GenericCharacter WHERE Active = " + Active;
             if (Typo != null)
             {
-                strCommand += " WHERE fkTypeOf = " + Typo.ID.ToString();
+                strCommand += " fkTypeOf = " + Typo.ID.ToString();
             }
             strCommand += ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
@@ -2140,18 +2171,18 @@ namespace DbRuler
             return RetVal;
         }
 
-        public static DataTable GetCharactersTable()
+        public static DataTable GetCharactersTable(int Active = 1)
         {
-            string strCommand = "SELECT * FROM GenericCharacter;";
+            string strCommand = "SELECT * FROM GenericCharacter WHERE Active = " + Active +"; ";
             DataTable tblRet = SQLLiteInt.Select(strCommand);            
             return tblRet;
         }
 
-        public static GenericCharacters[] GetCharactersByType(string strTypeOfCharacter)
+        public static GenericCharacters[] GetCharactersByType(string strTypeOfCharacter, int Active = 1)
         {
             string strCommand = string.Format("SELECT GenericCharacter.* FROM GenericCharacter " +
                 "INNER JOIN TypeOfCharacter AS T ON T.ID = GenericCharacter.fkTypeOf " +
-                "WHERE T.TypeOf = '{0}';", strTypeOfCharacter);
+                "WHERE T.TypeOf = '{0}' AND GenericCharacter.Ative={1};", strTypeOfCharacter, Active);
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
@@ -2174,10 +2205,10 @@ namespace DbRuler
             return RetVal;
         }
 
-        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname, TypeOfCharacters Typo = null)
+        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname, TypeOfCharacters Typo = null, int Active = 1)
         {
             string strCommand = string.Format("SELECT * FROM GenericCharacter " +
-                "WHERE Surname LIKE '%{0}%'", strSurname);
+                "WHERE Surname LIKE '%{0}%' AND Active = {1};", strSurname, Active);
             if (Typo != null)
             {
                 strCommand += " AND fkTypeOf = " + Typo.ID.ToString();
@@ -2205,28 +2236,15 @@ namespace DbRuler
             return RetVal;
         }
 
-        public static GenericCharacters[] GetCharactersByNameAndSurnameLike(string Name, string strSurname)
+        public static GenericCharacters[] GetCharactersByNameAndSurnameLike(string Name, string strSurname, int Active = 1)
         {
             string strCommand = string.Format("SELECT * FROM GenericCharacter " +
-                "WHERE Surname = '{0}' AND Name = '{1}';", strSurname, Name);
+                "WHERE Surname = '{0}' AND Name = '{1}' AND Active = {2};", strSurname, Name, Active);
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
             {
                 RetVal[i] = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID"]) );
-                RetVal[i].Inner_Val = new Inner_Values();
-                RetVal[i].Inner_Val.Action = Convert.ToInt32(tblRet.Rows[i]["Action"]);
-                RetVal[i].Age = Convert.ToInt32(tblRet.Rows[i]["Age"]);
-                RetVal[i].Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[i]["Humor"]);
-                RetVal[i].Name = tblRet.Rows[i]["Name"].ToString();
-                RetVal[i].Popularity = Convert.ToInt32(tblRet.Rows[i]["Popularity"]);
-                RetVal[i].Sex = tblRet.Rows[i]["Sex"].ToString();
-                RetVal[i].Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[i]["Sexappeal"]);
-                RetVal[i].Skills = Convert.ToInt32(tblRet.Rows[i]["Skill"]);
-                RetVal[i].Surname = tblRet.Rows[i]["Surname"].ToString();
-                RetVal[i].Talent = Convert.ToInt32(tblRet.Rows[i]["Talent"]);
-                TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[i]["fkTypeOf"]));
-                RetVal[i].TypeOf = typo;
             }
             return RetVal;
         }
@@ -2548,7 +2566,7 @@ namespace DbRuler
         /// <param name="intActualAge"></param>
         /// <param name="strSex"></param>
         /// <returns></returns>
-        public static GenericCharacters CreateActor(int intActualAge, string strSex)
+        public static GenericCharacters CreateNewCharacter(int intActualAge, string strSex, TypeOfCharacters typo)
         {
             GenericCharacters Gen = new GenericCharacters();
             Random rndCasuale = new Random();
@@ -2571,9 +2589,8 @@ namespace DbRuler
             Gen.Name = FirstCharToUpper(NameGenerator.GenerateFirstName(GenGender).ToLower());            
             Gen.Sex = strSex;
             Gen.Surname = FirstCharToUpper(NameGenerator.GenerateLastName().ToLower());            
-            TypeOfCharacters typo = new TypeOfCharacters((strSex == "F" ? 4 : 3));
             Gen.TypeOf = typo;
-            
+            Gen.Active = 1;
             Gen.GenericCharacters_WriteOnDb();
             // Add Abilities
             AddAbilities(Gen, 70);
@@ -2721,6 +2738,7 @@ namespace DbRuler
             Gen.Surname = FirstCharToUpper(NameGenerator.GenerateLastName().ToLower());
             TypeOfCharacters typo = new TypeOfCharacters(2);
             Gen.TypeOf = typo;
+            Gen.Active = 1;
             Gen.GenericCharacters_WriteOnDb();
             AddAbilities(Gen, 75);
             return Gen;
@@ -2751,6 +2769,7 @@ namespace DbRuler
             Gen.Surname = FirstCharToUpper(NameGenerator.GenerateLastName().ToLower());
             TypeOfCharacters typo = new TypeOfCharacters(1);
             Gen.TypeOf = typo;
+            Gen.Active = 1;
             Gen.GenericCharacters_WriteOnDb();
             AddAbilities(Gen, 80);
             return Gen;

@@ -16,5 +16,11 @@ namespace LFM.MainGame.Report
         {
             InitializeComponent();
         }
+
+        private void btnReportMovie_Click(object sender, EventArgs e)
+        {
+            FormReport frmReport = new FormReport();
+            frmReport.ShowDialog();
+        }
     }
 }

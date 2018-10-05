@@ -77,9 +77,9 @@ namespace CharacterDiplaySelector
                 }
             }
             if (txtFilter.Text.Length > 0)
-                GenLista = Retriever.GetCharactersBySurnameLike(txtFilter.Text, Typ);
+                GenLista = Retriever.GetCharactersBySurnameLike(txtFilter.Text, Typ, 1);
             else
-                GenLista = Retriever.GetCharacters(Typ);
+                GenLista = Retriever.GetCharacters(Typ, 1);
             lblCounter.Text = GenLista.Length.ToString();
             dgChars.DataSource = GenLista;
         }
@@ -99,6 +99,7 @@ namespace CharacterDiplaySelector
 
         private void dgChars_DoubleClick(object sender, EventArgs e)
         {
+            ClearAll();
             int selectedrowindex = dgChars.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow = dgChars.Rows[selectedrowindex];
             int intID = Convert.ToInt32(selectedRow.Cells[0].Value);
@@ -224,11 +225,16 @@ namespace CharacterDiplaySelector
         {
             if (Gener != null)
             {
-                DialogResult Res = MessageBox.Show("Sei sicuro di voler confermare la scelta? \nNon potrai cambiare una volta assegnato.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (Res == DialogResult.Yes)
+                if (LFMUtils.CheckIfCharacterIsFree(Gener.ID))
                 {
-                    this.onCharSelected(this, new EventArgs());
+                    DialogResult Res = MessageBox.Show("Sei sicuro di voler confermare la scelta? \nNon potrai cambiare una volta assegnato.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (Res == DialogResult.Yes)
+                    {
+                        this.onCharSelected(this, new EventArgs());
+                    }
                 }
+                else
+                    MessageBox.Show("Questo personaggio è occupato in un altro lavoro.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

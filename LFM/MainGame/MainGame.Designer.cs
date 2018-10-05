@@ -33,15 +33,16 @@
             this.btnGestione = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblPlayer = new System.Windows.Forms.Label();
-            this.lblStudios = new System.Windows.Forms.Label();
-            this.lblBalance = new System.Windows.Forms.Label();
-            this.txtStudiosName = new System.Windows.Forms.RichTextBox();
-            this.txtBalance = new System.Windows.Forms.RichTextBox();
-            this.txtPlayerName = new System.Windows.Forms.RichTextBox();
-            this.txtYear = new System.Windows.Forms.RichTextBox();
-            this.txtMonth = new System.Windows.Forms.RichTextBox();
             this.txtWeek = new System.Windows.Forms.RichTextBox();
+            this.txtMonth = new System.Windows.Forms.RichTextBox();
+            this.txtYear = new System.Windows.Forms.RichTextBox();
+            this.txtPlayerName = new System.Windows.Forms.RichTextBox();
+            this.txtBalance = new System.Windows.Forms.RichTextBox();
+            this.txtStudiosName = new System.Windows.Forms.RichTextBox();
+            this.lblBalance = new System.Windows.Forms.Label();
+            this.lblStudios = new System.Windows.Forms.Label();
+            this.lblPlayer = new System.Windows.Forms.Label();
+            this.btnNextWeek = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // btnGestione
             // 
             this.btnGestione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGestione.Location = new System.Drawing.Point(12, 222);
+            this.btnGestione.Location = new System.Drawing.Point(12, 239);
             this.btnGestione.Name = "btnGestione";
             this.btnGestione.Size = new System.Drawing.Size(690, 100);
             this.btnGestione.TabIndex = 1;
@@ -72,7 +73,7 @@
             // 
             this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReport.Location = new System.Drawing.Point(12, 340);
+            this.btnReport.Location = new System.Drawing.Point(14, 380);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(690, 100);
             this.btnReport.TabIndex = 2;
@@ -99,87 +100,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Game Data:";
             // 
-            // lblPlayer
+            // txtWeek
             // 
-            this.lblPlayer.AutoSize = true;
-            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayer.Location = new System.Drawing.Point(12, 27);
-            this.lblPlayer.Name = "lblPlayer";
-            this.lblPlayer.Size = new System.Drawing.Size(68, 20);
-            this.lblPlayer.TabIndex = 0;
-            this.lblPlayer.Text = "Player:";
-            // 
-            // lblStudios
-            // 
-            this.lblStudios.AutoSize = true;
-            this.lblStudios.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudios.Location = new System.Drawing.Point(12, 65);
-            this.lblStudios.Name = "lblStudios";
-            this.lblStudios.Size = new System.Drawing.Size(78, 20);
-            this.lblStudios.TabIndex = 1;
-            this.lblStudios.Text = "Studios:";
-            // 
-            // lblBalance
-            // 
-            this.lblBalance.AutoSize = true;
-            this.lblBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBalance.Location = new System.Drawing.Point(368, 29);
-            this.lblBalance.Name = "lblBalance";
-            this.lblBalance.Size = new System.Drawing.Size(83, 20);
-            this.lblBalance.TabIndex = 2;
-            this.lblBalance.Text = "Balance:";
-            // 
-            // txtStudiosName
-            // 
-            this.txtStudiosName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtStudiosName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudiosName.Location = new System.Drawing.Point(98, 65);
-            this.txtStudiosName.Multiline = false;
-            this.txtStudiosName.Name = "txtStudiosName";
-            this.txtStudiosName.ReadOnly = true;
-            this.txtStudiosName.Size = new System.Drawing.Size(250, 22);
-            this.txtStudiosName.TabIndex = 4;
-            this.txtStudiosName.Text = "";
-            this.txtStudiosName.WordWrap = false;
-            // 
-            // txtBalance
-            // 
-            this.txtBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBalance.Location = new System.Drawing.Point(457, 29);
-            this.txtBalance.Multiline = false;
-            this.txtBalance.Name = "txtBalance";
-            this.txtBalance.ReadOnly = true;
-            this.txtBalance.Size = new System.Drawing.Size(250, 22);
-            this.txtBalance.TabIndex = 5;
-            this.txtBalance.Text = "";
-            this.txtBalance.WordWrap = false;
-            // 
-            // txtPlayerName
-            // 
-            this.txtPlayerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPlayerName.Location = new System.Drawing.Point(98, 27);
-            this.txtPlayerName.Multiline = false;
-            this.txtPlayerName.Name = "txtPlayerName";
-            this.txtPlayerName.ReadOnly = true;
-            this.txtPlayerName.Size = new System.Drawing.Size(250, 22);
-            this.txtPlayerName.TabIndex = 6;
-            this.txtPlayerName.Text = "";
-            this.txtPlayerName.WordWrap = false;
-            // 
-            // txtYear
-            // 
-            this.txtYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYear.Location = new System.Drawing.Point(497, 65);
-            this.txtYear.Multiline = false;
-            this.txtYear.Name = "txtYear";
-            this.txtYear.ReadOnly = true;
-            this.txtYear.Size = new System.Drawing.Size(50, 22);
-            this.txtYear.TabIndex = 7;
-            this.txtYear.Text = "YYYY";
-            this.txtYear.WordWrap = false;
+            this.txtWeek.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWeek.Location = new System.Drawing.Point(677, 65);
+            this.txtWeek.Multiline = false;
+            this.txtWeek.Name = "txtWeek";
+            this.txtWeek.ReadOnly = true;
+            this.txtWeek.Size = new System.Drawing.Size(25, 22);
+            this.txtWeek.TabIndex = 9;
+            this.txtWeek.Text = "4";
+            this.txtWeek.WordWrap = false;
             // 
             // txtMonth
             // 
@@ -194,24 +126,104 @@
             this.txtMonth.Text = "SETTEMBRE";
             this.txtMonth.WordWrap = false;
             // 
-            // txtWeek
+            // txtYear
             // 
-            this.txtWeek.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeek.Location = new System.Drawing.Point(677, 65);
-            this.txtWeek.Multiline = false;
-            this.txtWeek.Name = "txtWeek";
-            this.txtWeek.ReadOnly = true;
-            this.txtWeek.Size = new System.Drawing.Size(25, 22);
-            this.txtWeek.TabIndex = 9;
-            this.txtWeek.Text = "4";
-            this.txtWeek.WordWrap = false;
+            this.txtYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtYear.Location = new System.Drawing.Point(497, 65);
+            this.txtYear.Multiline = false;
+            this.txtYear.Name = "txtYear";
+            this.txtYear.ReadOnly = true;
+            this.txtYear.Size = new System.Drawing.Size(50, 22);
+            this.txtYear.TabIndex = 7;
+            this.txtYear.Text = "YYYY";
+            this.txtYear.WordWrap = false;
+            // 
+            // txtPlayerName
+            // 
+            this.txtPlayerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPlayerName.Location = new System.Drawing.Point(98, 27);
+            this.txtPlayerName.Multiline = false;
+            this.txtPlayerName.Name = "txtPlayerName";
+            this.txtPlayerName.ReadOnly = true;
+            this.txtPlayerName.Size = new System.Drawing.Size(250, 22);
+            this.txtPlayerName.TabIndex = 6;
+            this.txtPlayerName.Text = "";
+            this.txtPlayerName.WordWrap = false;
+            // 
+            // txtBalance
+            // 
+            this.txtBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBalance.Location = new System.Drawing.Point(457, 29);
+            this.txtBalance.Multiline = false;
+            this.txtBalance.Name = "txtBalance";
+            this.txtBalance.ReadOnly = true;
+            this.txtBalance.Size = new System.Drawing.Size(250, 22);
+            this.txtBalance.TabIndex = 5;
+            this.txtBalance.Text = "";
+            this.txtBalance.WordWrap = false;
+            // 
+            // txtStudiosName
+            // 
+            this.txtStudiosName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStudiosName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStudiosName.Location = new System.Drawing.Point(98, 65);
+            this.txtStudiosName.Multiline = false;
+            this.txtStudiosName.Name = "txtStudiosName";
+            this.txtStudiosName.ReadOnly = true;
+            this.txtStudiosName.Size = new System.Drawing.Size(250, 22);
+            this.txtStudiosName.TabIndex = 4;
+            this.txtStudiosName.Text = "";
+            this.txtStudiosName.WordWrap = false;
+            // 
+            // lblBalance
+            // 
+            this.lblBalance.AutoSize = true;
+            this.lblBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBalance.Location = new System.Drawing.Point(368, 29);
+            this.lblBalance.Name = "lblBalance";
+            this.lblBalance.Size = new System.Drawing.Size(83, 20);
+            this.lblBalance.TabIndex = 2;
+            this.lblBalance.Text = "Balance:";
+            // 
+            // lblStudios
+            // 
+            this.lblStudios.AutoSize = true;
+            this.lblStudios.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudios.Location = new System.Drawing.Point(12, 65);
+            this.lblStudios.Name = "lblStudios";
+            this.lblStudios.Size = new System.Drawing.Size(78, 20);
+            this.lblStudios.TabIndex = 1;
+            this.lblStudios.Text = "Studios:";
+            // 
+            // lblPlayer
+            // 
+            this.lblPlayer.AutoSize = true;
+            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer.Location = new System.Drawing.Point(12, 27);
+            this.lblPlayer.Name = "lblPlayer";
+            this.lblPlayer.Size = new System.Drawing.Size(68, 20);
+            this.lblPlayer.TabIndex = 0;
+            this.lblPlayer.Text = "Player:";
+            // 
+            // btnNextWeek
+            // 
+            this.btnNextWeek.Location = new System.Drawing.Point(532, 624);
+            this.btnNextWeek.Name = "btnNextWeek";
+            this.btnNextWeek.Size = new System.Drawing.Size(145, 52);
+            this.btnNextWeek.TabIndex = 4;
+            this.btnNextWeek.Text = "Avanti";
+            this.btnNextWeek.UseVisualStyleBackColor = true;
+            this.btnNextWeek.Click += new System.EventHandler(this.btnNextWeek_Click);
             // 
             // MainGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 454);
+            this.ClientSize = new System.Drawing.Size(716, 695);
+            this.Controls.Add(this.btnNextWeek);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnReport);
             this.Controls.Add(this.btnGestione);
@@ -243,5 +255,6 @@
         private System.Windows.Forms.RichTextBox txtYear;
         private System.Windows.Forms.RichTextBox txtWeek;
         private System.Windows.Forms.RichTextBox txtMonth;
+        private System.Windows.Forms.Button btnNextWeek;
     }
 }

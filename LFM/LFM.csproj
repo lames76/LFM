@@ -146,10 +146,10 @@
     <Compile Include="LFM.Designer.cs">
       <DependentUpon>LFM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Test\FormReport.cs">
+    <Compile Include="MainGame\Report\FormReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Test\FormReport.Designer.cs">
+    <Compile Include="MainGame\Report\FormReport.Designer.cs">
       <DependentUpon>FormReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -178,6 +178,9 @@
     <EmbeddedResource Include="MainGame\Operativita\Produzione.resx">
       <DependentUpon>Produzione.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Report\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Test\AggiustatoreFoto.resx">
       <DependentUpon>AggiustatoreFoto.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,7 +202,7 @@
     <EmbeddedResource Include="LFM.resx">
       <DependentUpon>LFM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Test\FormReport.resx">
+    <EmbeddedResource Include="MainGame\Report\FormReport.resx">
       <DependentUpon>FormReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

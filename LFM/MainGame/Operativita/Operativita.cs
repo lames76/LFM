@@ -53,5 +53,15 @@ namespace LFM.MainGame.Operativita
             else
                 this.DialogResult = DialogResult.Cancel;
         }
+
+        private void btnContinueSerial_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet implemented!");
+        }
+
+        private void btnSequelAndReboot_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet implemented!");
+        }
     }
 }

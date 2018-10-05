@@ -76,7 +76,7 @@ namespace LFM
 
         private void button5_Click(object sender, EventArgs e)
         {
-            GenericCharacters G = Creator.CreateActor(2018, "F");
+            GenericCharacters G = Creator.CreateNewCharacter(2018, "F", new TypeOfCharacters(5));
             MessageBox.Show("Fatto!\nCreata " + G.Name + " " + G.Surname);
         }
 
