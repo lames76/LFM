@@ -22,5 +22,20 @@ namespace LFM.MainGame.Report
             FormReport frmReport = new FormReport();
             frmReport.ShowDialog();
         }
+
+        private void bntRapportiConAttori_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRapportiConRegisti_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFinance_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -69,9 +69,11 @@
             this.tabTdPeFX = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.gbxFX = new System.Windows.Forms.GroupBox();
+            this.lblFXCost = new System.Windows.Forms.Label();
             this.btnSelezionaFX = new System.Windows.Forms.Button();
             this.ddlSpecialEffect = new System.Windows.Forms.ComboBox();
             this.gbxTdP = new System.Windows.Forms.GroupBox();
+            this.lblTdPCost = new System.Windows.Forms.Label();
             this.btnSelectTdP = new System.Windows.Forms.Button();
             this.ddlTheatre = new System.Windows.Forms.ComboBox();
             this.tabRiassunto = new System.Windows.Forms.TabPage();
@@ -119,8 +121,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtBudget = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblTdPCost = new System.Windows.Forms.Label();
-            this.lblFXCost = new System.Windows.Forms.Label();
             this.tabControlMovie.SuspendLayout();
             this.tabShowrunner.SuspendLayout();
             this.tabCreateScript.SuspendLayout();
@@ -153,7 +153,7 @@
             this.tabControlMovie.Location = new System.Drawing.Point(0, 42);
             this.tabControlMovie.Name = "tabControlMovie";
             this.tabControlMovie.SelectedIndex = 0;
-            this.tabControlMovie.Size = new System.Drawing.Size(1048, 683);
+            this.tabControlMovie.Size = new System.Drawing.Size(1048, 706);
             this.tabControlMovie.TabIndex = 0;
             this.tabControlMovie.SelectedIndexChanged += new System.EventHandler(this.tabControlMovie_SelectedIndexChanged);
             // 
@@ -162,7 +162,7 @@
             this.tabShowrunner.Controls.Add(this.charDisplaySelector1);
             this.tabShowrunner.Location = new System.Drawing.Point(4, 25);
             this.tabShowrunner.Name = "tabShowrunner";
-            this.tabShowrunner.Size = new System.Drawing.Size(1040, 654);
+            this.tabShowrunner.Size = new System.Drawing.Size(1040, 677);
             this.tabShowrunner.TabIndex = 5;
             this.tabShowrunner.Text = "Assegna Showrunner";
             this.tabShowrunner.UseVisualStyleBackColor = true;
@@ -173,6 +173,7 @@
             this.charDisplaySelector1.CharacterType = DbRuler.CharTypeEnum.Showrunner;
             this.charDisplaySelector1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelector1.Gener = null;
+            this.charDisplaySelector1.HideBusy = false;
             this.charDisplaySelector1.IsAgingOn = false;
             this.charDisplaySelector1.IsMovie = false;
             this.charDisplaySelector1.ListOfTypes = null;
@@ -181,7 +182,7 @@
             this.charDisplaySelector1.MySerial = null;
             this.charDisplaySelector1.Name = "charDisplaySelector1";
             this.charDisplaySelector1.Price = ((long)(0));
-            this.charDisplaySelector1.Size = new System.Drawing.Size(1040, 654);
+            this.charDisplaySelector1.Size = new System.Drawing.Size(1040, 677);
             this.charDisplaySelector1.TabIndex = 0;
             this.charDisplaySelector1.Year = 0;
             // 
@@ -464,7 +465,7 @@
             this.tabDirector.Location = new System.Drawing.Point(4, 25);
             this.tabDirector.Name = "tabDirector";
             this.tabDirector.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDirector.Size = new System.Drawing.Size(1040, 654);
+            this.tabDirector.Size = new System.Drawing.Size(1040, 677);
             this.tabDirector.TabIndex = 1;
             this.tabDirector.Text = "Assegna Regista";
             this.tabDirector.UseVisualStyleBackColor = true;
@@ -475,6 +476,7 @@
             this.charDisplaySelectorDir.CharacterType = DbRuler.CharTypeEnum.Director;
             this.charDisplaySelectorDir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelectorDir.Gener = null;
+            this.charDisplaySelectorDir.HideBusy = false;
             this.charDisplaySelectorDir.IsAgingOn = false;
             this.charDisplaySelectorDir.IsMovie = false;
             this.charDisplaySelectorDir.ListOfTypes = null;
@@ -483,7 +485,7 @@
             this.charDisplaySelectorDir.MySerial = null;
             this.charDisplaySelectorDir.Name = "charDisplaySelectorDir";
             this.charDisplaySelectorDir.Price = ((long)(0));
-            this.charDisplaySelectorDir.Size = new System.Drawing.Size(1034, 648);
+            this.charDisplaySelectorDir.Size = new System.Drawing.Size(1034, 671);
             this.charDisplaySelectorDir.TabIndex = 0;
             this.charDisplaySelectorDir.Year = 0;
             // 
@@ -493,7 +495,7 @@
             this.tabCast.Controls.Add(this.charDisplaySelectorActor);
             this.tabCast.Location = new System.Drawing.Point(4, 25);
             this.tabCast.Name = "tabCast";
-            this.tabCast.Size = new System.Drawing.Size(1040, 654);
+            this.tabCast.Size = new System.Drawing.Size(1040, 677);
             this.tabCast.TabIndex = 2;
             this.tabCast.Text = "Scelta Cast";
             this.tabCast.UseVisualStyleBackColor = true;
@@ -550,6 +552,7 @@
             this.charDisplaySelectorActor.CharacterType = DbRuler.CharTypeEnum.Actor;
             this.charDisplaySelectorActor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charDisplaySelectorActor.Gener = null;
+            this.charDisplaySelectorActor.HideBusy = false;
             this.charDisplaySelectorActor.IsAgingOn = false;
             this.charDisplaySelectorActor.IsMovie = false;
             this.charDisplaySelectorActor.ListOfTypes = null;
@@ -558,7 +561,7 @@
             this.charDisplaySelectorActor.MySerial = null;
             this.charDisplaySelectorActor.Name = "charDisplaySelectorActor";
             this.charDisplaySelectorActor.Price = ((long)(0));
-            this.charDisplaySelectorActor.Size = new System.Drawing.Size(1040, 654);
+            this.charDisplaySelectorActor.Size = new System.Drawing.Size(1040, 677);
             this.charDisplaySelectorActor.TabIndex = 64;
             this.charDisplaySelectorActor.Year = 0;
             // 
@@ -569,7 +572,7 @@
             this.tabTdPeFX.Controls.Add(this.gbxTdP);
             this.tabTdPeFX.Location = new System.Drawing.Point(4, 25);
             this.tabTdPeFX.Name = "tabTdPeFX";
-            this.tabTdPeFX.Size = new System.Drawing.Size(1040, 654);
+            this.tabTdPeFX.Size = new System.Drawing.Size(1040, 677);
             this.tabTdPeFX.TabIndex = 3;
             this.tabTdPeFX.Text = "Set ed Effetti Speciali";
             this.tabTdPeFX.UseVisualStyleBackColor = true;
@@ -579,7 +582,7 @@
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox9.Location = new System.Drawing.Point(0, 235);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1040, 419);
+            this.groupBox9.Size = new System.Drawing.Size(1040, 442);
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "groupBox9";
@@ -596,6 +599,15 @@
             this.gbxFX.TabIndex = 1;
             this.gbxFX.TabStop = false;
             this.gbxFX.Text = "Seleziona Effetti Speciali:";
+            // 
+            // lblFXCost
+            // 
+            this.lblFXCost.AutoSize = true;
+            this.lblFXCost.Location = new System.Drawing.Point(300, 46);
+            this.lblFXCost.Name = "lblFXCost";
+            this.lblFXCost.Size = new System.Drawing.Size(46, 17);
+            this.lblFXCost.TabIndex = 64;
+            this.lblFXCost.Text = "label4";
             // 
             // btnSelezionaFX
             // 
@@ -629,6 +641,15 @@
             this.gbxTdP.TabIndex = 0;
             this.gbxTdP.TabStop = false;
             this.gbxTdP.Text = "Seleziona il Set:";
+            // 
+            // lblTdPCost
+            // 
+            this.lblTdPCost.AutoSize = true;
+            this.lblTdPCost.Location = new System.Drawing.Point(300, 52);
+            this.lblTdPCost.Name = "lblTdPCost";
+            this.lblTdPCost.Size = new System.Drawing.Size(46, 17);
+            this.lblTdPCost.TabIndex = 62;
+            this.lblTdPCost.Text = "label4";
             // 
             // btnSelectTdP
             // 
@@ -1088,29 +1109,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Budget:";
             // 
-            // lblTdPCost
-            // 
-            this.lblTdPCost.AutoSize = true;
-            this.lblTdPCost.Location = new System.Drawing.Point(300, 52);
-            this.lblTdPCost.Name = "lblTdPCost";
-            this.lblTdPCost.Size = new System.Drawing.Size(46, 17);
-            this.lblTdPCost.TabIndex = 62;
-            this.lblTdPCost.Text = "label4";
-            // 
-            // lblFXCost
-            // 
-            this.lblFXCost.AutoSize = true;
-            this.lblFXCost.Location = new System.Drawing.Point(300, 46);
-            this.lblFXCost.Name = "lblFXCost";
-            this.lblFXCost.Size = new System.Drawing.Size(46, 17);
-            this.lblFXCost.TabIndex = 64;
-            this.lblFXCost.Text = "label4";
-            // 
             // Produzione
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 725);
+            this.ClientSize = new System.Drawing.Size(1048, 748);
             this.Controls.Add(this.gbxMoney);
             this.Controls.Add(this.tabControlMovie);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

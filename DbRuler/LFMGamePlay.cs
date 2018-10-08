@@ -64,7 +64,7 @@ namespace DbRuler
         /// <returns></returns>
         public static List<Movie> GetMoviesOfPlayer(bool IsProducing = false)
         {
-            string strCommand = "SELECT DISTINCT ID_Target FROM LG_CashMovement WHERE Target = " + (int)TypeOfObject.Movie +";";
+            string strCommand = "SELECT DISTINCT ID_Target AS ID FROM LG_CashMovement WHERE Target = " + (int)TypeOfObject.Movie +";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             List<Movie> ListOfMyMovie = new List<Movie>();
             for (int i = 0; i < tblRet.Rows.Count; i++)
@@ -152,6 +152,7 @@ namespace DbRuler
             int Count = NewCharNumber - 7;
             if (Count < 0)
                 Count = NewCharNumber;
+            // Generate Actor and Actress
             for (int j = 0; j < Count; j++)
             {
                 Random rndCasuale = new Random();
@@ -164,6 +165,7 @@ namespace DbRuler
                 }
                 GenericCharacters G = Creator.CreateNewCharacter(Year, strSex, typo);
             }
+            // Generate other kind
             for (int k = 0; k < NewCharNumber - Count; k++)
             {
                 Random rndCasuale = new Random();

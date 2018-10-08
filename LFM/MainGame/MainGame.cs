@@ -22,10 +22,25 @@ namespace LFM.MainGame
         public LastCashMovement LastExpenseDone { get; set; }
 
         private LG_MainGameData MainGameData;
+        /// <summary>
+        /// Dictionary with Movie ID and Real Audience
+        /// </summary>
         private Dictionary<int, int> MovieAudience= new Dictionary<int, int>();
+        /// <summary>
+        /// List with all the movie in production. Contains only Movie ID
+        /// </summary>
         private List<int> MovieInProduction = new List<int>();
+        /// <summary>
+        /// List with all the serial in production. Contains only Serial ID
+        /// </summary>
         private List<int> SerialInProduction = new List<int>();
+        /// <summary>
+        /// List of all the Serial ended, waiting for next season.
+        /// </summary>
         private List<int> SerialEndSeason = new List<int>();
+        /// <summary>
+        /// Dictionary with Movie ID and week in theatre
+        /// </summary>
         private Dictionary<int, int> MovieInTheatre = new Dictionary<int, int>();
 
         public MainGame()
@@ -80,6 +95,8 @@ namespace LFM.MainGame
         private void btnGestione_Click(object sender, EventArgs e)
         {
             Gestione.Gestione frmGest = new Gestione.Gestione();
+            frmGest.IsAgingOn = MainGameData.AgingOn;
+            frmGest.Year = MainGameData.Year;            
             frmGest.ShowDialog();
         }
 

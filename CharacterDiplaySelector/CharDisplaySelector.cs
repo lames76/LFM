@@ -14,6 +14,7 @@ namespace CharacterDiplaySelector
 {
     public partial class CharDisplaySelector: UserControl
     {
+        public bool HideBusy { get; set; }
         public bool IsAgingOn { get; set; }
         public bool IsMovie { get; set; }
         public int Year { get; set; }
@@ -77,9 +78,9 @@ namespace CharacterDiplaySelector
                 }
             }
             if (txtFilter.Text.Length > 0)
-                GenLista = Retriever.GetCharactersBySurnameLike(txtFilter.Text, Typ, 1);
+                GenLista = Retriever.GetCharactersBySurnameLike(txtFilter.Text, Typ, 1, HideBusy);
             else
-                GenLista = Retriever.GetCharacters(Typ, 1);
+                GenLista = Retriever.GetCharacters(Typ, 1, HideBusy);
             lblCounter.Text = GenLista.Length.ToString();
             dgChars.DataSource = GenLista;
         }
@@ -109,76 +110,15 @@ namespace CharacterDiplaySelector
         private void LoadDataAfterClick(int intID)
         {
             Gener = new GenericCharacters(intID);
-            lblAction.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Action, "Action", (ddlSex.Text == "F" ? true : false));
-            lblSexappeal.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Sexappeal, "Sexappeal", (ddlSex.Text == "F" ? true : false));
-            lblHumor.Text = Retriever.GetNameOfValueFromInnerValue(Gener.Inner_Val.Humor, "Humor", (ddlSex.Text == "F" ? true : false));
-            int CalcAge = Year - Gener.Age;
-            txtAge.Text = CalcAge.ToString();
-            if (IsAgingOn)
-                AC = LFMUtils.GetAgeClassFromDate(Gener.Age, Year);
-            else
-                AC = AgeClass.Average;
-            txtName.Text = Gener.Name;
-            txtPopularity.Text = Gener.Popularity.ToString();
-            txtSurname.Text = Gener.Surname;
-            ddlSex.Text = Gener.Sex;
-            txtImDb_Link.Text = Gener.ImDB_Link;
-            LoadRightImage();
-            //dgFilmografia.AutoGenerateColumns = false;
-            //dgFilmografia.DataSource = Retriever.GetMoviesFromPeopleID(intID, true);
-            RefreshAssignedSpecials(Gener.ID);
-            switch (CharacterTypeInternal)
-            {
-                case CharTypeEnum.Writer:
-                    Price = Calculation.GetCashOfWriter(Gener);
-                    break;
-                case CharTypeEnum.Director:
-                    Price = Calculation.GetCashOfDirector(Gener, MyMovie);
-                    break;
-                case CharTypeEnum.Actor:
-                case CharTypeEnum.Actress:
-                    if (IsMovie)
-                        Price = Calculation.GetCashOfActor(Gener, MyMovie);
-                    else
-                        Price = Calculation.GetCashOfActor(Gener, MySerial);
-                    break;
-                case CharTypeEnum.Showrunner:
-                    Price = Calculation.GetCashOfShowrunner(Gener);
-                    break;
-            }
-            txtCost.Text = String.Format("{0:n0}", Price).Replace(",", ".");
-        }
-
-        private void RefreshAssignedSpecials(int intID)
-        {
-            SpecialAbilities[] AsSpec = Retriever.GetSpecialAbilitiesListByIDChar(intID);
-            foreach (SpecialAbilities S in AsSpec)
-            {
-                lstSpecials.Items.Add(S.Name);
-            }
-        }
-
-        private void LoadRightImage()
-        {
-            if (Gener != null)
-            {
-                pictureBox1.Image = null;
-
-                CharImages Img = new CharImages(Gener.ID, AC);
-                if (Img.Image != null)
-                {
-                    pictureBox1.Image = ByteToImage(Img.Image);
-                }
-            }
-        }
-
-        public Image ByteToImage(byte[] imageBytes)
-        {
-            // Convert byte[] to Image
-            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = new Bitmap(ms);
-            return image;
+            charDisplayer1.Gener = Gener;
+            charDisplayer1.IsMovie = IsMovie;
+            charDisplayer1.MyMovie = MyMovie;
+            charDisplayer1.MySerial = MySerial;
+            charDisplayer1.LoadDataAfterClick(intID);
+            charDisplayer1.AC = AC;
+            charDisplayer1.IsAgingOn = IsAgingOn;
+            charDisplayer1.Year = Year;
+            charDisplayer1.Price = Price;
         }
 
         public event EventHandler CharSelected
@@ -206,19 +146,8 @@ namespace CharacterDiplaySelector
 
         private void ClearAll()
         {
-            txtImDb_Link.Text = "";
-            txtAge.Text = "";
-            txtName.Text = "";
-            txtPopularity.Text = "";
-            txtSurname.Text = "";
-            ddlSex.SelectedIndex = -1;
-            pictureBox1.Image = null;
             Gener = null;
-            lblHumor.Text = "";
-            lblAction.Text = "";
-            lblSexappeal.Text = "";
-            //dgFilmografia.DataSource = null;
-            lstSpecials.Clear();
+            charDisplayer1.ClearAll();
         }
 
         private void btnSelect_Click(object sender, EventArgs e)

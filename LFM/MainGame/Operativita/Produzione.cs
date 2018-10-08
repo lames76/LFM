@@ -594,6 +594,9 @@ namespace LFM.MainGame.Operativita
             charDisplaySelectorActor.ListOfTypes = ListOfTypes;
             charDisplaySelectorActor.IsMovie = IsMovie;
             charDisplaySelectorActor.IsAgingOn = IsAgingOn;
+            charDisplaySelector1.HideBusy = true;
+            charDisplaySelectorActor.HideBusy = true;
+            charDisplaySelectorDir.HideBusy = true;
             if (IsMovie)
                 charDisplaySelectorActor.MyMovie = MyMovie;
             else
@@ -652,8 +655,13 @@ namespace LFM.MainGame.Operativita
                         if (Res == DialogResult.Yes)
                         {
                             MyMovie.Status = MyMovie.GetTotalProductionTime();
-                            this.DialogResult = DialogResult.OK;                            
+                            this.DialogResult = DialogResult.OK;
                         }
+                    }
+                    else
+                    {
+                        MyMovie.Status = MyMovie.GetTotalProductionTime();
+                        this.DialogResult = DialogResult.OK;
                     }
                 }
                 else

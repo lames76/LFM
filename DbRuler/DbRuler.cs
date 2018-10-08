@@ -1629,8 +1629,8 @@ namespace DbRuler
         {
             string strCommand = string.Format("INSERT INTO LG_CashMovement " +
                 "(ID_Movement,ID_Target,MovementValue,Target,TypeOfMovement,Week,Month,Year)" +
-                " VALUES ({0},{1},{2},{3},{4},{5},{6},{7});", line.ID_Movement,line.ID_Target,line.MovementValue,line.MovementValue,
-                (int)line.Target,(int)line.TypeOfMovement,line.Week,line.MovementValue,line.Year);
+                " VALUES ({0},{1},{2},{3},{4},{5},{6},{7});", line.ID_Movement,line.ID_Target,line.MovementValue,
+                (int)line.Target,(int)line.TypeOfMovement,line.Week,line.Month,line.Year);
             return SQLLiteInt.GenericCommand(strCommand);
 
         }
@@ -1949,6 +1949,31 @@ namespace DbRuler
         #endregion
 
         #region Serials
+        public static Serial[] GetSerials()
+        {
+            string strCommand = "SELECT * FROM Serial;";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            Serial[] Serials = new Serial[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Serials[i] = new Serial(Convert.ToInt32(tblRet.Rows[i]["ID"]));
+            }
+            return Serials;
+        }
+
+        public static Serial[] GetSerialsFromTitleLike(string strTitle)
+        {
+            string strCommand = "SELECT * FROM Serials WHERE Title LIKE '%" + strTitle.Replace("'", "''") + "%';";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            Serial[] Serials = new Serial[tblRet.Rows.Count];
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Serials[i] = new Serial(Convert.ToInt32(tblRet.Rows[i]["ID"]));
+            }
+            return Serials;
+        }
+
+
         public static int[] GetSerialSeasoning()
         {
             string strCommand = "SELECT ID FROM Serials WHERE Status > 0;";
@@ -2141,33 +2166,40 @@ namespace DbRuler
         }
 
         #region Characters
-        public static GenericCharacters[] GetCharacters(TypeOfCharacters Typo = null, int Active = 1)
+        /// <summary>
+        /// This method return all the characters of this type and active status and if blnCheckBusy = true
+        /// also that are not currently on movies or serials.
+        /// </summary>
+        /// <param name="Typo"></param>
+        /// <param name="Active"></param>
+        /// <param name="blnCheckBusy"></param>
+        /// <returns></returns>
+        public static GenericCharacters[] GetCharacters(TypeOfCharacters Typo = null, int Active = 1, bool blnCheckBusy = false)
         {
             string strCommand = "SELECT * FROM GenericCharacter WHERE Active = " + Active;
             if (Typo != null)
             {
-                strCommand += " fkTypeOf = " + Typo.ID.ToString();
+                strCommand += " AND fkTypeOf = " + Typo.ID.ToString();
             }
             strCommand += ";";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
             {
-                RetVal[i] = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID"]));
-                //RetVal[i].Inner_Val = new Inner_Values();
-                //RetVal[i].Inner_Val.Action = Convert.ToInt32(tblRet.Rows[i]["Action"]);
-                //RetVal[i].Age = Convert.ToInt32(tblRet.Rows[i]["Age"]);
-                //RetVal[i].Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[i]["Humor"]);
-                //RetVal[i].Name = tblRet.Rows[i]["Name"].ToString();
-                //RetVal[i].Popularity = Convert.ToInt32(tblRet.Rows[i]["Popularity"]);
-                //RetVal[i].Sex = tblRet.Rows[i]["Sex"].ToString();
-                //RetVal[i].Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[i]["Sexappeal"]);
-                //RetVal[i].Skills = Convert.ToInt32(tblRet.Rows[i]["Skill"]);
-                //RetVal[i].Surname = tblRet.Rows[i]["Surname"].ToString();
-                //RetVal[i].Talent = Convert.ToInt32(tblRet.Rows[i]["Talent"]);
-                //TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[i]["fkTypeOf"]));
-                //RetVal[i].TypeOf = typo;
-            }
+                GenericCharacters Appo = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID"]));
+                if (blnCheckBusy)
+                { 
+                    List<Movie> Mov = GetListOfMovieInWorkingFromCharID(Appo.ID, 0);
+                    if (Mov.Count == 0)
+                    {
+                        List<Serial> Ser = GetListOfSerialInWorkingFromCharID(Appo.ID, 0);
+                        if (Ser.Count == 0)
+                            RetVal[i] = Appo;
+                    }
+                }
+                else
+                    RetVal[i] = Appo;
+        }
             return RetVal;
         }
 
@@ -2205,7 +2237,16 @@ namespace DbRuler
             return RetVal;
         }
 
-        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname, TypeOfCharacters Typo = null, int Active = 1)
+        /// <summary>
+        /// This method return the list of all characters with the "LIKE" surname, type, active status
+        /// and if blnCheckBusy = true also not on a movies or serials.
+        /// </summary>
+        /// <param name="strSurname"></param>
+        /// <param name="Typo"></param>
+        /// <param name="Active"></param>
+        /// <param name="blnCheckBusy"></param>
+        /// <returns></returns>
+        public static GenericCharacters[] GetCharactersBySurnameLike(string strSurname, TypeOfCharacters Typo = null, int Active = 1, bool blnCheckBusy = false)
         {
             string strCommand = string.Format("SELECT * FROM GenericCharacter " +
                 "WHERE Surname LIKE '%{0}%' AND Active = {1};", strSurname, Active);
@@ -2218,20 +2259,19 @@ namespace DbRuler
             GenericCharacters[] RetVal = new GenericCharacters[tblRet.Rows.Count];
             for (int i = 0; i < tblRet.Rows.Count; i++)
             {
-                RetVal[i] = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID"]));
-                //RetVal[i].Inner_Val = new Inner_Values();
-                //RetVal[i].Inner_Val.Action = Convert.ToInt32(tblRet.Rows[i]["Action"]);
-                //RetVal[i].Age = Convert.ToInt32(tblRet.Rows[i]["Age"]);
-                //RetVal[i].Inner_Val.Humor = Convert.ToInt32(tblRet.Rows[i]["Humor"]);
-                //RetVal[i].Name = tblRet.Rows[i]["Name"].ToString();
-                //RetVal[i].Popularity = Convert.ToInt32(tblRet.Rows[i]["Popularity"]);
-                //RetVal[i].Sex = tblRet.Rows[i]["Sex"].ToString();
-                //RetVal[i].Inner_Val.Sexappeal = Convert.ToInt32(tblRet.Rows[i]["Sexappeal"]);
-                //RetVal[i].Skills = Convert.ToInt32(tblRet.Rows[i]["Skill"]);
-                //RetVal[i].Surname = tblRet.Rows[i]["Surname"].ToString();
-                //RetVal[i].Talent = Convert.ToInt32(tblRet.Rows[i]["Talent"]);
-                //TypeOfCharacters typo = new TypeOfCharacters(Convert.ToInt32(tblRet.Rows[i]["fkTypeOf"]));
-                //RetVal[i].TypeOf = typo;
+                GenericCharacters Appo = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID"]));
+                if (blnCheckBusy)
+                {
+                    List<Movie> Mov = GetListOfMovieInWorkingFromCharID(Appo.ID, 0);
+                    if (Mov.Count == 0)
+                    {
+                        List<Serial> Ser = GetListOfSerialInWorkingFromCharID(Appo.ID, 0);
+                        if (Ser.Count == 0)
+                            RetVal[i] = Appo;
+                    }
+                }
+                else
+                    RetVal[i] = Appo;
             }
             return RetVal;
         }

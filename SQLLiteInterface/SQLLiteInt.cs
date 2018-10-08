@@ -24,7 +24,7 @@ namespace SQLLiteInterface
         {
             string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string ConnString = File.ReadAllText(strAppPath + "\\" + LFMConst.ConfigurationFile);
-            return "Data Source=DB\\LFM.db;Version=3;New=False;Compress=True;";
+            return ConnString; // "Data Source=DB\\LFM.db;Version=3;New=False;Compress=True;";
         }
 
         public static DataTable Select(string strSelect)

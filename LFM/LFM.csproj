@@ -68,11 +68,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainGame\Gestione\DisplayChar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Gestione\DisplayChar.Designer.cs">
+      <DependentUpon>DisplayChar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGame\Gestione\Gestione.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainGame\Gestione\Gestione.Designer.cs">
       <DependentUpon>Gestione.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGame\Gestione\MovieProd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Gestione\MovieProd.Designer.cs">
+      <DependentUpon>MovieProd.cs</DependentUpon>
     </Compile>
     <Compile Include="MainGame\MainGame.cs">
       <SubType>Form</SubType>
@@ -166,6 +178,15 @@
     <Compile Include="Test\UniverseManager.Designer.cs">
       <DependentUpon>UniverseManager.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MainGame\Gestione\DisplayChar.resx">
+      <DependentUpon>DisplayChar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Gestione\Gestione.resx">
+      <DependentUpon>Gestione.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Gestione\MovieProd.resx">
+      <DependentUpon>MovieProd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGame\MainGame.resx">
       <DependentUpon>MainGame.cs</DependentUpon>
     </EmbeddedResource>

@@ -42,6 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CharDisplayer.Designer.cs">
+      <DependentUpon>CharDisplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProdDisplaySelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProdDisplaySelector.Designer.cs">
+      <DependentUpon>ProdDisplaySelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="CharDisplaySelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -52,6 +64,12 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CharDisplayer.resx">
+      <DependentUpon>CharDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProdDisplaySelector.resx">
+      <DependentUpon>ProdDisplaySelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CharDisplaySelector.resx">
       <DependentUpon>CharDisplaySelector.cs</DependentUpon>
     </EmbeddedResource>
