@@ -116,10 +116,14 @@ namespace DbRuler
             if (MyMovie.Status <= 0)
             {
                 MyMovie.Status = 0;
+                MyMovie.Movie_WriteOnDb();
                 return true;
             }
             else
+            {
+                MyMovie.Movie_WriteOnDb();
                 return false;
+            }
         }
 
         /// <summary>
@@ -134,10 +138,14 @@ namespace DbRuler
             if (MySerial.Status <= 0)
             {
                 MySerial.Status = 0;
+                MySerial.WriteOnDb();
                 return true;
             }
             else
+            {
+                MySerial.WriteOnDb();
                 return false;
+            }
         }
 
         /// <summary>

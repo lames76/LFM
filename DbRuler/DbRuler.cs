@@ -92,6 +92,8 @@ namespace DbRuler
                 ID = Convert.ToInt32(tblRet.Rows[0]["ID"]);
                 Active = Convert.ToInt32(tblRet.Rows[0]["Active"]);
             }
+            else
+                Active = 1;
         }
 
         public bool InsertDb()
@@ -208,7 +210,7 @@ namespace DbRuler
                 strCommand += " Base_Audience = '" + Base_Audience + "',";
                 strCommand += " fkUniverse = " + fkUniverse.ToString();
                 if (fkTdP != null)
-                    strCommand += ", fkTdP = " + fkTdP.ID.ToString() + ",";
+                    strCommand += ", fkTdP = " + fkTdP.ID.ToString();
                 if (fkFX != null)
                     strCommand += ", fkFX = " + fkFX.ID.ToString();
                 strCommand += " WHERE ID = " + ID.ToString() + ";";

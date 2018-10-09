@@ -254,7 +254,7 @@ namespace LFM.MainGame
                 if (LFMGamePlay.AnotherWeekPassed(MySerial))
                 {
                     // Add to "producing/on air removing" list
-                    ToBeRemoved.Add(MySerial.ID);
+                    ToBeRemoved.Add(MySerial.ID);                    
                     // Calculate advancement
                     GenericCharacters[] GenArray = Retriever.GetGenericCastFromSerial(MySerial.ID, 1);
                     int Change = LFMGRule.GetPopularityChange(MySerial);
@@ -267,6 +267,9 @@ namespace LFM.MainGame
                     long Price = MySerial.Price(Bank);
                     int Perc = (Math.Abs(Change) == 10 ? 25 : 15);
                     long GainLoss = (Change > 0 ? 1 : -1) * (Price * Perc / 100);
+                    // Messagebox
+                    string strMessage = "Il serial " + MySerial.Title + " ha finito la sua prima stagione registrando un incasso nella prima settimana di " + GainLoss.ToString() + "$";
+                    MessageBox.Show(strMessage);
                     long TotalSerial = Price + GainLoss;
                     // Aggiungo a Bilancio
                     LastCashMovement Mov = new LastCashMovement();
@@ -297,10 +300,14 @@ namespace LFM.MainGame
             {
                 // Recupero l'ID del film attuale dal primo dictionary, quello dei film in cinema
                 int CurrentMovieID = MovieInTheatre.Keys.ElementAt(i);
+                Movie MovieA = new Movie(CurrentMovieID);
                 // Recupero l'audience del film da quelli in elenco
                 int CurrentAudience = MovieAudience[CurrentMovieID];
                 // Calcolo l'incasso settimanale ed aggiungo una riga nelle finanze
-                long lngIncasso = LFMGRule.CalculateMoneyByWeeks(CurrentAudience, MovieInTheatre[i]);
+                long lngIncasso = LFMGRule.CalculateMoneyByWeeks(CurrentAudience, MovieInTheatre.Values.ElementAt(i));
+                // Messagebox
+                string strMessage = "Il film " + MovieA.Title + " è uscito nelle sale con un incasso nella prima settimana di " + lngIncasso.ToString() + "$";
+                MessageBox.Show(strMessage);
                 // Aggiungo a Bilancio
                 LastCashMovement Mov = new LastCashMovement();
                 Mov.ID_Movement = CurrentMovieID;
@@ -313,7 +320,7 @@ namespace LFM.MainGame
                 Mov.Year = MainGameData.Year;
                 Bank.AddLine(Mov);
                 // Avanzo le settimane di quel film
-                MovieInTheatre[i]++;                
+                MovieInTheatre[MovieInTheatre.Keys.ElementAt(i)]++;                
             }
             // Recupero tutti gli ID di film che sono alla 7 settimana (e quindi da togliere dal cinema)
             List<int> itemsToRemove = LFMUtils.RemoveByValue(MovieInTheatre, 7);
