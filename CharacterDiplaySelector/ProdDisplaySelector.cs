@@ -65,12 +65,8 @@ namespace CharacterDiplaySelector
             }
             else
             {
-                Serial[] GenLista;
-                if (txtFilter.Text.Length > 0)
-                    GenLista = Retriever.GetSerialsFromTitleLike(txtFilter.Text);
-                else
-                    GenLista = Retriever.GetSerials();
-                lblCounter.Text = GenLista.Length.ToString();
+                List<Serial> GenLista = LFMGamePlay.GetSerialsOfPlayer(true);
+                lblCounter.Text = GenLista.Count.ToString();
                 dgMovie.DataSource = GenLista;
             }            
         }
@@ -121,6 +117,7 @@ namespace CharacterDiplaySelector
                             ddlType4.Text = MyMovie.fkType[3].TypeOf;
                     }
                 }
+                txtStatus.Text = MyMovie.Status.ToString() + " d";
                 ddlSpecialEffect.Text = MyMovie.fkFX.Name;
                 ddlTheatre.Text = MyMovie.fkTdP.Name;
                 txtDescription.Text = MyMovie.Description;
@@ -173,6 +170,7 @@ namespace CharacterDiplaySelector
                 {
                     ddlType2.Text = MySerial.fkSubType.TypeOf;                 
                 }
+                txtStatus.Text = MySerial.Status.ToString() + " w";
                 ddlSpecialEffect.Text = MySerial.fkFX.Name;
                 ddlTheatre.Text = MySerial.fkTdP.Name;
                 txtDescription.Text = MySerial.Description;

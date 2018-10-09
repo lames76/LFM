@@ -58,6 +58,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DisplayChar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DisplayChar";
             this.Load += new System.EventHandler(this.DisplayChar_Load);
             this.ResumeLayout(false);

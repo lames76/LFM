@@ -110,6 +110,12 @@
     <Compile Include="MainGame\Operativita\Produzione.Designer.cs">
       <DependentUpon>Produzione.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainGame\Report\FormCharAffinity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Report\FormCharAffinity.Designer.cs">
+      <DependentUpon>FormCharAffinity.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGame\Report\Report.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Operativita\Produzione.resx">
       <DependentUpon>Produzione.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Report\FormCharAffinity.resx">
+      <DependentUpon>FormCharAffinity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Report\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>

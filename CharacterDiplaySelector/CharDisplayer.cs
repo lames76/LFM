@@ -38,9 +38,12 @@ namespace CharacterDiplaySelector
             int CalcAge = Year - Gener.Age;
             txtAge.Text = CalcAge.ToString();
             if (IsAgingOn)
+            {
                 AC = LFMUtils.GetAgeClassFromDate(Gener.Age, Year);
+                ddlAgeClass.SelectedIndex = 0;
+            }
             else
-                AC = AgeClass.Average;
+                ddlAgeClass.Text = "Average";
             txtName.Text = Gener.Name;
             txtPopularity.Text = Gener.Popularity.ToString();
             txtSurname.Text = Gener.Surname;
@@ -118,6 +121,34 @@ namespace CharacterDiplaySelector
             lblAction.Text = "";
             lblSexappeal.Text = "";
             lstSpecials.Clear();
+        }
+
+        private void ddlAgeClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ddlAgeClass.Text)
+            {
+                case "Child": AC = AgeClass.Child;
+                    break;
+                case "Teen":
+                    AC = AgeClass.Teen;
+                    break;
+                case "Average":
+                    AC = AgeClass.Average;
+                    break;
+                case "Mature":
+                    AC = AgeClass.Mature;
+                    break;
+                case "Old":
+                    AC = AgeClass.Old;
+                    break;
+                case "Elf":
+                    AC = AgeClass.Elf;
+                    break;
+                case "Timelord":
+                    AC = AgeClass.Timelord;
+                    break;
+            }
+            LoadRightImage();
         }
     }
 }

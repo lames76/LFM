@@ -114,11 +114,11 @@ namespace CharacterDiplaySelector
             charDisplayer1.IsMovie = IsMovie;
             charDisplayer1.MyMovie = MyMovie;
             charDisplayer1.MySerial = MySerial;
-            charDisplayer1.LoadDataAfterClick(intID);
             charDisplayer1.AC = AC;
             charDisplayer1.IsAgingOn = IsAgingOn;
             charDisplayer1.Year = Year;
             charDisplayer1.Price = Price;
+            charDisplayer1.LoadDataAfterClick(intID);
         }
 
         public event EventHandler CharSelected

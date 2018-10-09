@@ -17,9 +17,10 @@ namespace LFM.MainGame
         /// <summary>
         /// This is the balance of the player
         /// </summary>
-        public string GameName { get; set; }
         private LG_CashMovement Bank;
+        public string GameName { get; set; }
         public LastCashMovement LastExpenseDone { get; set; }
+        public bool IsLoading { set; private get; }
 
         private LG_MainGameData MainGameData;
         /// <summary>
@@ -74,6 +75,7 @@ namespace LFM.MainGame
                     LastExpenseDone.ID_Movement = frmOp.MyMovie.ID;
                     intTimeOfProduction = frmOp.MyMovie.GetTotalProductionTime();
                     MovieInProduction.Add(frmOp.MyMovie.ID);
+                    MovieAudience.Add(frmOp.MyMovie.ID, LFMGRule.CalculateRealAudience(frmOp.MyMovie));
                 }
                 else
                 {
@@ -111,6 +113,37 @@ namespace LFM.MainGame
             MainGameData = new LG_MainGameData(GameName);
             Bank = new LG_CashMovement();
             SetEverything();
+            // Se carico la partita devo riempire le mie strutture dinamiche
+            if (IsLoading)
+            {
+                List<Movie> GenListaM = LFMGamePlay.GetMoviesOfPlayer(true);
+                foreach (Movie M in GenListaM)
+                {
+                    MovieInProduction.Add(M.ID);
+                    MovieAudience.Add(M.ID, LFMGRule.CalculateRealAudience(M));
+                }
+                List<Serial> GenListaS = LFMGamePlay.GetSerialsOfPlayer(true);
+                foreach (Serial S in GenListaS)
+                {
+                    SerialInProduction.Add(S.ID);
+                }
+                GenListaS = LFMGamePlay.GetSerialsOfPlayer(false);
+                foreach (Serial S in GenListaS)
+                {
+                    SerialEndSeason.Add(S.ID);
+                }
+                // Cerco tutte le entry dentro bank riguardo i film prodotti
+                GenListaM = LFMGamePlay.GetMoviesOfPlayer(false);
+                foreach (Movie M in GenListaM)
+                {
+                    List<LastCashMovement> a = (from b in Bank.Movement
+                             where b.Target == TypeOfObject.Balance && b.ID_Target == -1
+                             && b.ID_Movement == M.ID && b.TypeOfMovement == TypeOfObject.Movie
+                             select b).ToList();
+                    if (a.Count < 7)
+                        MovieInTheatre.Add(M.ID, a.Count);
+                }
+            }
         }
 
         /// <summary>

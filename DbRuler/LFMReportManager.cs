@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLLiteInterface;
 
 namespace DbRuler
 {
@@ -250,6 +251,17 @@ namespace DbRuler
             tblRet.Columns.Add("E");
             tblRet.Columns.Add("F");
             return tblRet;
+        }
+
+        public static DataTable GetBankMovementDatatable()
+        {
+            string strCommand = "SELECT L.*, S.Title, M.Title, G.Name , G.Surname, GS.Name FROM LG_CashMovement as L " +
+                " LEFT JOIN Serials AS S ON S.ID = L.ID_Movement AND L.TypeOfMovement = 2 " +
+                " LEFT JOIN Movie AS M ON M.ID = L.ID_Movement AND L.TypeOfMovement = 1 " +
+                " LEFT JOIN GenericCharacter AS G ON G.ID = L.ID_Movement AND L.TypeOfMovement IN(50,51,52,60,61,62) " +
+                " LEFT JOIN GenericStructure AS GS ON GS.ID = L.ID_Movement AND L.TypeOfMovement IN(70,71) " +
+                " ORDER BY L.Year, L.Month, L.Week ASC, L.TypeOfMovement ASC;";
+            return SQLLiteInt.Select(strCommand);
         }
         #endregion
     }

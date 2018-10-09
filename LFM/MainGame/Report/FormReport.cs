@@ -14,7 +14,9 @@ namespace LFM
 {
     public partial class FormReport : Form
     {
+        public bool IsSimpleDisplayer { get; set; } = false;
         public DataTable tblDatiReport;
+
         public FormReport()
         {
             InitializeComponent();
@@ -22,10 +24,15 @@ namespace LFM
 
         private void FormReport_Load(object sender, EventArgs e)
         {
-            List<Movie> MyList = LFMGamePlay.GetMoviesOfPlayer();
-            ddlMovieList.ValueMember = "ID";
-            ddlMovieList.DisplayMember = "Title";
-            ddlMovieList.DataSource = MyList;
+            if (!IsSimpleDisplayer)
+            {
+                List<Movie> MyList = LFMGamePlay.GetMoviesOfPlayer();
+                ddlMovieList.ValueMember = "ID";
+                ddlMovieList.DisplayMember = "Title";
+                ddlMovieList.DataSource = MyList;
+            }
+            else
+                dgReport.DataSource = tblDatiReport;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

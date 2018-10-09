@@ -81,6 +81,30 @@ namespace DbRuler
         }
 
         /// <summary>
+        /// This method return all the movie produced by the player and return a list of ID.
+        /// If IsProducing is true it return only the movie actually in production.
+        /// </summary>
+        /// <param name="IsProducing"></param>
+        /// <returns></returns>
+        public static List<Serial> GetSerialsOfPlayer(bool IsProducing = false)
+        {
+            string strCommand = "SELECT DISTINCT ID_Target AS ID FROM LG_CashMovement WHERE Target = " + (int)TypeOfObject.Serial + ";";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            List<Serial> ListOfMyMovie = new List<Serial>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                int intActualMovieID = Convert.ToInt32(tblRet.Rows[i]["ID"]);
+                Serial MyMovie = new Serial(intActualMovieID);
+                if (IsProducing)
+                    if (MyMovie.Status > 0)
+                        ListOfMyMovie.Add(MyMovie);
+                    else
+                        ListOfMyMovie.Add(MyMovie);
+            }
+            return ListOfMyMovie;
+        }
+
+        /// <summary>
         /// This method subtract 7 from the status of the movie.
         /// If the status went to 0 or less it set it to 0 and return true.
         /// </summary>

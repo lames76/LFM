@@ -40,7 +40,7 @@
             this.prodDisplaySelector1.Gener = null;
             this.prodDisplaySelector1.HideBusy = false;
             this.prodDisplaySelector1.IsAgingOn = false;
-            this.prodDisplaySelector1.IsMovie = false;
+            this.prodDisplaySelector1.IsMovie = true;
             this.prodDisplaySelector1.ListOfTypes = null;
             this.prodDisplaySelector1.Location = new System.Drawing.Point(0, 0);
             this.prodDisplaySelector1.MyMovie = null;
@@ -62,6 +62,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MovieProd";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Movie Prod";
             this.Load += new System.EventHandler(this.MovieProd_Load);
             this.ResumeLayout(false);

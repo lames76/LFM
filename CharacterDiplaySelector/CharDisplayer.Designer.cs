@@ -48,12 +48,14 @@
             this.ddlSex = new System.Windows.Forms.ComboBox();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.ddlAgeClass = new System.Windows.Forms.ComboBox();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.ddlAgeClass);
             this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.txtCost);
             this.groupBox7.Controls.Add(this.lstSpecials);
@@ -254,6 +256,25 @@
             this.txtName.Size = new System.Drawing.Size(163, 48);
             this.txtName.TabIndex = 41;
             // 
+            // ddlAgeClass
+            // 
+            this.ddlAgeClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlAgeClass.FormattingEnabled = true;
+            this.ddlAgeClass.Items.AddRange(new object[] {
+            "NoValue",
+            "Child",
+            "Teen",
+            "Average",
+            "Mature",
+            "Old",
+            "TimeLord",
+            "Elf"});
+            this.ddlAgeClass.Location = new System.Drawing.Point(175, 154);
+            this.ddlAgeClass.Name = "ddlAgeClass";
+            this.ddlAgeClass.Size = new System.Drawing.Size(127, 24);
+            this.ddlAgeClass.TabIndex = 73;
+            this.ddlAgeClass.SelectedIndexChanged += new System.EventHandler(this.ddlAgeClass_SelectedIndexChanged);
+            // 
             // CharDisplayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -290,5 +311,6 @@
         public System.Windows.Forms.ComboBox ddlSex;
         public System.Windows.Forms.TextBox txtSurname;
         public System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.ComboBox ddlAgeClass;
     }
 }

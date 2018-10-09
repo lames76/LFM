@@ -1590,8 +1590,7 @@ namespace DbRuler
 
         public LG_CashMovement()
         {
-            string strCommand = "SELECT * FROM LG_CashMovement ORDER BY Year, Month, Week ASC" +
-                ";";
+            string strCommand = "SELECT * FROM LG_CashMovement ORDER BY Year, Month, Week ASC;";
             DataTable tblRet = SQLLiteInt.Select(strCommand);
             Movement = new List<LastCashMovement>();
             for (int i = 0; i < tblRet.Rows.Count; i++)
@@ -1692,7 +1691,7 @@ namespace DbRuler
         {
             string strCommand = string.Format("UPDATE LG_MainGameData " +
                 " SET Name = '{0}', StudiosName = '{1}', Year = {2}, Month = {3}, Week = {4} " +
-                " WHERE SaveGameDir ='{5}');", Name, StudiosName, Year, Month, Week, SaveGameDir);
+                " WHERE SaveGameDir ='{5}';", Name, StudiosName, Year, Month, Week, SaveGameDir);
             return SQLLiteInt.GenericCommand(strCommand);
         }
     }
@@ -1720,6 +1719,24 @@ namespace DbRuler
                 MyChars[i] = MyChar;
             }
             return MyChars;
+        }
+
+        public static List<GenericCharacters> GetWhoPlayForMeInThePast(TypeOfCharacters type1 = null, TypeOfCharacters type2 = null)
+        {
+            List<GenericCharacters> ListGen = new List<GenericCharacters>();
+            LG_CharPlayerAffinity[] ListArray = GetWhoPlaysForMe();
+            for (int i = 0; i < ListArray.Length; i++)
+            {
+                GenericCharacters Gen = new GenericCharacters(ListArray[i].IDChar);
+                if (type1 != null)
+                {
+                    if ((Gen != null) && ((type1 == Gen.TypeOf) || (type2 == Gen.TypeOf)))
+                        ListGen.Add(Gen);
+                }
+                else
+                    ListGen.Add(Gen);
+            }
+            return ListGen;
         }
         #endregion
 

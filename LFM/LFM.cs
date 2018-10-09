@@ -180,14 +180,15 @@ namespace LFM
             {
                 string strGameName = frmDir.strSelected;
                 LFMUtils.PrepareConnectionString(strGameName);
-                CaricaPartita(strGameName);
+                CaricaPartita(strGameName,true);
             }
         }
 
-        private void CaricaPartita(string strGameName)
+        private void CaricaPartita(string strGameName, bool IsLoading)
         {
             MainGame.MainGame frmMainGame = new MainGame.MainGame();
             frmMainGame.GameName = strGameName;
+            frmMainGame.IsLoading = IsLoading;
             this.Hide();
             frmMainGame.ShowDialog();
             this.Show();
@@ -235,7 +236,7 @@ namespace LFM
                             oMainGame.AgingOn = blnAgingOn;
                             if (oMainGame.InsertInDb())
                             {
-                                CaricaPartita(strGameName);
+                                CaricaPartita(strGameName, false);
                             }
 
                         }

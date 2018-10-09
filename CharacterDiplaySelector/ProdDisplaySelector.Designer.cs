@@ -76,6 +76,8 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.lstActors = new System.Windows.Forms.ListView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgMovie)).BeginInit();
             this.groupBox7.SuspendLayout();
@@ -264,6 +266,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.txtStatus);
+            this.groupBox7.Controls.Add(this.label1);
             this.groupBox7.Controls.Add(this.lblUniverse);
             this.groupBox7.Controls.Add(this.txtUniverse);
             this.groupBox7.Controls.Add(this.lblDirector);
@@ -532,6 +536,23 @@
             this.lstActors.View = System.Windows.Forms.View.List;
             this.lstActors.DoubleClick += new System.EventHandler(this.lstActors_DoubleClick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(200, 471);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 17);
+            this.label1.TabIndex = 88;
+            this.label1.Text = "Prod:";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(243, 468);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(59, 22);
+            this.txtStatus.TabIndex = 89;
+            // 
             // ProdDisplaySelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -600,5 +621,7 @@
         private System.Windows.Forms.ListView lstActors;
         private System.Windows.Forms.Label lblUniverse;
         private System.Windows.Forms.TextBox txtUniverse;
+        public System.Windows.Forms.TextBox txtStatus;
+        public System.Windows.Forms.Label label1;
     }
 }
