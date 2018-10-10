@@ -182,6 +182,15 @@ namespace LFM
                 LFMUtils.PrepareConnectionString(strGameName);
                 CaricaPartita(strGameName,true);
             }
+            else
+            {
+                if (Res == DialogResult.Abort)
+                {
+                    string strGameName = frmDir.strSelected;
+                    if (LFMUtils.DeleteGame(strGameName))
+                        MessageBox.Show("Partita cancellata.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void CaricaPartita(string strGameName, bool IsLoading)
@@ -263,6 +272,12 @@ namespace LFM
         {
             LFMUtils.RestoreOriginalDb();
             MessageBox.Show("Fatto!");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Test.AddEvent frmAddEv = new Test.AddEvent();
+            frmAddEv.ShowDialog();
         }
     }
 }

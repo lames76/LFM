@@ -59,5 +59,26 @@ namespace LFM.MainMenu
             foreach (string s in strGames)
                 lstBox.Items.Add(s);
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Sei assolutamente sicuro di voler cancellare questa partita?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (strSelected.Length > 0)
+                {
+                    this.DialogResult = DialogResult.Abort;
+                }
+                else
+                {
+                    if (lstBox.SelectedIndices.Count == 1)
+                    {
+                        strSelected = lstBox.Items[lstBox.SelectedIndices[0]].Text;
+                        this.DialogResult = DialogResult.Abort;
+                    }
+                    else
+                        MessageBox.Show("Prima selezionare un gioco", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace CharacterDiplaySelector
         public bool IsAgingOn { get; set; }
         public bool IsMovie { get; set; }
         public int Year { get; set; }
-        private CharTypeEnum CharacterTypeInternal;
+        public CharTypeEnum CharacterTypeInternal;
         public CharTypeEnum CharacterType
         {
             get { return CharacterTypeInternal; }
@@ -118,6 +118,7 @@ namespace CharacterDiplaySelector
             charDisplayer1.IsAgingOn = IsAgingOn;
             charDisplayer1.Year = Year;
             charDisplayer1.Price = Price;
+            charDisplayer1.CharacterTypeInternal = CharacterTypeInternal;
             charDisplayer1.LoadDataAfterClick(intID);
         }
 

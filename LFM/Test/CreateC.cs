@@ -157,6 +157,7 @@ namespace LFM
             ddlSexappeal.DataSource = null;
             ddlAgeClass.SelectedIndex = 0;
             lstSpecials.Clear();
+            lstAllSpecials.Clear();
         }
 
         private int GetRandomInner_Value(int intSelectedValue)
@@ -190,7 +191,8 @@ namespace LFM
             Gen.ImDB_Link = txtImDb_Link.Text;
             Gen.Talent = GetRandomInner_Value(Convert.ToInt32(txtTalent.Text));
             Gen.TypeOf = new DbRuler.TypeOfCharacters(Convert.ToInt32(ddlTypeOfCharacter.SelectedValue));
-                       
+            Gen.Active = 1;
+            
             if (Gen.ID > 0)
             {
                 IDChar = Gen.ID;
@@ -417,6 +419,7 @@ namespace LFM
 
         private void dgChars_DoubleClick(object sender, EventArgs e)
         {
+            ClearAll();
             int selectedrowindex = dgChars.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow = dgChars.Rows[selectedrowindex];
             int intID = Convert.ToInt32(selectedRow.Cells[0].Value);

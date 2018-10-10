@@ -14,6 +14,7 @@ namespace LFM.MainGame.Report
     public partial class Report : Form
     {
         public LG_CashMovement Bank { private get; set; }
+        public LG_MainGameData MainGameData { private get; set; }
 
         public Report()
         {
@@ -33,6 +34,7 @@ namespace LFM.MainGame.Report
             List<GenericCharacters> ListGen = Retriever.GetWhoPlayForMeInThePast(t1, t2);
             FormCharAffinity frmAct = new FormCharAffinity();
             frmAct.ListGen = ListGen;
+            frmAct.MainGameData = MainGameData;
             frmAct.ShowDialog();
         }
 
@@ -42,6 +44,7 @@ namespace LFM.MainGame.Report
             List<GenericCharacters> ListGen = Retriever.GetWhoPlayForMeInThePast(t);
             FormCharAffinity frmAct = new FormCharAffinity();
             frmAct.ListGen = ListGen;
+            frmAct.MainGameData = MainGameData;
             frmAct.ShowDialog();
         }
 

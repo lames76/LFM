@@ -105,6 +105,8 @@ namespace LFM.MainGame
         private void btnReport_Click(object sender, EventArgs e)
         {
             Report.Report frmRep = new Report.Report();
+            frmRep.MainGameData = MainGameData;
+            frmRep.Bank = Bank;
             frmRep.ShowDialog();
         }
 
@@ -141,7 +143,10 @@ namespace LFM.MainGame
                              && b.ID_Movement == M.ID && b.TypeOfMovement == TypeOfObject.Movie
                              select b).ToList();
                     if (a.Count < 7)
+                    {
                         MovieInTheatre.Add(M.ID, a.Count);
+                        MovieAudience.Add(M.ID, LFMGRule.CalculateRealAudience(M));
+                    }
                 }
             }
         }
@@ -222,9 +227,9 @@ namespace LFM.MainGame
                     // Calculate all advancement
                     GenericCharacters[] GenArray = Retriever.GetGenericCastFromMovie(MyMovie.ID);
                     for (int l = 0; l < GenArray.Length; l++)
-                    {                        
+                    {
                         if (GenArray[l].TypeOf.TypeOf == "Director")
-                            LFMGRule.DirectorAdvancement(GenArray[l], MyMovie.Inner_Val); 
+                            LFMGRule.DirectorAdvancement(GenArray[l], MyMovie.Inner_Val);
                         else
                             if ((GenArray[l].TypeOf.TypeOf == "Actor") || (GenArray[l].TypeOf.TypeOf == "Actress"))
                             LFMGRule.ActorAdvancement(GenArray[l], MyMovie.Inner_Val);
@@ -232,6 +237,20 @@ namespace LFM.MainGame
                         int Change = LFMGRule.GetPopularityChange(lngCash, MyMovie.Price(Bank));
                         LFMGRule.PopularityChange(GenArray[l], Change);
                         LFMGRule.AffinityChange(GenArray[l], Change);
+                    }
+                }
+                else
+                {
+                    if (MyMovie.Status != 0)
+                    {
+                        LastCashMovement Mov;
+                        LG_RandomEventClass Ev = LFMGamePlay.RandomEvent(MyMovie, MainGameData.Year,
+                            MainGameData.Month, MainGameData.Week, out Mov);
+                        if (Mov != null)
+                        {
+                            MessageBox.Show(Ev.Description, Ev.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Bank.AddLine(Mov);
+                        }
                     }
                 }
             }
@@ -283,6 +302,20 @@ namespace LFM.MainGame
                     Mov.Year = MainGameData.Year;
                     Bank.AddLine(Mov);
                 }
+                else
+                {
+                    if (MySerial.Status != 0)
+                    {
+                        LastCashMovement Mov;
+                        LG_RandomEventClass Ev = LFMGamePlay.RandomEvent(MySerial, MainGameData.Year,
+                            MainGameData.Month, MainGameData.Week, out Mov);
+                        if (Mov != null)
+                        {
+                            MessageBox.Show(Ev.Description, Ev.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Bank.AddLine(Mov);
+                        }
+                    }
+                }
             }
             // If some Serial end production/on air add it to the "end of season" list
             if (ToBeRemoved.Count > 0)
@@ -306,7 +339,7 @@ namespace LFM.MainGame
                 // Calcolo l'incasso settimanale ed aggiungo una riga nelle finanze
                 long lngIncasso = LFMGRule.CalculateMoneyByWeeks(CurrentAudience, MovieInTheatre.Values.ElementAt(i));
                 // Messagebox
-                string strMessage = "Il film " + MovieA.Title + " è uscito nelle sale con un incasso nella prima settimana di " + lngIncasso.ToString() + "$";
+                string strMessage = "Il film " + MovieA.Title + " è nelle sale con un incasso nella settimana " + MovieInTheatre[MovieInTheatre.Keys.ElementAt(i)].ToString() + " di " + String.Format("{0:n0}", lngIncasso).Replace(",", ".") + "$";
                 MessageBox.Show(strMessage);
                 // Aggiungo a Bilancio
                 LastCashMovement Mov = new LastCashMovement();

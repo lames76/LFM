@@ -230,6 +230,7 @@ namespace LFM.MainGame.Operativita
             MessageBox.Show("Il regista ha modificato lo script per adattarlo al suo stile.");
             Calculation.DirectorStyleChangeMovie(Director, MyMovie);
             L_CharsSerials Link = new L_CharsSerials(MyMovie.ID, Director.ID, "Director");
+            Link.InsertDb();
             EnableTab(1, false);
             EnableTab(2, true);
             blnDir = true;

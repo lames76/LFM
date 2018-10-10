@@ -164,7 +164,7 @@ namespace DbRuler
         public static bool RestoreOriginalDb()
         {
             string strAppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            string strConnectionFileLine = string.Format(LFMConst.ConnStringVal, "\\Db\\LFM.db");
+            string strConnectionFileLine = string.Format(LFMConst.ConnStringVal, "Db\\LFM.db");
             File.WriteAllText(strAppPath + "\\" + LFMConst.ConfigurationFile, strConnectionFileLine);
             return true;
         }

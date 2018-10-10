@@ -17,6 +17,8 @@ using Newtonsoft.Json.Linq;
 namespace DbRuler
 {
     #region DataLayer
+
+
     public class L_CharsSerials
     {
         public int ID { get; set; }
@@ -1005,6 +1007,8 @@ namespace DbRuler
                 ImDB_Link = tblRet.Rows[0]["ImDB_Link"].ToString();
                 Active = Convert.ToInt32(tblRet.Rows[0]["Active"]);
             }
+            else
+                Active = 1;
         }
 
         public bool GenericCharacters_WriteOnDb()
@@ -1484,12 +1488,53 @@ namespace DbRuler
     #endregion
 
     #region Game Tables
+
+    public class LG_RandomEventClass
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool isBonus { get; set; }
+        public long Value { get; set; }
+
+        public LG_RandomEventClass(int intID)
+        {
+            ID = intID;
+            LoadValue();
+        }
+
+        private void LoadValue()
+        {
+            string strCommand = string.Format("SELECT * FROM LG_RandomEvent WHERE ID = {0};", ID);
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            if (tblRet.Rows.Count > 0)
+            {
+                Name = tblRet.Rows[0]["Name"].ToString();
+                Description = tblRet.Rows[0]["Description"].ToString();
+                isBonus = Convert.ToInt32(tblRet.Rows[0]["isBonus"]) == 1 ? true : false;
+                Value = Convert.ToInt32(tblRet.Rows[0]["Value"]);
+            }
+        }
+
+        public bool AddEvent()
+        {
+            string strCommand = string.Format("INSERT INTO LG_RandomEvent (Name, Description, Value, isBonus) " +
+                " VALUES ('{0}','{1}',{2},{3});",
+                Name, Description, Value, (isBonus ? 1 : 0));
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+    }
+
     public class LG_CharPlayerAffinity
     {
         public int IDChar { get; set; }
         public int Affinity { get; set; }
         public int NumberOfMovies { get; set; }
 
+        /// <summary>
+        /// Set the IDChar index
+        /// </summary>
+        /// <param name="ID"></param>
         public LG_CharPlayerAffinity(int ID)
         {
             IDChar = ID;
@@ -1517,7 +1562,7 @@ namespace DbRuler
             if (Affinity > 90)
                 Affinity = 90;
             string  strCommand = "UPDATE LG_CharPlayerAffinity SET Affinity = " + Affinity.ToString() +
-                " NumberOfMovies = " + NumberOfMovies.ToString() + " WHERE IDChar = " +
+                ", NumberOfMovies = " + NumberOfMovies.ToString() + " WHERE IDChar = " +
                 IDChar.ToString() + ";";
             return SQLLiteInt.GenericCommand(strCommand);
         }
@@ -1732,7 +1777,13 @@ namespace DbRuler
                 GenericCharacters Gen = new GenericCharacters(ListArray[i].IDChar);
                 if (type1 != null)
                 {
-                    if ((Gen != null) && ((type1 == Gen.TypeOf) || (type2 == Gen.TypeOf)))
+                    if (type2 != null)
+                    {
+                        if ((Gen != null) && ((type1.ID == Gen.TypeOf.ID) || (type2.ID == Gen.TypeOf.ID)))
+                            ListGen.Add(Gen);
+                    }
+                    else
+                        if ((Gen != null) && (type1.ID == Gen.TypeOf.ID))
                         ListGen.Add(Gen);
                 }
                 else

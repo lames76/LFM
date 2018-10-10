@@ -21,7 +21,8 @@ namespace DbRuler
         Sport = 61,
         Singer = 62,
         TdP = 70,
-        FX = 71
+        FX = 71,
+        Event = 100
     }
 
     public class LastCashMovement
@@ -72,10 +73,13 @@ namespace DbRuler
                 int intActualMovieID = Convert.ToInt32(tblRet.Rows[i]["ID"]);
                 Movie MyMovie = new Movie(intActualMovieID);
                 if (IsProducing)
+                {
                     if (MyMovie.Status > 0)
                         ListOfMyMovie.Add(MyMovie);
+                }
                 else
-                    ListOfMyMovie.Add(MyMovie);
+                    if (MyMovie.Status == 0)
+                        ListOfMyMovie.Add(MyMovie);
             }
             return ListOfMyMovie;
         }
@@ -96,10 +100,12 @@ namespace DbRuler
                 int intActualMovieID = Convert.ToInt32(tblRet.Rows[i]["ID"]);
                 Serial MyMovie = new Serial(intActualMovieID);
                 if (IsProducing)
+                {
                     if (MyMovie.Status > 0)
                         ListOfMyMovie.Add(MyMovie);
-                    else
-                        ListOfMyMovie.Add(MyMovie);
+                }
+                else
+                    ListOfMyMovie.Add(MyMovie);
             }
             return ListOfMyMovie;
         }
@@ -112,18 +118,22 @@ namespace DbRuler
         /// <returns></returns>
         public static bool AnotherWeekPassed(Movie MyMovie)
         {
-            MyMovie.Status -= 7;
-            if (MyMovie.Status <= 0)
+            if (MyMovie.Status != 0)
             {
-                MyMovie.Status = 0;
-                MyMovie.Movie_WriteOnDb();
-                return true;
+                MyMovie.Status -= 7;
+                if (MyMovie.Status <= 0)
+                {
+                    MyMovie.Status = 0;
+                    MyMovie.Movie_WriteOnDb();
+                    return true;
+                }
+                else
+                {
+                    MyMovie.Movie_WriteOnDb();
+                    return false;
+                }
             }
-            else
-            {
-                MyMovie.Movie_WriteOnDb();
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -134,18 +144,22 @@ namespace DbRuler
         /// <returns></returns>
         public static bool AnotherWeekPassed(Serial MySerial)
         {
-            MySerial.Status -= 1;
-            if (MySerial.Status <= 0)
+            if (MySerial.Status != 0)
             {
-                MySerial.Status = 0;
-                MySerial.WriteOnDb();
-                return true;
+                MySerial.Status -= 1;
+                if (MySerial.Status <= 0)
+                {
+                    MySerial.Status = 0;
+                    MySerial.WriteOnDb();
+                    return true;
+                }
+                else
+                {
+                    MySerial.WriteOnDb();
+                    return false;
+                }
             }
-            else
-            {
-                MySerial.WriteOnDb();
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -218,6 +232,88 @@ namespace DbRuler
             }
 
             return DeadMenWalking;
+        }
+
+        public static LG_RandomEventClass RandomEvent(object myObject, int Year, int Month, int Week, out LastCashMovement Mov)
+        {
+            LG_RandomEventClass MyEvent = CheckIfRandomEventOccures(myObject);
+            Mov = ManageRandomEvent(MyEvent, Year, Month, Week);
+            return MyEvent;
+        }
+
+        private static LG_RandomEventClass CheckIfRandomEventOccures(object MyObject)
+        {
+            LG_RandomEventClass rec;
+            int Perc = 20;
+            if (MyObject.GetType() == typeof(Movie))
+            {
+                Perc += 10;
+            }
+            else
+            {
+                Perc -= 5;
+            }
+            Random rndCasuale = new Random();
+            if (rndCasuale.Next(0, 101) < Perc)
+            {
+                rec = GetCasualEvent();
+            }
+            else
+                rec = null;
+            return rec;
+        }
+
+        private static LG_RandomEventClass GetCasualEvent()
+        {
+            string strCommand = "SELECT * FROM LG_RandomEvent;";
+            DataTable tblRet = SQLLiteInt.Select(strCommand);
+            int Count = tblRet.Rows.Count;
+            Random rndCasuale = new Random();
+            LG_RandomEventClass Ret = new LG_RandomEventClass(Convert.ToInt32(tblRet.Rows[rndCasuale.Next(0, Count)]["ID"]));
+            return Ret;
+        }
+
+        public static LastCashMovement ManageRandomEvent(LG_RandomEventClass MyEvent, int Year, int Month, int Week)
+        {
+            LastCashMovement Mov = new LastCashMovement();
+            if (MyEvent != null)
+            {
+                Mov.ID_Movement = MyEvent.ID;
+                Mov.ID_Target = -1;
+                Mov.Month = Month;
+                Mov.MovementValue = MyEvent.Value;
+                Mov.Target = TypeOfObject.Balance;
+                Mov.TypeOfMovement = TypeOfObject.Event;
+                Mov.Week = Week;
+                Mov.Year = Year;
+            }
+            else
+                Mov = null;
+            return Mov;
+        }
+
+        public static string GetAffinityNameFromValue(int Value)
+        {
+            if (Value > 0)
+            {
+                if (Value > 70)
+                    return "Fantastici";
+                if (Value > 50)
+                    return "Ottimi";
+                if (Value > 25)
+                    return "Buoni";
+                return "Discreti";
+            }
+            else
+            {
+                if (Value < -70)
+                    return "Terribili";
+                if (Value < -50)
+                    return "Molto Bassi";
+                if (Value < -25)
+                    return "Scarsi";
+                return "Tesi";
+            }
         }
     }
 }

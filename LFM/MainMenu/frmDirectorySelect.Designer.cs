@@ -32,6 +32,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lstBox = new System.Windows.Forms.ListView();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -69,12 +70,24 @@
             this.lstBox.View = System.Windows.Forms.View.List;
             this.lstBox.DoubleClick += new System.EventHandler(this.lstBox_DoubleClick_1);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Location = new System.Drawing.Point(139, 274);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(100, 50);
+            this.btnDelete.TabIndex = 26;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // frmDirectorySelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 343);
             this.ControlBox = false;
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lstBox);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -93,5 +106,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ListView lstBox;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
