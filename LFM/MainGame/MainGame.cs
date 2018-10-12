@@ -248,7 +248,11 @@ namespace LFM.MainGame
                             MainGameData.Month, MainGameData.Week, out Mov);
                         if (Mov != null)
                         {
-                            MessageBox.Show(Ev.Description, Ev.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            DynamicInfoWindows InfoView = new DynamicInfoWindows();
+                            InfoView.IsAMovie = true;
+                            InfoView.MyMovie = MyMovie;
+                            InfoView.Testo = Ev.Name + "\n" + "During " + MyMovie.Title + "shooting. " + Ev.Description;
+                            InfoView.ShowDialog();
                             Bank.AddLine(Mov);
                         }
                     }
@@ -287,8 +291,12 @@ namespace LFM.MainGame
                     int Perc = (Math.Abs(Change) == 10 ? 25 : 15);
                     long GainLoss = (Change > 0 ? 1 : -1) * (Price * Perc / 100);
                     // Messagebox
-                    string strMessage = "Il serial " + MySerial.Title + " ha finito la sua prima stagione registrando un incasso nella prima settimana di " + GainLoss.ToString() + "$";
-                    MessageBox.Show(strMessage);
+                    DynamicInfoWindows InfoView = new DynamicInfoWindows();
+                    InfoView.IsAMovie = false;
+                    InfoView.MySerial = MySerial;
+                    InfoView.Testo = "Il serial " + MySerial.Title + " ha finito la sua prima stagione registrando un incasso nella prima settimana di " + GainLoss.ToString() + "$";
+                    InfoView.ShowDialog();
+                    //MessageBox.Show(strMessage);
                     long TotalSerial = Price + GainLoss;
                     // Aggiungo a Bilancio
                     LastCashMovement Mov = new LastCashMovement();
@@ -311,7 +319,11 @@ namespace LFM.MainGame
                             MainGameData.Month, MainGameData.Week, out Mov);
                         if (Mov != null)
                         {
-                            MessageBox.Show(Ev.Description, Ev.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            DynamicInfoWindows InfoView = new DynamicInfoWindows();
+                            InfoView.IsAMovie = false;
+                            InfoView.MySerial = MySerial;
+                            InfoView.Testo = Ev.Name + "\n" + "During " + MySerial.Title + "production. " + Ev.Description;
+                            InfoView.ShowDialog();
                             Bank.AddLine(Mov);
                         }
                     }
@@ -340,7 +352,12 @@ namespace LFM.MainGame
                 long lngIncasso = LFMGRule.CalculateMoneyByWeeks(CurrentAudience, MovieInTheatre.Values.ElementAt(i));
                 // Messagebox
                 string strMessage = "Il film " + MovieA.Title + " è nelle sale con un incasso nella settimana " + MovieInTheatre[MovieInTheatre.Keys.ElementAt(i)].ToString() + " di " + String.Format("{0:n0}", lngIncasso).Replace(",", ".") + "$";
-                MessageBox.Show(strMessage);
+                DynamicInfoWindows InfoView = new DynamicInfoWindows();
+                InfoView.IsAMovie = true;
+                InfoView.MyMovie = MovieA;
+                InfoView.Testo = "Il film " + MovieA.Title + " è nelle sale con un incasso nella settimana " + MovieInTheatre[MovieInTheatre.Keys.ElementAt(i)].ToString() + " di " + String.Format("{0:n0}", lngIncasso).Replace(",", ".") + "$";
+                InfoView.ShowDialog();
+                //MessageBox.Show(strMessage);
                 // Aggiungo a Bilancio
                 LastCashMovement Mov = new LastCashMovement();
                 Mov.ID_Movement = CurrentMovieID;

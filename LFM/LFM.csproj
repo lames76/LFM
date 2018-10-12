@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainGame\DynamicInfoWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\DynamicInfoWindows.Designer.cs">
+      <DependentUpon>DynamicInfoWindows.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGame\Gestione\DisplayChar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     <Compile Include="Test\UniverseManager.Designer.cs">
       <DependentUpon>UniverseManager.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MainGame\DynamicInfoWindows.resx">
+      <DependentUpon>DynamicInfoWindows.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Gestione\DisplayChar.resx">
       <DependentUpon>DisplayChar.cs</DependentUpon>
     </EmbeddedResource>

@@ -120,6 +120,7 @@ namespace CharacterDiplaySelector
             charDisplayer1.Price = Price;
             charDisplayer1.CharacterTypeInternal = CharacterTypeInternal;
             charDisplayer1.LoadDataAfterClick(intID);
+            Price = charDisplayer1.Price;
         }
 
         public event EventHandler CharSelected

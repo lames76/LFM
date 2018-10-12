@@ -2099,6 +2099,20 @@ namespace DbRuler
             }
             return Links;
         }
+        public static List<GenericCharacters> GetGenericCastFromSerial_List(int SerialID, int Active)
+        {
+
+            GenericCharacters Link;
+            DataTable tblRet = SQLLiteInt.Select("SELECT * FROM L_CharsSerials WHERE ID_Serial = " + SerialID + " AND Active = " + Active.ToString() + " ORDER BY Char_Name DESC;");
+            List<GenericCharacters> Links = new List<GenericCharacters>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Link = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID_Char"]));
+                Links.Add(Link);
+            }
+            return Links;
+        }
+
 
         #endregion
 
@@ -2443,6 +2457,20 @@ namespace DbRuler
                 TypeOfCharacters typo = new TypeOfCharacters(intIDType);
                 Link.TypeOf = typo;
                 Links[i] = Link;
+            }
+            return Links;
+        }
+
+        public static List<GenericCharacters> GetGenericCastFromMovie_List(int MovieID)
+        {
+
+            GenericCharacters Link;
+            DataTable tblRet = SQLLiteInt.Select("SELECT * FROM L_CharsMovies WHERE ID_Movie = " + MovieID + " ORDER BY Char_Name DESC;");
+            List<GenericCharacters> Links = new List<GenericCharacters>();
+            for (int i = 0; i < tblRet.Rows.Count; i++)
+            {
+                Link = new GenericCharacters(Convert.ToInt32(tblRet.Rows[i]["ID_Char"]));                
+                Links.Add(Link);
             }
             return Links;
         }
