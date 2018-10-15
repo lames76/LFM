@@ -34,6 +34,15 @@ namespace LFM.MainGame.Operativita.Serial2
         private int BaseAudienceOld = 0;
         private List<GenericCharacters> CastList = new List<GenericCharacters>();
 
+        #region Rollback variable
+        private string strTitle = "";
+        private int intFX = -1;
+        private int intTdP = -1;
+        private bool bolNewSR = false;
+        private GenericCharacters OldShorwunner;
+        private List<L_CharsSerials> CastChange = new List<L_CharsSerials>();
+        #endregion
+
         public OtherSeasons()
         {
             InitializeComponent();
@@ -57,8 +66,10 @@ namespace LFM.MainGame.Operativita.Serial2
 
         private void GetAndSetSeasonNumber()
         {
+            strTitle = MySerial.Title;
             int intSeasonNumber = -1;
             string[] strTit = MySerial.Title.Split('-');
+            strTit[strTit.Length - 1] = strTit[strTit.Length - 1].Replace("S", "");
             int.TryParse(strTit[strTit.Length - 1], out intSeasonNumber);
             if (intSeasonNumber > 0)
             {
@@ -66,7 +77,7 @@ namespace LFM.MainGame.Operativita.Serial2
                 intSeasonNumber++;
             }
             else
-                intSeasonNumber = 1;
+                intSeasonNumber = 2;
             MySerial.Title += " - S" + intSeasonNumber.ToString();
         }
 
@@ -113,15 +124,19 @@ namespace LFM.MainGame.Operativita.Serial2
             ddlTheatre.ValueMember = "ID";
             ddlTheatre.DataSource = MyList;
 
+            ddlTheatre.Text = MySerial.fkTdP.Name;
+
             MyList = new DataTable();
             MyList = DbRuler.Retriever.GetFXCompanyListTable();
             ddlSpecialEffect.DisplayMember = "Name";
             ddlSpecialEffect.ValueMember = "ID";
             ddlSpecialEffect.DataSource = MyList;
 
-            EnableTab(3, false);
-            EnableTab(4, false);
-            EnableTab(5, true);
+            ddlSpecialEffect.Text = MySerial.fkFX.Name;
+
+            EnableTab(1, false);
+            EnableTab(2, false);
+            EnableTab(3, true);
             EnableTab(0, true);     
                         
         }
@@ -149,11 +164,20 @@ namespace LFM.MainGame.Operativita.Serial2
                 int intBonusAction = 0;
                 int intBonusHumor = 0;
                 int intBonusSexappeal = 0;
-                Retriever.GetBonusFromSkills(Showrunner, out intBonusAudience, out intBonusSuccess, out intBonusAction, out intBonusHumor, out intBonusSexappeal);
+                Retriever.GetBonusFromSkills(NewShowrunner, out intBonusAudience, out intBonusSuccess, out intBonusAction, out intBonusHumor, out intBonusSexappeal);
                 #endregion
+                bolNewSR = true;
+                OldShorwunner = new GenericCharacters(Showrunner.ID);
                 BaseAudienceOld -= 100;
                 MySerial.Base_Audience += BaseAudienceOld + NewShowrunner.Talent + NewShowrunner.Skills + intBonusAudience;
                 Showrunner = new GenericCharacters(NewShowrunner.ID);
+                // Set old Showrunner to inactive
+                L_CharsSerials Link = new L_CharsSerials(OldShorwunner.ID, MySerial.ID, "Showrunner");
+                Link.UpdateActive(0);
+                CastChange.Add(Link);
+                Link = new L_CharsSerials(Showrunner.ID, MySerial.ID, "Showrunner");
+                Link.InsertDb();
+                CastChange.Add(Link);
             }
             else
             {
@@ -186,6 +210,7 @@ namespace LFM.MainGame.Operativita.Serial2
             {
                 // Add FX to expense List
                 LastCashMovement Mov = new LastCashMovement();
+                intFX = MySerial.fkFX.ID;
                 MySerial.fkFX = new SpecialEffectCompany(Convert.ToInt32(ddlSpecialEffect.SelectedValue));
                 Mov.ID_Target = MySerial.ID;
                 Mov.Target = TypeOfObject.Serial;
@@ -213,6 +238,7 @@ namespace LFM.MainGame.Operativita.Serial2
             {
                 // Add TdP to expense List
                 LastCashMovement Mov = new LastCashMovement();
+                intTdP = MySerial.fkTdP.ID;
                 MySerial.fkTdP = new Theatre(Convert.ToInt32(ddlTheatre.SelectedValue));
                     Mov.ID_Target = MySerial.ID;
                     Mov.Target = TypeOfObject.Serial;
@@ -273,7 +299,7 @@ namespace LFM.MainGame.Operativita.Serial2
         {
             if (lstListOfCastSel.SelectedIndices.Count == 1)
             {
-                DialogResult Res = MessageBox.Show("Vuoi davvero eliminare questo elemento?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult Res = MessageBox.Show("Vuoi davvero eliminare questo elemento? Se la rimuovi non potrai reinserirla.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (Res == DialogResult.Yes)
                 {
                     string[] strNameSurname = lstListOfCastSel.Items[lstListOfCastSel.SelectedIndices[0]].Text.Split(' ');
@@ -293,11 +319,12 @@ namespace LFM.MainGame.Operativita.Serial2
                         {                            
                             L_CharsSerials Link = new L_CharsSerials(Gen1[0].ID, MySerial.ID, "Actor");
                             if (WasInPreviousSeason(Gen1[0].ID))
-                            {
+                            {                                
                                 if (Link.UpdateActive(0))
                                     MessageBox.Show("Actor Removed");
                                 // Lower the audience for each actor removed
                                 MySerial.Base_Audience -= 50;
+                                CastChange.Add(Link);
                             }
                             else
                             {
@@ -362,6 +389,7 @@ namespace LFM.MainGame.Operativita.Serial2
             L_CharsSerials Link = new L_CharsSerials(Actor.ID, MySerial.ID, "Actor");
             if (Link.InsertDb())
             {
+                CastChange.Add(Link);
                 lstListOfCastSel.Items.Add(Actor.Name + " " + Actor.Surname);
                 MessageBox.Show("Actor Added");
             }            
@@ -437,14 +465,19 @@ namespace LFM.MainGame.Operativita.Serial2
             {
                 if (MySerial != null)
                 {
-                    // Cancello tutti gli attori/showrunner aggiunti
-                    L_CharsSerials[] Link = Retriever.GetCastFromSerial(MySerial.ID, 1);
-                    foreach (L_CharsSerials L in Link)
-                        L.L_CharsMovies_Delete();
-                    // Cancello il film
-                    MySerial.Delete();
-                }
-                
+                    MySerial.Title = strTitle;
+                    MySerial.fkFX = new SpecialEffectCompany(intFX);
+                    MySerial.fkTdP = new Theatre(intTdP);
+                    foreach (L_CharsSerials Link in CastChange)
+                    {
+                        if (Link.Active == 0)
+                            Link.UpdateActive(1);
+                        else
+                        {
+                            Link.L_CharsMovies_Delete();
+                        }
+                    }
+                }                
                 // Tolgo tutte le spese
                 lngTOTALPrice = 0;
                 ListTotalCost = new List<LastCashMovement>();

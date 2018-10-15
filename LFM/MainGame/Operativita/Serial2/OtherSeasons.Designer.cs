@@ -561,6 +561,7 @@
             this.btnSelectTdP.TabIndex = 61;
             this.btnSelectTdP.Text = "Seleziona";
             this.btnSelectTdP.UseVisualStyleBackColor = true;
+            this.btnSelectTdP.Click += new System.EventHandler(this.btnSelectTdP_Click);
             // 
             // tabShowrunner
             // 
@@ -637,6 +638,7 @@
             this.btnAFinishSelect.TabIndex = 69;
             this.btnAFinishSelect.Text = "Finalizza Scelta";
             this.btnAFinishSelect.UseVisualStyleBackColor = true;
+            this.btnAFinishSelect.Click += new System.EventHandler(this.btnAFinishSelect_Click);
             // 
             // btnRemoveActor
             // 
@@ -731,6 +733,7 @@
             this.btnSelezionaFX.TabIndex = 63;
             this.btnSelezionaFX.Text = "Seleziona";
             this.btnSelezionaFX.UseVisualStyleBackColor = true;
+            this.btnSelezionaFX.Click += new System.EventHandler(this.btnSelezionaFX_Click);
             // 
             // ddlSpecialEffect
             // 
