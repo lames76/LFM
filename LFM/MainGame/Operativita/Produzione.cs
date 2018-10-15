@@ -672,7 +672,8 @@ namespace LFM.MainGame.Operativita
             {
                 if (blnShR && blnFX && blnTdP && blnCast)
                 {
-                    MySerial.Status = MySerial.Episodes + 24; // (24 = 6 month production time)
+                    int Prod = 48 - MySerial.Episodes;
+                    MySerial.Status = MySerial.Episodes + Prod; // 1 year total
                     this.DialogResult = DialogResult.OK;                    
                 }
                 else

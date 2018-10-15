@@ -98,6 +98,13 @@ namespace DbRuler
                 Active = 1;
         }
 
+        public bool UpdateActive(int ActiveValue)
+        {
+            string strCommand = string.Format("UPDATE L_CharsSerials SET Active = {3}" +
+                " WHERE ID_Char = {0} AND ID_Serial = {1} AND Char_Name = '{2}'; ", ID_Char, ID_Serial, Char_Name, ActiveValue);
+            return SQLLiteInt.GenericCommand(strCommand);
+        }
+
         public bool InsertDb()
         {
             if ((ID_Char > 0) && (ID_Serial > 0))
@@ -2582,7 +2589,7 @@ namespace DbRuler
             return tblRet;
         }
 
-        internal static void GetBonusFromSkills(GenericCharacters Actor, out int intBonusAudience, out int intBonusSuccess, out int intBonusAction, out int intBonusHumor, out int intBonusSexappeal)
+        public static void GetBonusFromSkills(GenericCharacters Actor, out int intBonusAudience, out int intBonusSuccess, out int intBonusAction, out int intBonusHumor, out int intBonusSexappeal)
         {
             intBonusAudience = 0;
             intBonusSuccess = 0;

@@ -50,6 +50,11 @@ namespace CharacterDiplaySelector
             InitializeComponent();
         }
 
+        public void SetInitialSelection(int PreSelected_Char)
+        {
+            LoadDataAfterClick(PreSelected_Char);
+        }
+
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
             txtFilter.Text = "";

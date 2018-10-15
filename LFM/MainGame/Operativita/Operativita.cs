@@ -56,7 +56,25 @@ namespace LFM.MainGame.Operativita
 
         private void btnContinueSerial_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not yet implemented!");
+            Serial2.SerialStopped frmSer = new Serial2.SerialStopped();
+            frmSer.Balance = Balance;
+            frmSer.Year = Year;
+            frmSer.Month = Month;
+            frmSer.Week = Week;
+            frmSer.IsAgingOn = IsAgingOn;
+            this.Hide();
+            DialogResult Res = frmSer.ShowDialog();
+            if (Res == DialogResult.OK)
+            {
+                MySerial = frmSer.MySerial;
+                TotalPrice = frmSer.TotalPrice;
+                ListTotalCost = frmSer.ListTotalCost;
+                IsMovie = false;
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+                this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void btnSequelAndReboot_Click(object sender, EventArgs e)

@@ -116,6 +116,18 @@
     <Compile Include="MainGame\Operativita\Produzione.Designer.cs">
       <DependentUpon>Produzione.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainGame\Operativita\Serial2\OtherSeasons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Operativita\Serial2\OtherSeasons.Designer.cs">
+      <DependentUpon>OtherSeasons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGame\Operativita\Serial2\SerialStopped.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGame\Operativita\Serial2\SerialStopped.Designer.cs">
+      <DependentUpon>SerialStopped.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainGame\Report\FormCharAffinity.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +231,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Operativita\Produzione.resx">
       <DependentUpon>Produzione.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Operativita\Serial2\OtherSeasons.resx">
+      <DependentUpon>OtherSeasons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGame\Operativita\Serial2\SerialStopped.resx">
+      <DependentUpon>SerialStopped.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGame\Report\FormCharAffinity.resx">
       <DependentUpon>FormCharAffinity.cs</DependentUpon>
