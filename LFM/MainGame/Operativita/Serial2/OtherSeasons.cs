@@ -55,9 +55,28 @@ namespace LFM.MainGame.Operativita.Serial2
             }
         }
 
+        private void GetAndSetSeasonNumber()
+        {
+            int intSeasonNumber = -1;
+            string[] strTit = MySerial.Title.Split('-');
+            int.TryParse(strTit[strTit.Length - 1], out intSeasonNumber);
+            if (intSeasonNumber > 0)
+            {
+                MySerial.Title = MySerial.Title.Replace(" - S" + intSeasonNumber.ToString(),"");
+                intSeasonNumber++;
+            }
+            else
+                intSeasonNumber = 1;
+            MySerial.Title += " - S" + intSeasonNumber.ToString();
+        }
+
+
         private void OtherSeasons_Load(object sender, EventArgs e)
         {
             MySerial = new Serial(MySerialID);
+
+            GetAndSetSeasonNumber();
+
             BaseAudienceOld = MySerial.Base_Audience * 30 / 100;
             MySerial.Base_Audience = 0;
 

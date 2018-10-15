@@ -458,6 +458,7 @@
             // 
             this.txtUniverse.Location = new System.Drawing.Point(49, 111);
             this.txtUniverse.Name = "txtUniverse";
+            this.txtUniverse.ReadOnly = true;
             this.txtUniverse.Size = new System.Drawing.Size(151, 22);
             this.txtUniverse.TabIndex = 64;
             // 
@@ -465,6 +466,7 @@
             // 
             this.txtTitle.Location = new System.Drawing.Point(49, 21);
             this.txtTitle.Name = "txtTitle";
+            this.txtTitle.ReadOnly = true;
             this.txtTitle.Size = new System.Drawing.Size(252, 22);
             this.txtTitle.TabIndex = 62;
             // 
